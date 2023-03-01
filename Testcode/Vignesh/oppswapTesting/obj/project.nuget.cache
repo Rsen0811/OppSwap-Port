@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "3xG2uyR5uH0N1GEEE7UH2jAWXp8ypwRBfg0z3hZVmp48G+N8L/e9PNYtuPyDeInsqGAZSakD772jLnSOz4A/tA==",
+  "success": true,
+  "projectFilePath": "/Users/guest2022/Projects/oppswap/oppswap/oppswap/oppswap.csproj",
+  "expectedPackageFiles": [
+    "/Users/guest2022/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "/Users/guest2022/.nuget/packages/netstandard.library/2.0.3/netstandard.library.2.0.3.nupkg.sha512",
+    "/Users/guest2022/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512",
+    "/Users/guest2022/.nuget/packages/xamarin.essentials/1.7.0/xamarin.essentials.1.7.0.nupkg.sha512",
+    "/Users/guest2022/.nuget/packages/xamarin.forms/5.0.0.2196/xamarin.forms.5.0.0.2196.nupkg.sha512"
+  ],
+  "logs": []
+}
