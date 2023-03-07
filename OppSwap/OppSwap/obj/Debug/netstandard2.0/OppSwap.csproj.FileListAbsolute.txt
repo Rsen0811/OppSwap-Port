@@ -1,0 +1,15 @@
+/Users/sravankundurthi/Projects/OppSwap/OppSwap/OppSwap/bin/Debug/netstandard2.0/OppSwap.deps.json
+/Users/sravankundurthi/Projects/OppSwap/OppSwap/OppSwap/bin/Debug/netstandard2.0/OppSwap.dll
+/Users/sravankundurthi/Projects/OppSwap/OppSwap/OppSwap/bin/Debug/netstandard2.0/ref/OppSwap.dll
+/Users/sravankundurthi/Projects/OppSwap/OppSwap/OppSwap/bin/Debug/netstandard2.0/OppSwap.pdb
+/Users/sravankundurthi/Projects/OppSwap/OppSwap/OppSwap/obj/Debug/netstandard2.0/OppSwap.csproj.AssemblyReference.cache
+/Users/sravankundurthi/Projects/OppSwap/OppSwap/OppSwap/obj/Debug/netstandard2.0/OppSwap.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sravankundurthi/Projects/OppSwap/OppSwap/OppSwap/obj/Debug/netstandard2.0/App.xaml.g.cs
+/Users/sravankundurthi/Projects/OppSwap/OppSwap/OppSwap/obj/Debug/netstandard2.0/MainPage.xaml.g.cs
+/Users/sravankundurthi/Projects/OppSwap/OppSwap/OppSwap/obj/Debug/netstandard2.0/OppSwap.AssemblyInfoInputs.cache
+/Users/sravankundurthi/Projects/OppSwap/OppSwap/OppSwap/obj/Debug/netstandard2.0/OppSwap.AssemblyInfo.cs
+/Users/sravankundurthi/Projects/OppSwap/OppSwap/OppSwap/obj/Debug/netstandard2.0/OppSwap.csproj.CoreCompileInputs.cache
+/Users/sravankundurthi/Projects/OppSwap/OppSwap/OppSwap/obj/Debug/netstandard2.0/XamlC.stamp
+/Users/sravankundurthi/Projects/OppSwap/OppSwap/OppSwap/obj/Debug/netstandard2.0/OppSwap.dll
+/Users/sravankundurthi/Projects/OppSwap/OppSwap/OppSwap/obj/Debug/netstandard2.0/ref/OppSwap.dll
+/Users/sravankundurthi/Projects/OppSwap/OppSwap/OppSwap/obj/Debug/netstandard2.0/OppSwap.pdb
