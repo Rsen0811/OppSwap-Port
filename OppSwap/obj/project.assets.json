@@ -197,6 +197,15 @@
           }
         }
       },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
+      },
       "Xamarin.Android.Glide/4.13.2.2": {
         "type": "package",
         "dependencies": {
@@ -2120,6 +2129,15 @@
           "lib/net7.0-android33.0/Microsoft.Maui.Graphics.dll": {
             "related": ".pdb;.xml"
           }
+        }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
         }
       },
       "Xamarin.Android.Glide/4.13.2.2": {
@@ -4047,6 +4065,15 @@
           }
         }
       },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
+      },
       "Xamarin.Android.Glide/4.13.2.2": {
         "type": "package",
         "dependencies": {
@@ -5970,6 +5997,15 @@
           "lib/net7.0-android33.0/Microsoft.Maui.Graphics.dll": {
             "related": ".pdb;.xml"
           }
+        }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
         }
       },
       "Xamarin.Android.Glide/4.13.2.2": {
@@ -7897,6 +7933,15 @@
           }
         }
       },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
+      },
       "Xamarin.Android.Glide/4.13.2.2": {
         "type": "package",
         "dependencies": {
@@ -9820,6 +9865,15 @@
           "lib/net7.0-android33.0/Microsoft.Maui.Graphics.dll": {
             "related": ".pdb;.xml"
           }
+        }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
         }
       },
       "Xamarin.Android.Glide/4.13.2.2": {
@@ -11747,6 +11801,15 @@
           }
         }
       },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
+      },
       "Xamarin.Android.Glide/4.13.2.2": {
         "type": "package",
         "dependencies": {
@@ -13672,6 +13735,15 @@
           }
         }
       },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
+      },
       "Xamarin.Android.Glide/4.13.2.2": {
         "type": "package",
         "dependencies": {
@@ -15583,6 +15655,15 @@
             "related": ".pdb;.xml"
           }
         }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
       }
     },
     "net7.0-ios16.1/android-arm": {
@@ -15766,6 +15847,15 @@
           "lib/net7.0-ios16.1/Microsoft.Maui.Graphics.dll": {
             "related": ".pdb;.xml"
           }
+        }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
         }
       }
     },
@@ -15951,6 +16041,15 @@
             "related": ".pdb;.xml"
           }
         }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
       }
     },
     "net7.0-ios16.1/android-x64": {
@@ -16134,6 +16233,15 @@
           "lib/net7.0-ios16.1/Microsoft.Maui.Graphics.dll": {
             "related": ".pdb;.xml"
           }
+        }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
         }
       }
     },
@@ -16319,6 +16427,15 @@
             "related": ".pdb;.xml"
           }
         }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
       }
     },
     "net7.0-ios16.1/iossimulator-x64": {
@@ -16502,6 +16619,15 @@
           "lib/net7.0-ios16.1/Microsoft.Maui.Graphics.dll": {
             "related": ".pdb;.xml"
           }
+        }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
         }
       }
     },
@@ -16687,6 +16813,15 @@
             "related": ".pdb;.xml"
           }
         }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
       }
     },
     "net7.0-ios16.1/win10-x64": {
@@ -16870,6 +17005,15 @@
           "lib/net7.0-ios16.1/Microsoft.Maui.Graphics.dll": {
             "related": ".pdb;.xml"
           }
+        }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
         }
       }
     },
@@ -17055,6 +17199,15 @@
             "related": ".pdb;.xml"
           }
         }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
       }
     },
     "net7.0-maccatalyst16.1/android-arm": {
@@ -17238,6 +17391,15 @@
           "lib/net7.0-maccatalyst16.1/Microsoft.Maui.Graphics.dll": {
             "related": ".pdb;.xml"
           }
+        }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
         }
       }
     },
@@ -17423,6 +17585,15 @@
             "related": ".pdb;.xml"
           }
         }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
       }
     },
     "net7.0-maccatalyst16.1/android-x64": {
@@ -17606,6 +17777,15 @@
           "lib/net7.0-maccatalyst16.1/Microsoft.Maui.Graphics.dll": {
             "related": ".pdb;.xml"
           }
+        }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
         }
       }
     },
@@ -17791,6 +17971,15 @@
             "related": ".pdb;.xml"
           }
         }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
       }
     },
     "net7.0-maccatalyst16.1/iossimulator-x64": {
@@ -17974,6 +18163,15 @@
           "lib/net7.0-maccatalyst16.1/Microsoft.Maui.Graphics.dll": {
             "related": ".pdb;.xml"
           }
+        }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
         }
       }
     },
@@ -18159,6 +18357,15 @@
             "related": ".pdb;.xml"
           }
         }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
       }
     },
     "net7.0-maccatalyst16.1/win10-x64": {
@@ -18342,6 +18549,15 @@
           "lib/net7.0-maccatalyst16.1/Microsoft.Maui.Graphics.dll": {
             "related": ".pdb;.xml"
           }
+        }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
         }
       }
     },
@@ -18665,6 +18881,15 @@
             "rid": "win10-x86"
           }
         }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
       }
     },
     "net7.0-windows10.0.19041/android-arm": {
@@ -18958,6 +19183,15 @@
         "build": {
           "buildTransitive/Microsoft.WindowsAppSDK.props": {},
           "buildTransitive/Microsoft.WindowsAppSDK.targets": {}
+        }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
         }
       }
     },
@@ -19253,6 +19487,15 @@
           "buildTransitive/Microsoft.WindowsAppSDK.props": {},
           "buildTransitive/Microsoft.WindowsAppSDK.targets": {}
         }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
       }
     },
     "net7.0-windows10.0.19041/android-x64": {
@@ -19546,6 +19789,15 @@
         "build": {
           "buildTransitive/Microsoft.WindowsAppSDK.props": {},
           "buildTransitive/Microsoft.WindowsAppSDK.targets": {}
+        }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
         }
       }
     },
@@ -19841,6 +20093,15 @@
           "buildTransitive/Microsoft.WindowsAppSDK.props": {},
           "buildTransitive/Microsoft.WindowsAppSDK.targets": {}
         }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
       }
     },
     "net7.0-windows10.0.19041/iossimulator-x64": {
@@ -20135,6 +20396,15 @@
           "buildTransitive/Microsoft.WindowsAppSDK.props": {},
           "buildTransitive/Microsoft.WindowsAppSDK.targets": {}
         }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
+        }
       }
     },
     "net7.0-windows10.0.19041/maccatalyst-x64": {
@@ -20428,6 +20698,15 @@
         "build": {
           "buildTransitive/Microsoft.WindowsAppSDK.props": {},
           "buildTransitive/Microsoft.WindowsAppSDK.targets": {}
+        }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
         }
       }
     },
@@ -20728,6 +21007,15 @@
         "build": {
           "buildTransitive/Microsoft.WindowsAppSDK.props": {},
           "buildTransitive/Microsoft.WindowsAppSDK.targets": {}
+        }
+      },
+      "WebSocketSharp-NonPreRelease/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net35/websocket-sharp.dll": {}
         }
       }
     }
@@ -21964,6 +22252,18 @@
         "tools/net5.0/zh-TW/Microsoft.Build.Msix.resources.dll",
         "tools/x64/GenXbf.dll",
         "tools/x86/GenXbf.dll"
+      ]
+    },
+    "WebSocketSharp-NonPreRelease/1.0.0": {
+      "sha512": "O1TLFp8hwgVFEI0bjAGLAdsGwtT+yggdRYAlOSw+ZCtwHVc5LmUBU52H+KgG37med9e11lsxmlNzzlF6/hW+Bg==",
+      "type": "package",
+      "path": "websocketsharp-nonprerelease/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net35/websocket-sharp.dll",
+        "websocketsharp-nonprerelease.1.0.0.nupkg.sha512",
+        "websocketsharp-nonprerelease.nuspec"
       ]
     },
     "Xamarin.Android.Glide/4.13.2.2": {
@@ -23972,6 +24272,7 @@
       "Microsoft.Extensions.Logging.Abstractions >= 7.0.0",
       "Microsoft.Extensions.Logging.Debug >= 7.0.0",
       "Microsoft.Maui.Graphics >= 7.0.59",
+      "WebSocketSharp-NonPreRelease >= 1.0.0",
       "Xamarin.Android.Glide >= 4.13.2.2",
       "Xamarin.AndroidX.Browser >= 1.4.0.3",
       "Xamarin.AndroidX.Legacy.Support.V4 >= 1.0.0.15",
@@ -23990,7 +24291,8 @@
       "Microsoft.Extensions.Logging >= 7.0.0",
       "Microsoft.Extensions.Logging.Abstractions >= 7.0.0",
       "Microsoft.Extensions.Logging.Debug >= 7.0.0",
-      "Microsoft.Maui.Graphics >= 7.0.59"
+      "Microsoft.Maui.Graphics >= 7.0.59",
+      "WebSocketSharp-NonPreRelease >= 1.0.0"
     ],
     "net7.0-maccatalyst16.1": [
       "Microsoft.Extensions.Configuration >= 7.0.0",
@@ -23998,7 +24300,8 @@
       "Microsoft.Extensions.Logging >= 7.0.0",
       "Microsoft.Extensions.Logging.Abstractions >= 7.0.0",
       "Microsoft.Extensions.Logging.Debug >= 7.0.0",
-      "Microsoft.Maui.Graphics >= 7.0.59"
+      "Microsoft.Maui.Graphics >= 7.0.59",
+      "WebSocketSharp-NonPreRelease >= 1.0.0"
     ],
     "net7.0-windows10.0.19041": [
       "Microsoft.Extensions.Configuration >= 7.0.0",
@@ -24009,7 +24312,8 @@
       "Microsoft.Maui.Graphics >= 7.0.59",
       "Microsoft.Maui.Graphics.Win2D.WinUI.Desktop >= 7.0.59",
       "Microsoft.Windows.SDK.BuildTools >= 10.0.22621.755",
-      "Microsoft.WindowsAppSDK >= 1.2.221209.1"
+      "Microsoft.WindowsAppSDK >= 1.2.221209.1",
+      "WebSocketSharp-NonPreRelease >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -24104,6 +24408,10 @@
             "target": "Package",
             "version": "[7.0.59, )",
             "autoReferenced": true
+          },
+          "WebSocketSharp-NonPreRelease": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           },
           "Xamarin.Android.Glide": {
             "target": "Package",
@@ -24222,6 +24530,10 @@
             "target": "Package",
             "version": "[7.0.59, )",
             "autoReferenced": true
+          },
+          "WebSocketSharp-NonPreRelease": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           }
         },
         "imports": [
@@ -24285,6 +24597,10 @@
             "target": "Package",
             "version": "[7.0.59, )",
             "autoReferenced": true
+          },
+          "WebSocketSharp-NonPreRelease": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           }
         },
         "imports": [
@@ -24365,6 +24681,10 @@
             "target": "Package",
             "version": "[1.2.221209.1, )",
             "autoReferenced": true
+          },
+          "WebSocketSharp-NonPreRelease": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           }
         },
         "imports": [
@@ -24439,5 +24759,17 @@
         "#import": []
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'WebSocketSharp-NonPreRelease 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0-android33.0'. This package may not be fully compatible with your project.",
+      "libraryId": "WebSocketSharp-NonPreRelease",
+      "targetGraphs": [
+        "net7.0-android33.0"
+      ]
+    }
+  ]
 }
