@@ -24324,11 +24324,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\stunt\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
+      "projectUniqueName": "C:\\Users\\stunt\\source\\repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
       "projectName": "OppSwap",
-      "projectPath": "C:\\Users\\stunt\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
+      "projectPath": "C:\\Users\\stunt\\source\\repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
       "packagesPath": "C:\\Users\\stunt\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\stunt\\Source\\Repos\\choice-project-oppswap\\OppSwap\\obj\\",
+      "outputPath": "C:\\Users\\stunt\\source\\repos\\choice-project-oppswap\\OppSwap\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [
