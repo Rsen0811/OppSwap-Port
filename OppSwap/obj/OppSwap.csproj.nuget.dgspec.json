@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\stunt\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj": {}
+    "C:\\Users\\stunt\\source\\repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj": {}
   },
   "projects": {
-    "C:\\Users\\stunt\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj": {
+    "C:\\Users\\stunt\\source\\repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\stunt\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
+        "projectUniqueName": "C:\\Users\\stunt\\source\\repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
         "projectName": "OppSwap",
-        "projectPath": "C:\\Users\\stunt\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
+        "projectPath": "C:\\Users\\stunt\\source\\repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
         "packagesPath": "C:\\Users\\stunt\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\stunt\\Source\\Repos\\choice-project-oppswap\\OppSwap\\obj\\",
+        "outputPath": "C:\\Users\\stunt\\source\\repos\\choice-project-oppswap\\OppSwap\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [
@@ -91,6 +91,10 @@
               "target": "Package",
               "version": "[7.0.59, )",
               "autoReferenced": true
+            },
+            "WebSocketSharp-NonPreRelease": {
+              "target": "Package",
+              "version": "[1.0.0, )"
             },
             "Xamarin.Android.Glide": {
               "target": "Package",
@@ -209,6 +213,10 @@
               "target": "Package",
               "version": "[7.0.59, )",
               "autoReferenced": true
+            },
+            "WebSocketSharp-NonPreRelease": {
+              "target": "Package",
+              "version": "[1.0.0, )"
             }
           },
           "imports": [
@@ -272,6 +280,10 @@
               "target": "Package",
               "version": "[7.0.59, )",
               "autoReferenced": true
+            },
+            "WebSocketSharp-NonPreRelease": {
+              "target": "Package",
+              "version": "[1.0.0, )"
             }
           },
           "imports": [
@@ -352,6 +364,10 @@
               "target": "Package",
               "version": "[1.2.221209.1, )",
               "autoReferenced": true
+            },
+            "WebSocketSharp-NonPreRelease": {
+              "target": "Package",
+              "version": "[1.0.0, )"
             }
           },
           "imports": [

@@ -2,6 +2,7 @@
 {
     public partial class MainPage : ContentPage
     {
+        Client c = new Client();
         int count = 0;
 
         public MainPage()
@@ -11,6 +12,7 @@
 
         private void OnCounterClicked(object sender, EventArgs e)
         {
+            c.Ping();
             count++;
 
             if (count == 1)
