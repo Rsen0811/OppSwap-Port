@@ -15,8 +15,13 @@ namespace OppSwap
 
         public Client()
         {
-            ws = new WebSocket("ws://localhost:9090");
+            ws = new WebSocket("ws://localhost:9090");//ws://water-cautious-barge.glitch.me");
             ws.Connect();
+            ws.OnMessage += Ws_OnMessage;
+            string s = @"{""method"": ""connect""}";
+            ws.Send(s);
+
+
         }
 
         public void Ping()
@@ -24,6 +29,11 @@ namespace OppSwap
             string s = @"{""method"": ""ping""}";
             ws.Connect();
             ws.Send(s);
+        }
+
+        private static void Ws_OnMessage(object sender, MessageEventArgs e)
+        {
+            Console.WriteLine("received: " + e.Data);
         }
     }
 }
