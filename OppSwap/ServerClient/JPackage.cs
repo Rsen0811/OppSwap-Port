@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace SerializedJSONTemplates
 {
+    //general
 	[Serializable]
 	public class JPackage
 	{
@@ -11,6 +13,7 @@ namespace SerializedJSONTemplates
 
     [Serializable]
 
+    // receiving packets
     public class JPGeneral : JPackage 
     {
         public string payload { get; set; }
@@ -23,10 +26,11 @@ namespace SerializedJSONTemplates
         
         public static explicit operator ConnectPayload(JPGeneral incoming)
         {
-            String jsonString = $"{{\"method\":\"{incoming.method}\",{incoming.payload.Substring(1, incoming.payload.Length - 2)}}}";  
-            ConnectPayload outgoing = JsonConvert.DeserializeObject<ConnectPayload>(jsonString);
-
+            ConnectPayload outgoing = JsonConvert.DeserializeObject<ConnectPayload>(incoming.payload);
+            outgoing.method = incoming.method;
             return outgoing;
         }
     }
+
+    //sending packets
 }
