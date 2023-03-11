@@ -3,7 +3,7 @@ const http = require("http");
 
 const websocketServer = require("websocket").server
 const httpServer = http.createServer();
-httpServer.listen(9090, () => console.log("BEEP BOOP, COMPUTER NOISES ON 9090"))
+httpServer.listen(9092, () => console.log("BEEP BOOP, COMPUTER NOISES ON 9092"))
 
 // hashmap of all clients
 const clients = {};
@@ -34,12 +34,15 @@ function connect(connection) {
     }
 
     const payLoad = {
-        "method": "connect",
         "clientId": clientId
+    }
+    const package = {
+        "method": "connect",
+        "payload": JSON.stringify(payLoad)       
     }
 
     // send back the client connect
-    connection.send(JSON.stringify(payLoad));
+    connection.send(JSON.stringify(package));
 } 
 
 function ping(connection) {

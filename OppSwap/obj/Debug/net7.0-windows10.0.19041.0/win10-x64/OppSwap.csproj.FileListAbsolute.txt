@@ -323,3 +323,4 @@ C:\Users\stunt\source\repos\choice-project-oppswap\OppSwap\obj\Debug\net7.0-wind
 C:\Users\stunt\source\repos\choice-project-oppswap\OppSwap\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\MultipleQualifiersPerDimensionFound.txt
 C:\Users\stunt\source\repos\choice-project-oppswap\OppSwap\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\ProjectArchitectures.txt
 C:\Users\stunt\source\repos\choice-project-oppswap\OppSwap\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\websocket-sharp.dll
+C:\Users\stunt\source\repos\choice-project-oppswap\OppSwap\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\Newtonsoft.Json.dll
