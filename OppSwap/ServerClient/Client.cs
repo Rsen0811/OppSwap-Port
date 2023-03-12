@@ -5,6 +5,8 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using WebSocketSharp;
+using SerializedJSONTemplates;
+using Newtonsoft.Json;
 
 namespace OppSwap
 {
@@ -15,25 +17,40 @@ namespace OppSwap
 
         public Client()
         {
-            ws = new WebSocket("ws://localhost:9090");//ws://water-cautious-barge.glitch.me");
+            ws = new WebSocket("ws://localhost:9092");//ws://water-cautious-barge.glitch.me");
             ws.Connect();
             ws.OnMessage += Ws_OnMessage;
-            string s = @"{""method"": ""connect""}";
-            ws.Send(s);
+
+            JPackage p = new JPackage
+            {
+                method = "connect"
+            };
+
+            ws.Send(JsonConvert.SerializeObject(p));
 
 
         }
 
         public void Ping()
         {
-            string s = @"{""method"": ""ping""}";
-            ws.Connect();
-            ws.Send(s);
+            //ws.Connect();
+
+            JPackage p = new JPackage
+            {
+                method = "ping"
+            };
+
+            ws.Send(JsonConvert.SerializeObject(p));
         }
 
-        private static void Ws_OnMessage(object sender, MessageEventArgs e)
+        private void Ws_OnMessage(object sender, MessageEventArgs e)
         {
-            Console.WriteLine("received: " + e.Data);
+            JPGeneral packet = JsonConvert.DeserializeObject<JPGeneral>(e.Data);
+            if (packet.method.Equals("connect"))
+            {
+                //ConnectPayload p = JsonConvert.DeserializeObject<ConnectPayload>(packet.payload);
+                clientId = ((ConnectPayload)packet).clientId;
+            }
         }
     }
 }
