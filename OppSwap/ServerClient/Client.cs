@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WebSocketSharp;
 using SerializedJSONTemplates;
 using Newtonsoft.Json;
+using static Java.Util.Jar.Attributes;
 
 namespace OppSwap
 {
@@ -14,7 +15,7 @@ namespace OppSwap
     {
         private WebSocket ws;
         public String clientId;
-        public (String, String)[] gamesJoined;
+        public (String, String)[] gamesJoined; // name, id
         public Client()
         {
             ws = new WebSocket("ws://localhost:9092");//ws://water-cautious-barge.glitch.me");
@@ -48,7 +49,20 @@ namespace OppSwap
             };
             ws.Send(JsonConvert.SerializeObject(p));
         }
-        public void JoinGame(String gameId) { }
+        public (String, String)[] FetchGames(String query)
+        {
+            return null; // implement later fetch list of games that exist with partial matches
+        }
+        public void JoinGame(String gameId) 
+        {
+            String1Payload p = new String1Payload
+            {
+                method = "joinGame",
+                clientId = clientId,
+                gameId = gameId,
+                value = null
+            };
+        }
         public void SetName(String name) { }
         public void UpdatePosition(String pos) { }
         private void Ws_OnMessage(object sender, MessageEventArgs e)

@@ -16,7 +16,7 @@ namespace SerializedJSONTemplates
     // receiving packets
     public class JPGeneral : JPackage 
     {
-        public string payload { get; set; }
+        public string payload { get; set; } // this is a JSON
     }
 
     [Serializable]
