@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6bPeedjgzi3f9H77/UWCfUdNxSxj3vzjvcdwEyVgcehUtT6jhO0Ayj1kSEY8h+yf1MOPx5SvtE7ij1PoY1xO5w==",
+  "dgSpecHash": "WvV5RU/LkW/eiiR/9h63TvxBbHK5l5mv5BYryg4yrHu60s72Xp6jBmDK6D/BCxflxBXcuPwXx9Im0sIVCQg5Zg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\stunt\\source\\repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
+  "projectFilePath": "C:\\Users\\stunt\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\stunt\\.nuget\\packages\\googlegson\\2.9.1.1\\googlegson.2.9.1.1.nupkg.sha512",
     "C:\\Users\\stunt\\.nuget\\packages\\microsoft.extensions.configuration\\7.0.0\\microsoft.extensions.configuration.7.0.0.nupkg.sha512",
@@ -19,6 +19,7 @@
     "C:\\Users\\stunt\\.nuget\\packages\\microsoft.maui.graphics.win2d.winui.desktop\\7.0.59\\microsoft.maui.graphics.win2d.winui.desktop.7.0.59.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages\\microsoft.windows.sdk.buildtools\\10.0.22621.755\\microsoft.windows.sdk.buildtools.10.0.22621.755.nupkg.sha512",
     "C:\\Users\\stunt\\.nuget\\packages\\microsoft.windowsappsdk\\1.2.221209.1\\microsoft.windowsappsdk.1.2.221209.1.nupkg.sha512",
+    "C:\\Users\\stunt\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\stunt\\.nuget\\packages\\websocketsharp-nonprerelease\\1.0.0\\websocketsharp-nonprerelease.1.0.0.nupkg.sha512",
     "C:\\Users\\stunt\\.nuget\\packages\\xamarin.android.glide\\4.13.2.2\\xamarin.android.glide.4.13.2.2.nupkg.sha512",
     "C:\\Users\\stunt\\.nuget\\packages\\xamarin.android.glide.annotations\\4.13.2.2\\xamarin.android.glide.annotations.4.13.2.2.nupkg.sha512",
