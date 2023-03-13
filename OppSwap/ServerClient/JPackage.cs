@@ -8,7 +8,7 @@ namespace SerializedJSONTemplates
 	[Serializable]
 	public class JPackage
 	{
-		public string method { get; set; }
+		public string message { get; set; }
 	}
 
     [Serializable]
@@ -16,6 +16,7 @@ namespace SerializedJSONTemplates
     // receiving packets
     public class JPGeneral : JPackage 
     {
+        //In the format of a json 
         public string payload { get; set; }
     }
 
@@ -27,7 +28,7 @@ namespace SerializedJSONTemplates
         public static explicit operator ConnectPayload(JPGeneral incoming)
         {
             ConnectPayload outgoing = JsonConvert.DeserializeObject<ConnectPayload>(incoming.payload);
-            outgoing.method = incoming.method;
+            outgoing.message = incoming.message;
             return outgoing;
         }
     }
