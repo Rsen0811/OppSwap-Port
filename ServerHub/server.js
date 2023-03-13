@@ -3,7 +3,7 @@ const http = require("http");
 
 const websocketServer = require("websocket").server
 const httpServer = http.createServer();
-httpServer.listen(9090, () => console.log("BEEP BOOP, COMPUTER NOISES ON 9090"))
+httpServer.listen(9092, () => console.log("BEEP BOOP, COMPUTER NOISES ON 9092"))
 
 // hashmap of all clients
 const clients = {};
@@ -23,6 +23,7 @@ wsServer.on("request", request => {
         const incoming = JSON.parse(message.utf8Data)
         if (incoming.method === "connect") connect(connection);
         if (incoming.method === "ping") ping(connection);
+        if (incoming.method === "createNewGame") createNewGame(connection, incoming);
     })
 
 })
@@ -34,17 +35,32 @@ function connect(connection) {
     }
 
     const payLoad = {
-        "method": "connect",
         "clientId": clientId
     }
-
+    const package = { "method": "connect", "payload": JSON.stringify(payLoad) }
     // send back the client connect
-    connection.send(JSON.stringify(payLoad));
+    connection.send(JSON.stringify(package));
 } 
 
 function ping(connection) {
     console.log("Suceessful PING: ---")
     console.log("Connection: " + connection.remoteAddress)
+}
+
+function createNewGame(connection, incoming) {
+    gameId = guid()
+    games[gameId] = {
+        "name": incoming.value,
+        "id": gameId,
+        "clients": [incoming.clientId]
+    }
+
+    const payLoad = {
+        "gameName": incoming.value,
+        "gameId": gameId
+    }
+    const package = { "method": "forceJoin", "payload": JSON.stringify(payLoad) }
+    connection.send(JSON.stringify(package));
 }
 
 // GUID generator 
