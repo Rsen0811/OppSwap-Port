@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using WebSocketSharp;
 using SerializedJSONTemplates;
 using Newtonsoft.Json;
-using static Java.Util.Jar.Attributes;
 
 namespace OppSwap
 {

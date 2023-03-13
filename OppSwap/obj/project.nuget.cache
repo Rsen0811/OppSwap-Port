@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QiG5Zq2ST2aeDkM9uB96N/+G/0cRkfS9r/4e0wJu9x4S9HXlBegUdBXrxsdPkpuUpiaMyIox2uDHH67xNRK10g==",
+  "dgSpecHash": "WvV5RU/LkW/eiiR/9h63TvxBbHK5l5mv5BYryg4yrHu60s72Xp6jBmDK6D/BCxflxBXcuPwXx9Im0sIVCQg5Zg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\stunt\\source\\repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
+  "projectFilePath": "C:\\Users\\stunt\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\stunt\\.nuget\\packages\\googlegson\\2.9.1.1\\googlegson.2.9.1.1.nupkg.sha512",
     "C:\\Users\\stunt\\.nuget\\packages\\microsoft.extensions.configuration\\7.0.0\\microsoft.extensions.configuration.7.0.0.nupkg.sha512",
