@@ -12,9 +12,9 @@ namespace OppSwap
 {
     class Client
     {
-        WebSocket ws;
-        String clientId;
-
+        private WebSocket ws;
+        public String clientId;
+        public (String, String)[] gamesJoined;
         public Client()
         {
             ws = new WebSocket("ws://localhost:9092");//ws://water-cautious-barge.glitch.me");
@@ -27,22 +27,30 @@ namespace OppSwap
             };
 
             ws.Send(JsonConvert.SerializeObject(p));
-
-
         }
 
         public void Ping()
         {
             //ws.Connect();
 
-            JPackage p = new JPackage
-            {
-                method = "ping"
-            };
-
+            JPackage p = new JPackage { method = "ping" };
             ws.Send(JsonConvert.SerializeObject(p));
         }
 
+        public void createGame(String name) 
+        { // creator gets sent a special payload to automatically join game
+            String1Payload p = new String1Payload
+            {
+                method = "createNewGame",
+                clientId = clientId,
+                gameId = null,
+                value = name
+            };
+            ws.Send(JsonConvert.SerializeObject(p));
+        }
+        public void JoinGame(String gameId) { }
+        public void SetName(String name) { }
+        public void UpdatePosition(String pos) { }
         private void Ws_OnMessage(object sender, MessageEventArgs e)
         {
             JPGeneral packet = JsonConvert.DeserializeObject<JPGeneral>(e.Data);
@@ -50,6 +58,11 @@ namespace OppSwap
             {
                 //ConnectPayload p = JsonConvert.DeserializeObject<ConnectPayload>(packet.payload);
                 clientId = ((ConnectPayload)packet).clientId;
+            }
+            if (packet.method.Equals("forceJoin"))
+            {
+                JoinPayload p = (JoinPayload)packet;
+                gamesJoined.Append((p.gameName, p.gameId));
             }
         }
     }
