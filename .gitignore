@@ -353,4 +353,4 @@ MigrationBackup/
 *.docx
 
 #obj 
-.OppSwap/obj/
+obj/
