@@ -351,3 +351,6 @@ MigrationBackup/
 
 #Documents
 *.docx
+
+#obj 
+.obj/
