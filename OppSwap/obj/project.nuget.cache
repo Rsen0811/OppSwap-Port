@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "bTnjV2gUJC9fkyRlylTqfFQgJ+fyNYq/zsjji+PxzjmYMpia+M1A0aO432hgxlc2+tJCBUwFxJwhPntleTuXpQ==",
+  "dgSpecHash": "FB5JUr37VgoKT15bUKF5szum1R43lNQQ+ZBTZ+Dn604/E7mEUsywy26auSmDyj88bXOner3bSYYo10lhTgTa8Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\Kempk\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Kempk\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.0-preview1\\communitytoolkit.mvvm.8.2.0-preview1.nupkg.sha512",
     "C:\\Users\\Kempk\\.nuget\\packages\\googlegson\\2.9.1.1\\googlegson.2.9.1.1.nupkg.sha512",
     "C:\\Users\\Kempk\\.nuget\\packages\\microsoft.extensions.configuration\\7.0.0\\microsoft.extensions.configuration.7.0.0.nupkg.sha512",
     "C:\\Users\\Kempk\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
