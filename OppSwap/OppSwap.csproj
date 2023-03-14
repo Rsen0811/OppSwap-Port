@@ -57,4 +57,10 @@
 		<PackageReference Include="WebSocketSharp-NonPreRelease" Version="1.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="AssistiveLibraries\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="AssistiveLibraries\" />
+	</ItemGroup>
 </Project>
