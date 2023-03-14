@@ -1,28 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\stunt\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj": {}
+    "C:\\Users\\Kempk\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj": {}
   },
   "projects": {
-    "C:\\Users\\stunt\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj": {
+    "C:\\Users\\Kempk\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\stunt\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
+        "projectUniqueName": "C:\\Users\\Kempk\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
         "projectName": "OppSwap",
-        "projectPath": "C:\\Users\\stunt\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
-        "packagesPath": "C:\\Users\\stunt\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\stunt\\Source\\Repos\\choice-project-oppswap\\OppSwap\\obj\\",
+        "projectPath": "C:\\Users\\Kempk\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
+        "packagesPath": "C:\\Users\\Kempk\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Kempk\\Source\\Repos\\choice-project-oppswap\\OppSwap\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\stunt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Kempk\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0-android",
@@ -184,7 +182,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         },
         "net7.0-ios16.1": {
           "targetAlias": "net7.0-ios",
@@ -255,7 +253,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         },
         "net7.0-maccatalyst16.1": {
           "targetAlias": "net7.0-maccatalyst",
@@ -327,7 +325,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         },
         "net7.0-windows10.0.19041": {
           "targetAlias": "net7.0-windows10.0.19041.0",
@@ -432,7 +430,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {
