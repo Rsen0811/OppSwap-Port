@@ -1,8 +1,8 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace OppSwap
-{
+namespace OppSwap;
+//{
     [Application]
     public class MainApplication : MauiApplication
     {
@@ -13,4 +13,4 @@ namespace OppSwap
 
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
     }
-}
+//}

@@ -6,9 +6,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace KemperTestCodeMaui.ViewModels
+namespace OppSwap.ViewModels
 {
-    public partial class MainViewModel : ObservableObject 
+    public partial class MainViewModel : ObservableObject
     {
         public MainViewModel()
         {
@@ -24,7 +24,7 @@ namespace KemperTestCodeMaui.ViewModels
         [RelayCommand]
         void Add()
         {
-            if(string.IsNullOrWhiteSpace(Text))
+            if (string.IsNullOrWhiteSpace(Text))
             {
                 return;
             }
@@ -45,4 +45,6 @@ namespace KemperTestCodeMaui.ViewModels
         }
 
     }
+
 }
+

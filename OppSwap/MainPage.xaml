@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="OppSwap.MainPage">
+             x:Class="OppSwap.MainPage"
+             xmlns:viewmodel="clr-namespace:OppSwap.ViewModels"
+             x:DataType="viewmodel:MainViewModel">
 
     <ScrollView>
         <VerticalStackLayout
@@ -34,6 +36,12 @@
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Center" />
+
+            <Button
+                x:Name="Add"
+                Text="Start Game"
+                Command="{Binding NextPageCommand}"
+                HorizontalOptions="Center"/>
 
         </VerticalStackLayout>
     </ScrollView>

@@ -1,10 +1,10 @@
-﻿namespace OppSwap
+﻿namespace OppSwap;
+
+public partial class AppShell : Shell
 {
-    public partial class AppShell : Shell
+    public AppShell()
     {
-        public AppShell()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        Routing.RegisterRoute(nameof(HUD), typeof(HUD));
     }
 }

@@ -1,10 +1,10 @@
-using KemperTestCodeMaui.ViewModels;
+using OppSwap.ViewModels;
 
-namespace KemperTestCodeMaui;
+namespace OppSwap;
 
 public partial class HUD : ContentPage
 {
-	public HUD(HUDViewModel vm)
+	public HUD(HUDViewModel vm)	
 	{
 		InitializeComponent();
 		BindingContext = vm;

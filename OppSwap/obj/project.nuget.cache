@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FB5JUr37VgoKT15bUKF5szum1R43lNQQ+ZBTZ+Dn604/E7mEUsywy26auSmDyj88bXOner3bSYYo10lhTgTa8Q==",
+  "dgSpecHash": "EwLAszDP6RlktzZsD8SgqyW6vOigbmvdXHMlFfTONO0Rd78vAySPFh8uf7eOby+z5JIiwlqdaadvRpCbrJonzw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kempk\\Source\\Repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
+  "projectFilePath": "C:\\Users\\Kempk\\source\\repos\\choice-project-oppswap\\OppSwap\\OppSwap.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kempk\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.0-preview1\\communitytoolkit.mvvm.8.2.0-preview1.nupkg.sha512",
     "C:\\Users\\Kempk\\.nuget\\packages\\googlegson\\2.9.1.1\\googlegson.2.9.1.1.nupkg.sha512",
