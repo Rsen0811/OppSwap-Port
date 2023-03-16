@@ -35,6 +35,7 @@
             <Button
                 x:Name="JoinButton"
                 Text="Join Game"
+                Command="{Binding joinRoomCommand}"
                 HorizontalOptions="Center" />
             <Button
                 x:Name="CreateRoomButton"

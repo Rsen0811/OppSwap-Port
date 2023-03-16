@@ -13,12 +13,14 @@ namespace OppSwap.ViewModels
 		string gameCode;
 
 		[RelayCommand]
-		void JoinRoom()
+		void joinRoom()
 		{
 			if (string.IsNullOrWhiteSpace(GameCode)) {
 				return;
 			}
+			GameCode = "";
 			//call raj's thing with the game code;
+
 		}
 	}
 }
