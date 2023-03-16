@@ -75,7 +75,7 @@ namespace OppSwap
             if (packet.method.Equals("forceJoin"))
             {
                 JoinPayload p = (JoinPayload)packet;
-                gamesJoined.Append((p.gameName, p.gameId));
+                //gamesJoined.Append((p.gameName, p.gameId)); // change because this no longer makes sense
             }
         }
     }
