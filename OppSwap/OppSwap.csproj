@@ -67,4 +67,9 @@
 	<ItemGroup>
 	  <Folder Include="AssistiveLibraries\" />
 	</ItemGroup>
+<PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">  
+         <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>  
+ </PropertyGroup>  
+
 </Project>
+
