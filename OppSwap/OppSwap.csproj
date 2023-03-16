@@ -63,9 +63,11 @@
 
 	<ItemGroup>
 	  <None Remove="AssistiveLibraries\" />
+	  <None Remove="ViewModels\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="AssistiveLibraries\" />
+	  <Folder Include="ViewModels\" />
 	</ItemGroup>
 <PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">  
          <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>  

@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="OppSwap.MainPage">
-
+             x:Class="OppSwap.Page2"
+             x:DataType="viewmodel:Page2ViewModel"
+             xmlns:viewmodel="clr-namespace:OppSwap.ViewModels"
+             >
+            
     <ScrollView>
         <VerticalStackLayout
             Spacing="25"
@@ -15,11 +18,13 @@
                 HeightRequest="200"
                 HorizontalOptions="Center" />
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
+            <Entry
+                Placeholder="enter join code"
+                Text="{Binding GameCode}"
                 FontSize="32"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Start"
+
+                />
 
             <Label
                 Text="Welcome to .NET Multi-platform App UI"
@@ -27,17 +32,13 @@
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I"
                 FontSize="18"
                 HorizontalOptions="Center" />
-
             <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
+                x:Name="JoinButton"
+                Text="Join Game"
                 HorizontalOptions="Center" />
             <Button
-                x:Name="NextPageButton"
-                Text="Start Game"
-                Clicked="NextPage"
+                x:Name="CreateRoomButton"
+                Text="Create Game"
                 HorizontalOptions="Center" />
 
         </VerticalStackLayout>

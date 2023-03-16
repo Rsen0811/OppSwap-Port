@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-
+using OppSwap.ViewModels;
 namespace OppSwap
 {
     public static class MauiProgram
@@ -15,8 +15,13 @@ namespace OppSwap
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<Page2>();
+            builder.Services.AddSingleton<Page2ViewModel>();
+
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<MainPageViewModel>();
 #if DEBUG
-		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
