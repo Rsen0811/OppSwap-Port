@@ -1,12 +1,12 @@
 ﻿using OppSwap.ViewModels;
 namespace OppSwap
 {
-    public partial class Page2 : ContentPage
+    public partial class JoinPage : ContentPage
     {
         //Client c = new Client();
         int count = 0;
 
-        public Page2(Page2ViewModel vm)
+        public JoinPage(JoinPageViewModel vm)
         {
             InitializeComponent();
             BindingContext = vm;

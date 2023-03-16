@@ -3,9 +3,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 namespace OppSwap.ViewModels
 {
-	public partial class Page2ViewModel : ObservableObject
+	public partial class JoinPageViewModel : ObservableObject
 	{
-		public Page2ViewModel() {
+		public JoinPageViewModel() {
 
 		}
 

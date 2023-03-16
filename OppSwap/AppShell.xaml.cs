@@ -5,7 +5,7 @@
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(Page2), typeof(Page2));
+            Routing.RegisterRoute(nameof(JoinPage), typeof(JoinPage));
         }
     }
 }

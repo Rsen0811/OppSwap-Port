@@ -15,11 +15,16 @@ namespace OppSwap
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            builder.Services.AddSingleton<Page2>();
-            builder.Services.AddSingleton<Page2ViewModel>();
+            builder.Services.AddSingleton<JoinPage>();
+            builder.Services.AddSingleton<JoinPageViewModel>();
 
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainPageViewModel>();
+
+            builder.Services.AddTransient<RoomDetailPage>();
+            builder.Services.AddTransient<RoomDetailPageViewModel>();
+
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
