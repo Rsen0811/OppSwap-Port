@@ -13,6 +13,11 @@ namespace OppSwap
             BindingContext = vm;
         }
 
+        private async void NextPage(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync(nameof(JoinPage));
+        }
+
         private void OnCounterClicked(object sender, EventArgs e)
         {
             //c.Ping();

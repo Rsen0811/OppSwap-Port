@@ -22,7 +22,7 @@
                 Placeholder="enter join code"
                 Text="{Binding GameCode}"
                 FontSize="32"
-                HorizontalOptions="Start"
+                HorizontalOptions="Center"
 
                 />
 
