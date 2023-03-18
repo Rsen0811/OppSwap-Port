@@ -14,7 +14,7 @@ namespace OppSwap
     {
         private WebSocket ws;
         public String clientId;
-        public (String, String)[] gamesJoined; // name, id
+        public Room[] gamesJoined;
         public Client()
         {
             ws = new WebSocket("ws://localhost:9792");//ws://water-cautious-barge.glitch.me");
@@ -75,6 +75,7 @@ namespace OppSwap
             if (packet.method.Equals("forceJoin"))
             {
                 JoinPayload p = (JoinPayload)packet;
+                gamesJoined.Append(new Room(p.gameName, p.gameId));
                 //gamesJoined.Append((p.gameName, p.gameId)); // change because this no longer makes sense
             }
         }

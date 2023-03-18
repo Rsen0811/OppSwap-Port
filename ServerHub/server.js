@@ -67,6 +67,17 @@ function createNewGame(connection, incoming) {
     connection.send(JSON.stringify(package));
 }
 
+function playerJoinUpdate(gameId) {
+    games[gameId].clients.forEach(conn => {
+        const payLoad = {
+            "gameId" : gameId,
+            "clients": clients
+        }
+        const package = { "method": "playerJoinUpdate", "payload": JSON.stringify(payLoad) }
+        conn.send(JSON.stringify(package));
+    });
+}
+
 // GUID generator 
 function S4() {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
