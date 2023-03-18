@@ -3,12 +3,13 @@ const http = require("http");
 
 const websocketServer = require("websocket").server
 const httpServer = http.createServer();
-httpServer.listen(9092, () => console.log("BEEP BOOP, COMPUTER NOISES ON 9092"))
+httpServer.listen(9792, () => console.log("BEEP BOOP, COMPUTER NOISES ON 9092"))
 
 // hashmap of all clients
 const clients = {};
 // off all games
 const games = {};
+const pings = {};
 
 const wsServer = new websocketServer({
     "httpServer": httpServer
@@ -29,6 +30,8 @@ wsServer.on("request", request => {
 })
 
 function connect(connection) {
+    pings[connection] = 0;
+
     const clientId = guid();
     clients[clientId] = {
         "connection": connection
@@ -44,6 +47,7 @@ function connect(connection) {
 
 function ping(connection) {
     console.log("Suceessful PING: ---")
+    console.log("pingnumber: " + ++pings[connection]) // proves that connections are not kept over different client sessions
     console.log("Connection: " + connection.remoteAddress)
 }
 

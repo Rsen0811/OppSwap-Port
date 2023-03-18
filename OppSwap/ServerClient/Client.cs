@@ -17,7 +17,7 @@ namespace OppSwap
         public (String, String)[] gamesJoined; // name, id
         public Client()
         {
-            ws = new WebSocket("ws://localhost:9092");//ws://water-cautious-barge.glitch.me");
+            ws = new WebSocket("ws://localhost:9792");//ws://water-cautious-barge.glitch.me");
             ws.Connect();
             ws.OnMessage += Ws_OnMessage;
 
@@ -75,7 +75,7 @@ namespace OppSwap
             if (packet.method.Equals("forceJoin"))
             {
                 JoinPayload p = (JoinPayload)packet;
-                gamesJoined.Append((p.gameName, p.gameId));
+                //gamesJoined.Append((p.gameName, p.gameId)); // change because this no longer makes sense
             }
         }
     }
