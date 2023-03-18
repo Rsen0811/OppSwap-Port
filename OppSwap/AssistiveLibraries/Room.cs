@@ -9,7 +9,7 @@ namespace OppSwap
 
 		Player[] players { get; set; }
 
-		Player target { get; set; }
+		Target target { get; set; }
 
 		public Room()
 		{
