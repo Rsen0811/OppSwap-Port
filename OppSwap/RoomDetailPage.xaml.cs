@@ -1,15 +1,21 @@
 ﻿using OppSwap.ViewModels;
 namespace OppSwap
 {
-    public partial class MainPage : ContentPage
+    public partial class RoomDetailPage : ContentPage
     {
         //Client c = new Client();
         int count = 0;
+        String roomID;
 
-        public MainPage(MainPageViewModel vm)
+        public RoomDetailPage(RoomDetailPageViewModel vm)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             BindingContext = vm;
+        }
+
+        private async void NextPage(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync(nameof(JoinPage));
         }
 
         private void OnCounterClicked(object sender, EventArgs e)
@@ -23,10 +29,6 @@ namespace OppSwap
                 CounterBtn.Text = $"Clicked {count} times";
 
             SemanticScreenReader.Announce(CounterBtn.Text);
-        }
-
-        private async void NextPage(object sender, EventArgs e) {
-            await Shell.Current.GoToAsync(nameof(JoinPage));
         }
     }
 }
