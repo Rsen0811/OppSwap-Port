@@ -3,7 +3,6 @@ namespace OppSwap
 {
     public partial class MainPage : ContentPage
     {
-        //Client c = new Client();
         int count = 0;
 
         public MainPage(MainPageViewModel vm)
@@ -14,7 +13,7 @@ namespace OppSwap
 
         private void OnCounterClicked(object sender, EventArgs e)
         {
-            //c.Ping();
+            ClientInterconnect.Ping();
             count++;
 
             if (count == 1)

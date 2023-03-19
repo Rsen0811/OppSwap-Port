@@ -8,11 +8,12 @@ namespace OppSwap
 		String Id { get; set; }
 
 		Player[] players { get; set; }
-
 		Target target { get; set; }
 
-		public Room()
+		public Room(String name, String id)
 		{
+			Name = name;
+			Id = id;
 		}
 	}
 }
