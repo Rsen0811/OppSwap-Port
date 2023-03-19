@@ -6,6 +6,7 @@
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(JoinPage), typeof(JoinPage));
+            Routing.RegisterRoute(nameof(CreatePage), typeof(CreatePage));
         }
     }
 }
