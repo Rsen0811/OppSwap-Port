@@ -18,6 +18,9 @@ namespace OppSwap
             builder.Services.AddSingleton<JoinPage>();
             builder.Services.AddSingleton<JoinPageViewModel>();
 
+            builder.Services.AddSingleton<CreatePage>();
+            builder.Services.AddSingleton<CreatePageViewModel>();
+
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainPageViewModel>();
 

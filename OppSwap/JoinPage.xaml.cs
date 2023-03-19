@@ -20,5 +20,9 @@ namespace OppSwap
         void JoinButton_Clicked(System.Object sender, System.EventArgs e)
         {
         }
+        private async void NextPage(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync(nameof(CreatePage));
+        }
     }
 }
