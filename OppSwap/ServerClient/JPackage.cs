@@ -47,6 +47,20 @@ namespace SerializedJSONTemplates
         }
     }
 
+    [Serializable]
+    public class playerJoinPayload : JPackage
+    {
+        public string gameId { get; set; }
+        public string[] clients { get; set; }
+
+        public static explicit operator playerJoinPayload(JPGeneral incoming)
+        {
+            playerJoinPayload outgoing = JsonConvert.DeserializeObject<playerJoinPayload>(incoming.payload);
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+
     //sending packets
 
     // send single string

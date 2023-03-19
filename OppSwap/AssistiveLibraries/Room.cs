@@ -4,11 +4,13 @@ namespace OppSwap
 {
 	public class Room
 	{
-		String Name { get; set; }
-		String Id { get; set; }
+		public String Name { get; set; }
+        public String Id { get; set; }
 
-		Player[] players { get; set; }
-		Target target { get; set; }
+		public String[] tempholderwhileplayersdonthavenamesonserver { get; set; }
+
+        public Player[] players { get; set; }
+        public Target target { get; set; }
 
 		public Room(String name, String id)
 		{

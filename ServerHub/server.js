@@ -3,7 +3,7 @@ const http = require("http");
 
 const websocketServer = require("websocket").server
 const httpServer = http.createServer();
-httpServer.listen(9792, () => console.log("BEEP BOOP, COMPUTER NOISES ON 9092"))
+httpServer.listen(9992, () => console.log("BEEP BOOP, COMPUTER NOISES ON 9092"))
 
 // hashmap of all clients
 const clients = {};
@@ -51,6 +51,18 @@ function ping(connection) {
     console.log("Connection: " + connection.remoteAddress)
 }
 
+function playerJoinUpdate(gameId) {
+    const payLoad = {
+        "gameId" : gameId,
+        "clients": games[gameId].clients
+    }
+    const package = { "method": "playerJoinUpdate", "payload": JSON.stringify(payLoad) }
+
+    games[gameId].clients.forEach(client => {        
+        clients[client].connection.send(JSON.stringify(package));
+    });
+}
+
 function createNewGame(connection, incoming) {
     gameId = guid()
     games[gameId] = {
@@ -65,18 +77,12 @@ function createNewGame(connection, incoming) {
     }
     const package = { "method": "forceJoin", "payload": JSON.stringify(payLoad) }
     connection.send(JSON.stringify(package));
+
+    console.log("Game " + gameId + " created by userId: " + incoming.clientId)
+    playerJoinUpdate(gameId);
 }
 
-function playerJoinUpdate(gameId) {
-    games[gameId].clients.forEach(conn => {
-        const payLoad = {
-            "gameId" : gameId,
-            "clients": clients
-        }
-        const package = { "method": "playerJoinUpdate", "payload": JSON.stringify(payLoad) }
-        conn.send(JSON.stringify(package));
-    });
-}
+
 
 // GUID generator 
 function S4() {

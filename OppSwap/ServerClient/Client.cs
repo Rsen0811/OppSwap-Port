@@ -17,23 +17,24 @@ namespace OppSwap
         public List<Room> gamesJoined;
         public Client()
         {
-            ws = new WebSocket("ws://localhost:9792");//ws://water-cautious-barge.glitch.me");
+            ws = new WebSocket("ws://localhost:9992");//ws://water-cautious-barge.glitch.me");
             ws.Connect();
             ws.OnMessage += Ws_OnMessage;
 
             gamesJoined = new List<Room>();
-
+            //   outdated code from a more civilized age
             JPackage p = new JPackage
             {
                 method = "connect"
             };
-
+            
+            // currently not having save data, but eventually i want to store the client id between app closes, and send a connect request that i send the guid
             ws.Send(JsonConvert.SerializeObject(p));
         }
 
         public void Ping()
         {
-            //ws.Connect();
+            ws.Connect();
 
             JPackage p = new JPackage { method = "ping" };
             ws.Send(JsonConvert.SerializeObject(p));
@@ -41,6 +42,7 @@ namespace OppSwap
 
         public void CreateGame(String name) 
         { // creator gets sent a special payload to automatically join game
+            ws.Connect();
             String1Payload p = new String1Payload
             {
                 method = "createNewGame",
@@ -52,10 +54,12 @@ namespace OppSwap
         }
         public Room[] FetchGames(String query)
         {
+            ws.Connect();
             return null; // implement later fetch list of games that exist with partial matches
         }
         public void JoinGame(String gameId) 
         {
+            ws.Connect();
             String1Payload p = new String1Payload
             {
                 method = "joinGame",
@@ -79,6 +83,18 @@ namespace OppSwap
                 JoinPayload p = (JoinPayload)packet;
                 gamesJoined.Add(new Room(p.gameName, p.gameId));
                 //gamesJoined.Append((p.gameName, p.gameId)); // change because this no longer makes sense
+            }
+            if (packet.method.Equals("playerJoinUpdate"))
+            {
+                playerJoinPayload p = (playerJoinPayload)packet;
+                foreach (Room r in gamesJoined)
+                {
+                    if (r.Id.Equals(p.gameId))
+                    {
+                        r.tempholderwhileplayersdonthavenamesonserver = p.clients;
+                        return;
+                    }
+                }
             }
         }
     }
