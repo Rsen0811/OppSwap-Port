@@ -10,16 +10,18 @@ using Newtonsoft.Json;
 
 namespace OppSwap
 {
-    class Client
+    public class Client
     {
         private WebSocket ws;
         public String clientId;
-        public Room[] gamesJoined;
+        public List<Room> gamesJoined;
         public Client()
         {
             ws = new WebSocket("ws://localhost:9792");//ws://water-cautious-barge.glitch.me");
             ws.Connect();
             ws.OnMessage += Ws_OnMessage;
+
+            gamesJoined = new List<Room>();
 
             JPackage p = new JPackage
             {
@@ -37,7 +39,7 @@ namespace OppSwap
             ws.Send(JsonConvert.SerializeObject(p));
         }
 
-        public void createGame(String name) 
+        public void CreateGame(String name) 
         { // creator gets sent a special payload to automatically join game
             String1Payload p = new String1Payload
             {
@@ -48,7 +50,7 @@ namespace OppSwap
             };
             ws.Send(JsonConvert.SerializeObject(p));
         }
-        public (String, String)[] FetchGames(String query)
+        public Room[] FetchGames(String query)
         {
             return null; // implement later fetch list of games that exist with partial matches
         }
@@ -75,7 +77,7 @@ namespace OppSwap
             if (packet.method.Equals("forceJoin"))
             {
                 JoinPayload p = (JoinPayload)packet;
-                gamesJoined.Append(new Room(p.gameName, p.gameId));
+                gamesJoined.Add(new Room(p.gameName, p.gameId));
                 //gamesJoined.Append((p.gameName, p.gameId)); // change because this no longer makes sense
             }
         }
