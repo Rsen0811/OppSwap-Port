@@ -31,6 +31,7 @@ wsServer.on("request", request => {
         if (incoming.method === "connect") connect(connection);
         if (incoming.method === "ping") ping(connection);
         if (incoming.method === "createNewGame") createNewGame(connection, incoming);
+        if (incoming.method === "joinGame") joinGame(connection, incoming.gameId, incoming.clientId);
     })
 
 })
@@ -67,7 +68,7 @@ function playerJoinUpdate(gameId) {
     const package = { "method": "playerJoinUpdate", "payload": JSON.stringify(payLoad) }
 
     games[gameId].clients.forEach(client => { 
-        if (!clients[client].status === "closed") { // if the connection is status closed, then dont try sending message
+        if (clients[client].status === "open") { // if the connection is status closed, then dont try sending message
             clients[client].connection.send(JSON.stringify(package));
         }   
     });

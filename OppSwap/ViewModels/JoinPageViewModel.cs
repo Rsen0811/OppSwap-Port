@@ -18,7 +18,7 @@ namespace OppSwap.ViewModels
 			if (string.IsNullOrWhiteSpace(GameCode)) {
 				return;
 			}
-            //ClientInterconnect.CreateGame(GameCode); commented out because this is where we join rooms, not create
+            ClientInterconnect.JoinGame(GameCode);
             GameCode = "";
 			//call raj's thing with the game code;
 			
