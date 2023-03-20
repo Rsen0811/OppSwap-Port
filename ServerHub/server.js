@@ -7,6 +7,7 @@ httpServer.listen(9992, () => console.log("BEEP BOOP, COMPUTER NOISES ON 9092"))
 
 // hashmap of all clients
 const clients = {};
+const connections = {}; // reverse of hashmap
 // off all games
 const games = {};
 const pings = {};
@@ -18,7 +19,12 @@ const wsServer = new websocketServer({
 wsServer.on("request", request => {
     const connection = request.accept(null, request.origin);
     connection.on("open", () => console.log("Seasame has been opened!"));
-    connection.on("close", () => console.log("Leaving so soon?"));
+    connection.on("close", () => {
+        console.log("Leaving so soon?");
+        // finds the entire client that has been disconnected, by looking at reversed object, sets status to closed
+        clients[connections[connection]].status = "closed";
+        delete connections[connection];
+    });
     
     connection.on("message", message => {
         const incoming = JSON.parse(message.utf8Data)
@@ -34,8 +40,10 @@ function connect(connection) {
 
     const clientId = guid();
     clients[clientId] = {
-        "connection": connection
+        "connection": connection,
+        "status": "open"
     }
+    connections[connection] = clientId;
 
     const payLoad = {
         "clientId": clientId
@@ -58,8 +66,10 @@ function playerJoinUpdate(gameId) {
     }
     const package = { "method": "playerJoinUpdate", "payload": JSON.stringify(payLoad) }
 
-    games[gameId].clients.forEach(client => {        
-        clients[client].connection.send(JSON.stringify(package));
+    games[gameId].clients.forEach(client => { 
+        if (!clients[client].status === "closed") { // if the connection is status closed, then dont try sending message
+            clients[client].connection.send(JSON.stringify(package));
+        }   
     });
 }
 
@@ -68,17 +78,24 @@ function createNewGame(connection, incoming) {
     games[gameId] = {
         "name": incoming.value,
         "id": gameId,
-        "clients": [incoming.clientId]
+        "clients": []
     }
-
-    const payLoad = {
-        "gameName": incoming.value,
-        "gameId": gameId
-    }
-    const package = { "method": "forceJoin", "payload": JSON.stringify(payLoad) }
-    connection.send(JSON.stringify(package));
 
     console.log("Game " + gameId + " created by userId: " + incoming.clientId)
+    joinGame(connection, gameId, incoming.clientId);
+}
+
+function joinGame(connection, gameId, clientId) {
+    game = games[gameId]
+
+    game.clients.push(clientId)
+    const payLoad = {
+        "gameName": game.name,
+        "gameId": gameId
+    }
+
+    const package = { "method": "forceJoin", "payload": JSON.stringify(payLoad) }
+    connection.send(JSON.stringify(package));
     playerJoinUpdate(gameId);
 }
 

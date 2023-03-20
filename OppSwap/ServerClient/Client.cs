@@ -67,10 +67,11 @@ namespace OppSwap
                 gameId = gameId,
                 value = null
             };
+            ws.Send(JsonConvert.SerializeObject(p));
         }
         public void SetName(String name) { }
         public void UpdatePosition(String pos) { }
-        private void Ws_OnMessage(object sender, MessageEventArgs e)
+        private void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
         {
             JPGeneral packet = JsonConvert.DeserializeObject<JPGeneral>(e.Data);
             if (packet.method.Equals("connect"))
