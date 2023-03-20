@@ -10,20 +10,6 @@ namespace OppSwap
             InitializeComponent();
             BindingContext = vm;
         }
-
-        private void OnCounterClicked(object sender, EventArgs e)
-        {
-            ClientInterconnect.Ping();
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
-        }
-
         private async void NextPage(object sender, EventArgs e) {
             await Shell.Current.GoToAsync(nameof(JoinPage));
         }
