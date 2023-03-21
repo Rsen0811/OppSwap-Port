@@ -12,8 +12,8 @@ namespace OppSwap
 		}
 		public LatLong()
 		{
-			this.latitude = 90;
-			this.longitude = 45;
+			this.latitude = -90;
+			this.longitude = -45;
 		}
 
         //https://www.movable-type.co.uk/scripts/latlong.html
@@ -23,12 +23,11 @@ namespace OppSwap
             double R = 6371000; // metres
             double φ1 = this.latitude * Math.PI / 180; // φ, λ in radians
             double φ2 = other.latitude * Math.PI / 180;
-            double Δφ = (this.latitude - other.latitude) * System.Math.PI / 180;
-            double Δλ = (this.longitude - other.longitude) * Math.PI / 180;
+            double Δλ = (other.longitude - this.longitude) * Math.PI / 180;
             double y = Math.Sin(Δλ) * Math.Cos(φ2);
             double x = Math.Cos(φ1) * Math.Sin(φ2) -
                       Math.Sin(φ1) * Math.Cos(φ2) * Math.Cos(Δλ);
-            double angle = Math.Atan2(y, x);
+            double angle = Math.Atan2(y,x);
             double bearing = (angle * 180 / Math.PI + 360) % 360; // in degrees
             return bearing;
         }

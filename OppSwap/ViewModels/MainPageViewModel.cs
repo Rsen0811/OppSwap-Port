@@ -14,14 +14,21 @@ namespace OppSwap.ViewModels
 		{
             latitudeLongitude = "0 , 0";
             timeTaken = "0";
-		}
+            Compass.Default.ReadingChanged += Compass_ReadingChanged;
+            Compass.Default.Start(SensorSpeed.Default);
 
-        
+        }
+
+        String currHeading;
 
         LatLong location;
         LatLong pole = new LatLong();
+        private void Compass_ReadingChanged(object sender, CompassChangedEventArgs e)
+        {
+            // Update UI Label with compass state
+            currHeading= $"Compass: {e.Reading}";
+        }
 
-        
         //only works with IOS as of right now
         [RelayCommand]
         public async Task GetCurrentLocation()
