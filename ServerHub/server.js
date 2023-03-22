@@ -104,7 +104,8 @@ function joinGame(connection, gameId, clientId) {
 function fetchGames(connection, query) {
     gameNames = []
     gameIds = []
-    games.forEach(game => {
+    Object.keys(games).forEach(gameKey => { // gamekey is the gameId, but i decided not to use the same var name
+        game = games[gameKey]
         if (game.name.includes(query)) {
             gameNames.push(game.name);
             gameIds.push(game.id);

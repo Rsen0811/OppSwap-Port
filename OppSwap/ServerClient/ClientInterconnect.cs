@@ -15,7 +15,7 @@ namespace OppSwap
         public static void CreateGame(String name) { commandList.Add("c " + name); }
 
         public static void JoinGame(String gameId) { commandList.Add("j " + gameId); }
-        public static void FetchGames(String query) { commandList.Add("s" + query); }
+        public static void FetchGames(String query) { commandList.Add("s " + query); }
 
         public static async void Start()
         {
