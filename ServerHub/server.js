@@ -32,6 +32,7 @@ wsServer.on("request", request => {
         if (incoming.method === "ping") ping(connection);
         if (incoming.method === "createNewGame") createNewGame(connection, incoming);
         if (incoming.method === "joinGame") joinGame(connection, incoming.gameId, incoming.clientId);
+        if (incoming.method === "fetchGames") fetchGames(connection, incoming.query);
     })
 
 })
@@ -98,6 +99,25 @@ function joinGame(connection, gameId, clientId) {
     const package = { "method": "forceJoin", "payload": JSON.stringify(payLoad) }
     connection.send(JSON.stringify(package));
     playerJoinUpdate(gameId);
+}
+
+function fetchGames(connection, query) {
+    gameNames = []
+    gameIds = []
+    games.forEach(game => {
+        if (game.name.includes(query)) {
+            gameNames.push(game.name);
+            gameIds.push(game.id);
+        }
+    });
+
+    payLoad = {
+        "names": gameNames,
+        "ids": gameIds
+    }
+    
+    const package = { "method": "fetchGames", "payload": JSON.stringify(payLoad) }
+    connection.send(JSON.stringify(package));
 }
 
 

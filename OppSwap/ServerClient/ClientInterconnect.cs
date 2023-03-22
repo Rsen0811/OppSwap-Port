@@ -15,6 +15,7 @@ namespace OppSwap
         public static void CreateGame(String name) { commandList.Add("c " + name); }
 
         public static void JoinGame(String gameId) { commandList.Add("j " + gameId); }
+        public static void FetchGames(String query) { commandList.Add("s" + query); }
 
         public static async void Start()
         {
@@ -34,6 +35,7 @@ namespace OppSwap
             if (nextCommand[0] == 'p') { c.Ping(); commandList.RemoveAt(0); }
             if (nextCommand[0] == 'c') { c.CreateGame(nextCommand.Split()[1]); commandList.RemoveAt(0); } //8e1ace7c-6efc-4804-5d9f-d2ac96505786
             if (nextCommand[0] == 'j') { c.JoinGame(nextCommand.Split()[1]); commandList.RemoveAt(0); }
+            if (nextCommand[0] == 's') { c.FetchGames(nextCommand.Split()[1]); commandList.RemoveAt(0); }
 
         }
     }

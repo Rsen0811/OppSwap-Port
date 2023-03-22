@@ -15,6 +15,7 @@ namespace OppSwap
         private WebSocket ws;
         public String clientId;
         public List<Room> gamesJoined;
+        public List<Room> fetchedRooms;
         public Client()
         {
             ws = new WebSocket("ws://localhost:9992");//ws://water-cautious-barge.glitch.me");
@@ -52,10 +53,11 @@ namespace OppSwap
             };
             ws.Send(JsonConvert.SerializeObject(p));
         }
-        public Room[] FetchGames(String query)
+
+        public void FetchGames(String query)
         {
             ws.Connect();
-            return null; // implement later fetch list of games that exist with partial matches
+            ws.Send(JsonConvert.SerializeObject(new { method = "fetchGames", query = query }));
         }
         public void JoinGame(String gameId) 
         {
@@ -96,6 +98,11 @@ namespace OppSwap
                         return;
                     }
                 }
+            }
+            if (packet.method.Equals("fetchGames"))
+            {
+                GameQueryPackage p = (GameQueryPackage)packet;
+                fetchedRooms = p.rooms;
             }
         }
     }
