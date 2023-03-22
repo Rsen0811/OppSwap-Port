@@ -7,7 +7,9 @@ namespace OppSwap
 {
     public static class ClientInterconnect
     {
-        public static readonly Client c = new Client();
+        public static readonly bool RUNNING_SERVER = false; // turn this to true if running, false if not
+
+        public static readonly Client c = (RUNNING_SERVER ? new Client() : null);
 
         private static List<String> commandList = new List<string>();
 
@@ -21,6 +23,7 @@ namespace OppSwap
         {
             while (true)
             {
+                if (!RUNNING_SERVER) return;
                 updateCommands();
                 await Task.Delay(100); // waits 100 ms between calls
             }
