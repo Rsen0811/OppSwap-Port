@@ -7,8 +7,11 @@ namespace OppSwap
 {
     public static class ClientInterconnect
     {
+#if DISABLE_SERVER
         public static readonly bool RUNNING_SERVER = false; // turn this to true if running, false if not
-
+#else
+        public static readonly bool RUNNING_SERVER = true; // turn this to true if running, false if not
+#endif
         public static readonly Client c = (RUNNING_SERVER ? new Client() : null);
 
         private static List<String> commandList = new List<string>();
