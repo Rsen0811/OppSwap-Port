@@ -4,6 +4,8 @@
     {
         public App()
         {
+            
+            ClientInterconnect.Start();
             InitializeComponent();
 
             MainPage = new AppShell();

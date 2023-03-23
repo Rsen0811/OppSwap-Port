@@ -18,8 +18,8 @@ namespace OppSwap.ViewModels
 			if (string.IsNullOrWhiteSpace(GameCode)) {
 				return;
 			}
-            		ClientInterconnect.CreateGame(GameCode);
-            		GameCode = "";
+            ClientInterconnect.JoinGame(GameCode);
+            GameCode = "";
 			//call raj's thing with the game code;
 			
 		}

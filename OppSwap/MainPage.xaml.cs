@@ -14,6 +14,7 @@ namespace OppSwap
         private void OnCounterClicked(object sender, EventArgs e)
         {
             ClientInterconnect.Ping();
+            ClientInterconnect.FetchGames("for");
             count++;
 
             if (count == 1)

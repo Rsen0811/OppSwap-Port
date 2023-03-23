@@ -3,10 +3,11 @@ const http = require("http");
 
 const websocketServer = require("websocket").server
 const httpServer = http.createServer();
-httpServer.listen(9792, () => console.log("BEEP BOOP, COMPUTER NOISES ON 9092"))
+httpServer.listen(9992, () => console.log("BEEP BOOP, COMPUTER NOISES ON 9092"))
 
 // hashmap of all clients
 const clients = {};
+const connections = {}; // reverse of hashmap
 // off all games
 const games = {};
 const pings = {};
@@ -18,13 +19,20 @@ const wsServer = new websocketServer({
 wsServer.on("request", request => {
     const connection = request.accept(null, request.origin);
     connection.on("open", () => console.log("Seasame has been opened!"));
-    connection.on("close", () => console.log("Leaving so soon?"));
+    connection.on("close", () => {
+        console.log("Leaving so soon?");
+        // finds the entire client that has been disconnected, by looking at reversed object, sets status to closed
+        clients[connections[connection]].status = "closed";
+        delete connections[connection];
+    });
     
     connection.on("message", message => {
         const incoming = JSON.parse(message.utf8Data)
         if (incoming.method === "connect") connect(connection);
         if (incoming.method === "ping") ping(connection);
         if (incoming.method === "createNewGame") createNewGame(connection, incoming);
+        if (incoming.method === "joinGame") joinGame(connection, incoming.gameId, incoming.clientId);
+        if (incoming.method === "fetchGames") fetchGames(connection, incoming.query);
     })
 
 })
@@ -34,8 +42,10 @@ function connect(connection) {
 
     const clientId = guid();
     clients[clientId] = {
-        "connection": connection
+        "connection": connection,
+        "status": "open"
     }
+    connections[connection] = clientId;
 
     const payLoad = {
         "clientId": clientId
@@ -51,32 +61,67 @@ function ping(connection) {
     console.log("Connection: " + connection.remoteAddress)
 }
 
+function playerJoinUpdate(gameId) {
+    const payLoad = {
+        "gameId" : gameId,
+        "clients": games[gameId].clients
+    }
+    const package = { "method": "playerJoinUpdate", "payload": JSON.stringify(payLoad) }
+
+    games[gameId].clients.forEach(client => { 
+        if (clients[client].status === "open") { // if the connection is status closed, then dont try sending message
+            clients[client].connection.send(JSON.stringify(package));
+        }   
+    });
+}
+
 function createNewGame(connection, incoming) {
     gameId = guid()
     games[gameId] = {
         "name": incoming.value,
         "id": gameId,
-        "clients": [incoming.clientId]
+        "clients": []
     }
 
+    console.log("Game " + gameId + " created by userId: " + incoming.clientId)
+    joinGame(connection, gameId, incoming.clientId);
+}
+
+function joinGame(connection, gameId, clientId) {
+    game = games[gameId]
+
+    game.clients.push(clientId)
     const payLoad = {
-        "gameName": incoming.value,
+        "gameName": game.name,
         "gameId": gameId
     }
+
     const package = { "method": "forceJoin", "payload": JSON.stringify(payLoad) }
+    connection.send(JSON.stringify(package));
+    playerJoinUpdate(gameId);
+}
+
+function fetchGames(connection, query) {
+    gameNames = []
+    gameIds = []
+    Object.keys(games).forEach(gameKey => { // gamekey is the gameId, but i decided not to use the same var name
+        game = games[gameKey]
+        if (game.name.includes(query)) {
+            gameNames.push(game.name);
+            gameIds.push(game.id);
+        }
+    });
+
+    payLoad = {
+        "names": gameNames,
+        "ids": gameIds
+    }
+    
+    const package = { "method": "fetchGames", "payload": JSON.stringify(payLoad) }
     connection.send(JSON.stringify(package));
 }
 
-function playerJoinUpdate(gameId) {
-    games[gameId].clients.forEach(conn => {
-        const payLoad = {
-            "gameId" : gameId,
-            "clients": clients
-        }
-        const package = { "method": "playerJoinUpdate", "payload": JSON.stringify(payLoad) }
-        conn.send(JSON.stringify(package));
-    });
-}
+
 
 // GUID generator 
 function S4() {
