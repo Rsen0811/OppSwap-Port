@@ -21,6 +21,9 @@ namespace OppSwap
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainPageViewModel>();
 
+            builder.Services.AddSingleton<CreateGamePage>();
+            builder.Services.AddSingleton<CreateGameViewModel>();
+
             builder.Services.AddTransient<RoomDetailPage>();
             builder.Services.AddTransient<RoomDetailPageViewModel>();
 
