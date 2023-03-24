@@ -15,11 +15,21 @@ namespace OppSwap
         private void CreateButton_Clicked(object sender, EventArgs e)
         {
         }
-        private async void NextPage(object sender, EventArgs e)
+        
+        private static async Task gameJoined(String s)
         {
-            await Shell.Current.GoToAsync(nameof(RoomDetailPage));
+            while (true)
+            {
+                await Task.Delay(100);
+                foreach (Room r in ClientInterconnect.c.gamesJoined)
+                {
+                    if (r.Id.Equals(s))
+                    {
+                        return;
+                    }
+                }
+            }
         }
-
         void JoinButton_Clicked(System.Object sender, System.EventArgs e)
         {
         }

@@ -23,6 +23,15 @@ namespace OppSwap.ViewModels
 			//call raj's thing with the game code;
 			
 		}
-	}
+
+		[RelayCommand]
+        async Task goToRoomDetailPage(String r)
+        {
+            //ClientInterconnect.c.JoinGame(JoinCodeText.Text);
+
+            //await gameJoined(JoinCodeText.Text);
+            await Shell.Current.GoToAsync(nameof(RoomDetailPage));
+        }
+    }
 }
 
