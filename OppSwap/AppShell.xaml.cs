@@ -6,7 +6,8 @@
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(JoinPage), typeof(JoinPage));
-            Routing.RegisterRoute(nameof(CreatePage), typeof(CreatePage));
+            Routing.RegisterRoute(nameof(CreateGamePage), typeof(CreateGamePage));
+            Routing.RegisterRoute(nameof(RoomDetailPage), typeof(RoomDetailPage));
         }
     }
 }

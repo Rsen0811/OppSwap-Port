@@ -74,7 +74,11 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="AssistiveLibraries\" />
-	  <Folder Include="ViewModels\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <MauiXaml Update="CreateGamePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 <PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">  
          <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>  

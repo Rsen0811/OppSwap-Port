@@ -12,17 +12,16 @@ namespace OppSwap
             BindingContext = vm;
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
-        {
-            //c.Ping();
-        }
-
-        void JoinButton_Clicked(System.Object sender, System.EventArgs e)
+        private void CreateButton_Clicked(object sender, EventArgs e)
         {
         }
         private async void NextPage(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(CreatePage));
+            await Shell.Current.GoToAsync(nameof(RoomDetailPage));
+        }
+
+        void JoinButton_Clicked(System.Object sender, System.EventArgs e)
+        {
         }
     }
 }
