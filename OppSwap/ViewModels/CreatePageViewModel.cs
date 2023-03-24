@@ -3,9 +3,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 namespace OppSwap.ViewModels
 {
-	public partial class JoinPageViewModel : ObservableObject
+	public partial class CreatePageViewModel : ObservableObject
 	{
-		public JoinPageViewModel() {
+		public CreatePageViewModel() {
 
 		}
 
@@ -13,15 +13,15 @@ namespace OppSwap.ViewModels
 		string gameCode;
 
 		[RelayCommand]
-		void joinRoom()
+		void createRoom()
 		{
 			if (string.IsNullOrWhiteSpace(GameCode)) {
 				return;
 			}
-            ClientInterconnect.JoinGame(GameCode);
+			ClientInterconnect.CreateGame(GameCode);
             GameCode = "";
 			//call raj's thing with the game code;
-			
+
 		}
 	}
 }

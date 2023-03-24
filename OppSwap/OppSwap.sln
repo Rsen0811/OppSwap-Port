@@ -7,10 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OppSwap", "OppSwap.csproj",
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug without Server|Any CPU = Debug without Server|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C4390DA-5D34-4124-8804-ADF4B69F01B7}.Debug without Server|Any CPU.ActiveCfg = Debug with Server|Any CPU
+		{6C4390DA-5D34-4124-8804-ADF4B69F01B7}.Debug without Server|Any CPU.Build.0 = Debug with Server|Any CPU
+		{6C4390DA-5D34-4124-8804-ADF4B69F01B7}.Debug without Server|Any CPU.Deploy.0 = Debug with Server|Any CPU
 		{6C4390DA-5D34-4124-8804-ADF4B69F01B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6C4390DA-5D34-4124-8804-ADF4B69F01B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C4390DA-5D34-4124-8804-ADF4B69F01B7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU

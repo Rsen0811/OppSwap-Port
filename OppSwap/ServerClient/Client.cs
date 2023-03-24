@@ -10,35 +10,40 @@ using Newtonsoft.Json;
 
 namespace OppSwap
 {
-    class Client
+    public class Client
     {
         private WebSocket ws;
         public String clientId;
-        public (String, String)[] gamesJoined; // name, id
+        public List<Room> gamesJoined;
+        public List<Room> fetchedRooms;
         public Client()
         {
-            ws = new WebSocket("ws://localhost:9792");//ws://water-cautious-barge.glitch.me");
+            ws = new WebSocket("ws://localhost:9992");//ws://water-cautious-barge.glitch.me");
             ws.Connect();
             ws.OnMessage += Ws_OnMessage;
 
+            gamesJoined = new List<Room>();
+            //   outdated code from a more civilized age
             JPackage p = new JPackage
             {
                 method = "connect"
             };
-
+            
+            // currently not having save data, but eventually i want to store the client id between app closes, and send a connect request that i send the guid
             ws.Send(JsonConvert.SerializeObject(p));
         }
 
         public void Ping()
         {
-            //ws.Connect();
+            ws.Connect();
 
             JPackage p = new JPackage { method = "ping" };
             ws.Send(JsonConvert.SerializeObject(p));
         }
 
-        public void createGame(String name) 
+        public void CreateGame(String name) 
         { // creator gets sent a special payload to automatically join game
+            ws.Connect();
             String1Payload p = new String1Payload
             {
                 method = "createNewGame",
@@ -48,12 +53,15 @@ namespace OppSwap
             };
             ws.Send(JsonConvert.SerializeObject(p));
         }
-        public (String, String)[] FetchGames(String query)
+
+        public void FetchGames(String query)
         {
-            return null; // implement later fetch list of games that exist with partial matches
+            ws.Connect();
+            ws.Send(JsonConvert.SerializeObject(new { method = "fetchGames", query = query }));
         }
         public void JoinGame(String gameId) 
         {
+            ws.Connect();
             String1Payload p = new String1Payload
             {
                 method = "joinGame",
@@ -61,10 +69,11 @@ namespace OppSwap
                 gameId = gameId,
                 value = null
             };
+            ws.Send(JsonConvert.SerializeObject(p));
         }
         public void SetName(String name) { }
         public void UpdatePosition(String pos) { }
-        private void Ws_OnMessage(object sender, MessageEventArgs e)
+        private void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
         {
             JPGeneral packet = JsonConvert.DeserializeObject<JPGeneral>(e.Data);
             if (packet.method.Equals("connect"))
@@ -75,7 +84,25 @@ namespace OppSwap
             if (packet.method.Equals("forceJoin"))
             {
                 JoinPayload p = (JoinPayload)packet;
+                gamesJoined.Add(new Room(p.gameName, p.gameId));
                 //gamesJoined.Append((p.gameName, p.gameId)); // change because this no longer makes sense
+            }
+            if (packet.method.Equals("playerJoinUpdate"))
+            {
+                playerJoinPayload p = (playerJoinPayload)packet;
+                foreach (Room r in gamesJoined)
+                {
+                    if (r.Id.Equals(p.gameId))
+                    {
+                        r.tempholderwhileplayersdonthavenamesonserver = p.clients;
+                        return;
+                    }
+                }
+            }
+            if (packet.method.Equals("fetchGames"))
+            {
+                GameQueryPackage p = (GameQueryPackage)packet;
+                fetchedRooms = p.rooms;
             }
         }
     }

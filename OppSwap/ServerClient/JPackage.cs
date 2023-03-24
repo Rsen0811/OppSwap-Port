@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Runtime.CompilerServices;
+using OppSwap;
 
 namespace SerializedJSONTemplates
 {
@@ -42,6 +43,40 @@ namespace SerializedJSONTemplates
         public static explicit operator JoinPayload(JPGeneral incoming)
         {
             JoinPayload outgoing = JsonConvert.DeserializeObject<JoinPayload>(incoming.payload);
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+
+    [Serializable]
+    public class playerJoinPayload : JPackage
+    {
+        public string gameId { get; set; }
+        public string[] clients { get; set; }
+
+        public static explicit operator playerJoinPayload(JPGeneral incoming)
+        {
+            playerJoinPayload outgoing = JsonConvert.DeserializeObject<playerJoinPayload>(incoming.payload);
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+
+    [Serializable]
+    public class GameQueryPackage : JPackage
+    {
+        public List<Room> rooms { get; set; }
+        public String[] names { get; set; }
+        public String[] ids { get; set; }
+
+        public static explicit operator GameQueryPackage(JPGeneral incoming)
+        {
+            GameQueryPackage outgoing = JsonConvert.DeserializeObject<GameQueryPackage>(incoming.payload);
+            outgoing.rooms = new List<Room>();
+            for (int i = 0; i < outgoing.names.Length; i++)
+            {
+                outgoing.rooms.Add(new Room(outgoing.names[i], outgoing.ids[i]));
+            }
             outgoing.method = incoming.method;
             return outgoing;
         }
