@@ -72,7 +72,19 @@ namespace OppSwap
             ws.Send(JsonConvert.SerializeObject(p));
         }
         public void SetName(String name) { }
-        public void UpdatePosition(String pos) { }
+        
+        public void UpdatePosition(LatLong position)
+        {
+            UpdatePosition(position.ToString());
+        }
+        public void UpdatePosition(String position) {
+            ws.Send(JsonConvert.SerializeObject(new {
+                method = "updatePosition",
+                clientId = clientId,
+                gamesJoined = gamesJoined.ToArray(),
+                position = position
+            }));
+        }
         private void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
         {
             JPGeneral packet = JsonConvert.DeserializeObject<JPGeneral>(e.Data);

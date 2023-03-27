@@ -33,6 +33,7 @@ wsServer.on("request", request => {
         if (incoming.method === "createNewGame") createNewGame(connection, incoming);
         if (incoming.method === "joinGame") joinGame(connection, incoming.gameId, incoming.clientId);
         if (incoming.method === "fetchGames") fetchGames(connection, incoming.query);
+        if (incoming.method === "updatePosition") updatePosition(incoming.gamesJoined, incoming.clientId, incoming.position);
     })
 
 })
@@ -80,7 +81,8 @@ function createNewGame(connection, incoming) {
     games[gameId] = {
         "name": incoming.value,
         "id": gameId,
-        "clients": []
+        "clients": [],
+        "positions": {}
     }
 
     console.log("Game " + gameId + " created by userId: " + incoming.clientId)
@@ -91,6 +93,7 @@ function joinGame(connection, gameId, clientId) {
     game = games[gameId]
 
     game.clients.push(clientId)
+    game.positions[clientId] = "0, 0";
     const payLoad = {
         "gameName": game.name,
         "gameId": gameId
@@ -121,6 +124,12 @@ function fetchGames(connection, query) {
     connection.send(JSON.stringify(package));
 }
 
+function updatePosition(gamesJoined, clientId, position) {
+    gamesJoined.forEach(element => {
+        game = games[element.Id]
+        game.positions[clientId] = position;
+    })
+}
 
 
 // GUID generator 
