@@ -38,7 +38,10 @@ namespace OppSwap.ViewModels
             pos = pole;//Room.target.position;
             latitudeLongitude = "0 , 0";
             TimeTaken = "0";
+
+            //assumed direction you are facing
             CurrHeading = "90";
+
             //Compass.Default.ReadingChanged += Compass_ReadingChanged;
             //Compass.Default.Start(SensorSpeed.Default);
             ArrowAngle = 0;
@@ -48,9 +51,7 @@ namespace OppSwap.ViewModels
         [RelayCommand]
         public async Task getCurrentLocation()
         {
-            ClientInterconnect.c.TempGetPos(CurrRoom.Id);
-            await Task.Delay(500);
-            pole = ClientInterconnect.getTargetPos();
+            
             try
             {
                 Stopwatch stopwatch = new Stopwatch();
@@ -61,12 +62,16 @@ namespace OppSwap.ViewModels
 
                 stopwatch.Stop();
                 location = new LatLong(l.Latitude, l.Longitude);
-                //in the future keep in mind to create a check mock provider if to do something if it is a faked location
-                LatitudeLongitude = l.Latitude + " , " + l.Longitude;
-                
+                ClientInterconnect.UpdatePosition(location);
+                //in the future keep in mind to create a check for a mock location provider so we can do something if it is a faked location
+
+                //ClientInterconnect.c.TempGetPos(CurrRoom.Id);
+                //await Task.Delay(500);
+                pos = pole;//ClientInterconnect.getTargetPos();
+
                 getArrowAngle(location.bearing(pos), double.Parse(CurrHeading));
                 TimeTaken = ArrowAngle + "";
-                ClientInterconnect.UpdatePosition(location);
+                
             }
             // Catch one of the following exceptions:
             //   FeatureNotSupportedException

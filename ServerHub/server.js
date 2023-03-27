@@ -98,7 +98,7 @@ function createNewGame(connection, incoming) {
     }
 
     console.log("Game " + gameId + " created by userId: " + incoming.clientId)
-    joinGame(connection, gameId, incoming.clientId);
+    //joinGame(connection, gameId, incoming.clientId);
 }
 
 function joinGame(connection, gameId, clientId) {
@@ -110,7 +110,7 @@ function joinGame(connection, gameId, clientId) {
         "gameName": game.name,
         "gameId": gameId
     }
-
+    console.log("userId: "+clientId+" has joined game: "+gameId);
     const package = { "method": "forceJoin", "payload": JSON.stringify(payLoad) }
     connection.send(JSON.stringify(package));
     playerJoinUpdate(gameId);
@@ -141,6 +141,7 @@ function updatePosition(gamesJoined, clientId, position) {
         game = games[element.Id]
         game.positions[clientId] = position;
     })
+    console.log("client: "+clientId+"'s position has been updated to "+position);
 }
 
 

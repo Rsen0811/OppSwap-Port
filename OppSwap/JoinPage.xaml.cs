@@ -18,20 +18,7 @@ namespace OppSwap
         {
         }
         
-        private static async Task gameJoined(String s)
-        {
-            while (true)
-            {
-                await Task.Delay(100);
-                foreach (Room r in ClientInterconnect.c.gamesJoined)
-                {
-                    if (r.Id.Equals(s))
-                    {
-                        return;
-                    }
-                }
-            }
-        }
+        
         private async void GoToCreatePage(object sender, EventArgs e)
         {
             // await Shell.Current.GoToAsync(nameof(RoomDetailPage));
