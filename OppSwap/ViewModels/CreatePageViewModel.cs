@@ -20,8 +20,6 @@ namespace OppSwap.ViewModels
 			}
 			ClientInterconnect.CreateGame(GameCode);
             GameCode = "";
-			//call raj's thing with the game code;
-
 		}
 	}
 }

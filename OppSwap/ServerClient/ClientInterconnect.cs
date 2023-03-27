@@ -7,10 +7,10 @@ namespace OppSwap
 {
     public static class ClientInterconnect
     {
-#if DISABLE_SERVER
-        public static readonly bool RUNNING_SERVER = false; // turn this to true if running, false if not
+#if DISABLE_SERVER // this to false if running, true if not
+        public static readonly bool RUNNING_SERVER = false; 
 #else
-        public static readonly bool RUNNING_SERVER = true; // turn this to true if running, false if not
+        public static readonly bool RUNNING_SERVER = true; 
 #endif
         public static readonly Client c = (RUNNING_SERVER ? new Client() : null);
 
@@ -45,6 +45,21 @@ namespace OppSwap
             if (nextCommand[0] == 's') { c.FetchGames(nextCommand.Split()[1]); commandList.RemoveAt(0); }
             if (nextCommand[0] == 'l') { c.UpdatePosition(nextCommand.Split()[1]); commandList.RemoveAt(0); }
 
+        }
+        public static Room getRoom(String s)
+        {
+            foreach(Room r in c.gamesJoined)
+            {
+                if (r.Id.Equals(s))
+                {
+                    return r;
+                }
+            }
+            return null;
+        }
+        public static LatLong getTargetPos()
+        {
+            return new LatLong(c.enemyPos);
         }
     }
 }

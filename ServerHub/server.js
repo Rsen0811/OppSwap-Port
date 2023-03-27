@@ -16,6 +16,7 @@ const wsServer = new websocketServer({
     "httpServer": httpServer
 })
 
+
 wsServer.on("request", request => {
     const connection = request.accept(null, request.origin);
     connection.on("open", () => console.log("Seasame has been opened!"));
@@ -82,9 +83,11 @@ function playerJoinUpdate(gameId) {
     const package = { "method": "playerJoinUpdate", "payload": JSON.stringify(payLoad) }
 
     games[gameId].clients.forEach(client => { 
+        //if(client[client]!=null){ //if the connection is null because fake data with null connection
         if (clients[client].status === "open") { // if the connection is status closed, then dont try sending message
-            clients[client].connection.send(JSON.stringify(package));
-        }   
+                clients[client].connection.send(JSON.stringify(package));
+        } 
+        //}   
     });
 }
 
@@ -98,7 +101,7 @@ function createNewGame(connection, incoming) {
     }
 
     console.log("Game " + gameId + " created by userId: " + incoming.clientId)
-    joinGame(connection, gameId, incoming.clientId);
+    //joinGame(connection, gameId, incoming.clientId);
 }
 
 function joinGame(connection, gameId, clientId) {
@@ -110,9 +113,11 @@ function joinGame(connection, gameId, clientId) {
         "gameName": game.name,
         "gameId": gameId
     }
-
+    console.log("userId: "+clientId+" has joined game: "+gameId);
     const package = { "method": "forceJoin", "payload": JSON.stringify(payLoad) }
+    //if(connection!==null){ //if the connection is null because fake data with null connection
     connection.send(JSON.stringify(package));
+    //}
     playerJoinUpdate(gameId);
 }
 
@@ -141,6 +146,7 @@ function updatePosition(gamesJoined, clientId, position) {
         game = games[element.Id]
         game.positions[clientId] = position;
     })
+    console.log("client: "+clientId+"'s position has been updated to "+position);
 }
 
 
@@ -149,3 +155,22 @@ function S4() {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 }
 const guid = () => (S4() + S4() + "-" + S4() + "-4" + S4().substring(0, 3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
+/* make sure to uncomment the if statements when debugged
+function runDebug() {
+    gameId="";
+    clientId="";
+
+    clients["imcracked"]=null;
+    incoming={
+    "value" : "coolRoom",
+    "clientId" : "imcracked"
+    };
+    createNewGame(null,incoming)
+
+    Object.keys(games).forEach(gameKey => {gameId=gameKey})
+    Object.keys(clients).forEach(clientKey => {clientId=clientKey})
+    joinGame(null,gameId,clientId);
+
+    games[gameId].positions[clientId] = "10, 4";
+}*/
+//runDebug();

@@ -19,6 +19,7 @@
                 HorizontalOptions="Center" />
 
             <Entry
+                x:Name="JoinCodeText"
                 Placeholder="enter join code"
                 Text="{Binding GameCode}"
                 FontSize="32"
@@ -32,22 +33,19 @@
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I"
                 FontSize="18"
                 HorizontalOptions="Center" />
+            <!--Command="{Binding joinRoomCommand}"-->
             <Button
                 x:Name="JoinButton"
                 Text="Join Game"
-                Clicked = "NextPageJoin"
-                HorizontalOptions="Center" />
+                Command="{Binding goToRoomDetailPageCommand}"
+                HorizontalOptions="Center"
+                />                
                 <!--Command="{Binding joinRoomCommand}"-->
-
-            <Button
-                x:Name="CreateButton"
-                Text="Create Game"
-                Clicked="NextPage" 
-                HorizontalOptions="Center" />
             <Button
                 x:Name="CreateRoomButton"
                 Text="Create Game"
-                Clicked="NextPage"
+                Clicked= "GoToCreatePage"
+                CommandParameter="{Binding GameCode}"
                 HorizontalOptions="Center" />
 
         </VerticalStackLayout>
