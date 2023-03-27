@@ -15,6 +15,8 @@ namespace OppSwap
         {
             ClientInterconnect.Ping();
             ClientInterconnect.FetchGames("for");
+            //ClientInterconnect.UpdatePosition(new LatLong(123, 345));
+            ClientInterconnect.c.TempGetPos("8070b607-9e52-402e-c1d2-d6656009c6a8");
             count++;
 
             if (count == 1)

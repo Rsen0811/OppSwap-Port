@@ -16,6 +16,18 @@ namespace OppSwap
 			this.longitude = 135;
 		}
 
+        public LatLong(String inputString)
+        {
+            String[] data = inputString.Split(",");
+            this.latitude = Double.Parse(data[0]);
+            this.longitude = Double.Parse(data[1]);
+        }
+
+        public String ToString()
+        {
+            return $"{latitude},{longitude}";
+        }
+
         //https://www.movable-type.co.uk/scripts/latlong.html
         //the link for the math behind bearing and distance methods
         public double bearing(LatLong other)
