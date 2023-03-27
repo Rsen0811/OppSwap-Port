@@ -12,7 +12,7 @@
             Padding="30,0"
             VerticalOptions="Center">
             <Label
-                Text="{Binding Name}"
+                Text="{Binding CurrRoom.Name}"
                 FontSize="25"
                 HorizontalOptions="Center"
                 />

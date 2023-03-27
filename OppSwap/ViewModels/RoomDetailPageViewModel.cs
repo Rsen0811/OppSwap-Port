@@ -5,34 +5,13 @@ using System.Diagnostics;
 using System.Numerics;
 namespace OppSwap.ViewModels
 {
-    //[QueryProperty("RoomID"/*The name of the property in ViewModel*/, "RoomID"/*The name of the property when you switch pages*/)]
+    [QueryProperty(nameof(CurrRoom)/*The name of the property in ViewModel*/, nameof(CurrRoom)/*The name of the property when you switch pages*/)]
 
     public partial class RoomDetailPageViewModel: ObservableObject
 	{
 
         [ObservableProperty]
-        Room room;
-
-		[ObservableProperty]
-		String roomID;
-        
-		[ObservableProperty]
-		String players;
-
-		[ObservableProperty]
-		String name;
-
-		[ObservableProperty]
-		String targetName;
-
-        [ObservableProperty]
-        bool targetAlive;
-
-        [ObservableProperty]
-        String targetId;
-
-		[ObservableProperty]
-		String targetPos;
+        Room currRoom;
 
         [ObservableProperty]
         String timeTaken;
@@ -53,16 +32,9 @@ namespace OppSwap.ViewModels
 
         public RoomDetailPageViewModel()
 		{
-            Room = new Room("bruh", "bruh");
+            //CurrRoom = new Room("bruh", "bruh");
 
-            RoomID = Room.Id;
-            Players = "";// Room.players.ToString();
-            Name = Room.Name;
-            TargetName = ""; //Room.target.Name;
-            TargetId = "";//Room.target.Id;
-			TargetAlive= false;//Room.target.IsAlive;
             pos = pole;//Room.target.position;
-            TargetPos = pos.ToString();
             latitudeLongitude = "0 , 0";
             TimeTaken = "0";
             CurrHeading = "90";
@@ -107,7 +79,8 @@ namespace OppSwap.ViewModels
         {
             bearing = bearing * Math.PI / 180;
             heading = heading * Math.PI / 180;
-            double dot = Vector2.Dot(Vector2.Normalize(new Vector2((float)Math.Cos(bearing), (float)Math.Sin(bearing))), Vector2.Normalize(new Vector2((float)Math.Cos(heading), (float)Math.Sin(heading))));
+            double dot = Vector2.Dot(Vector2.Normalize(new Vector2((float)Math.Cos(bearing),(float)Math.Sin(bearing))),
+                Vector2.Normalize(new Vector2((float)Math.Cos(heading), (float)Math.Sin(heading))));
             ArrowAngle =(Math.Abs(Math.Acos(Math.Floor(dot))*180/Math.PI))%360;
         }
     }

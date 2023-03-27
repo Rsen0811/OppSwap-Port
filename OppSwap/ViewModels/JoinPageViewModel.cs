@@ -25,12 +25,17 @@ namespace OppSwap.ViewModels
 		}
 
 		[RelayCommand]
-        async Task goToRoomDetailPage(String r)
+        async Task goToRoomDetailPage()
         {
-            //ClientInterconnect.c.JoinGame(JoinCodeText.Text);
+			//ClientInterconnect.c.JoinGame(JoinCodeText.Text);
 
-            //await gameJoined(JoinCodeText.Text);
-            await Shell.Current.GoToAsync(nameof(RoomDetailPage));
+			//await gameJoined(JoinCodeText.Text);
+			await Shell.Current.GoToAsync(nameof(RoomDetailPage),
+			new Dictionary<string, object>
+			{
+				//get the room we made with the textbox inside of it
+				["CurrRoom"] = ClientInterconnect.getRoom(GameCode)
+			});
         }
     }
 }
