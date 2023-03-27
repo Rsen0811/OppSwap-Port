@@ -57,5 +57,9 @@ namespace OppSwap
             }
             return null;
         }
+        public static LatLong getTargetPos()
+        {
+            return new LatLong(c.enemyPos);
+        }
     }
 }

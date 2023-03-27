@@ -40,14 +40,15 @@
                 Command="{Binding getCurrentLocationCommand}"
                 HorizontalOptions="Center" />
 
-            <GraphicsView 
+            <!--<GraphicsView 
                 HeightRequest="100"
                 WidthRequest="100">
-                <!--Drawable="{DynamicResource drawable}">-->
+                Drawable="{DynamicResource drawable}">
                 <GraphicsView.Drawable>
                     <drawable:GraphicsDrawable Angle="{Binding ArrowAngle}" />
                 </GraphicsView.Drawable>
-            </GraphicsView>
+            </GraphicsView>-->
+
         </VerticalStackLayout>
     </ScrollView>
 

@@ -34,7 +34,7 @@ namespace OppSwap.ViewModels
 			new Dictionary<string, object>
 			{
 				//get the room we made with the textbox inside of it
-				["CurrRoom"] = ClientInterconnect.getRoom(GameCode)
+				["CurrRoom"] = new Room("bruh","bruh")// ClientInterconnect.getRoom(GameCode)
 			});
         }
     }

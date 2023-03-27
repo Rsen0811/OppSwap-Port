@@ -27,6 +27,7 @@ namespace OppSwap.ViewModels
 
         LatLong location;
         LatLong pole = new LatLong();
+       
 
         LatLong pos;
 
@@ -46,7 +47,10 @@ namespace OppSwap.ViewModels
         //only works with IOS as of right now
         [RelayCommand]
         public async Task getCurrentLocation()
-        {   
+        {
+            ClientInterconnect.c.TempGetPos(CurrRoom.Id);
+            await Task.Delay(500);
+            pole = ClientInterconnect.getTargetPos();
             try
             {
                 Stopwatch stopwatch = new Stopwatch();
@@ -62,6 +66,7 @@ namespace OppSwap.ViewModels
                 
                 getArrowAngle(location.bearing(pos), double.Parse(CurrHeading));
                 TimeTaken = ArrowAngle + "";
+                ClientInterconnect.UpdatePosition(location);
             }
             // Catch one of the following exceptions:
             //   FeatureNotSupportedException

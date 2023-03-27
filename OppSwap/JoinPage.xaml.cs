@@ -32,11 +32,10 @@ namespace OppSwap
                 }
             }
         }
-
-        private async void NextPageJoin(object sender, EventArgs e)
+        private async void GoToCreatePage(object sender, EventArgs e)
         {
             // await Shell.Current.GoToAsync(nameof(RoomDetailPage));
-            await Shell.Current.GoToAsync(nameof(RoomDetailPage));
+            await Shell.Current.GoToAsync(nameof(CreatePage));
         }
         void JoinButton_Clicked(System.Object sender, System.EventArgs e)
         {
