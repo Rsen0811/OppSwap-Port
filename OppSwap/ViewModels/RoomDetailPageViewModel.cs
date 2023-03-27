@@ -54,23 +54,29 @@ namespace OppSwap.ViewModels
             
             try
             {
-                Stopwatch stopwatch = new Stopwatch();
-                stopwatch.Start();
+                //timer code move the stop and the elapsed milliseconds to after the l declaration
+                //Stopwatch stopwatch = new Stopwatch();
+                //stopwatch.Start();
+                //TimeTaken = stopwatch.ElapsedMilliseconds + "";
+                //stopwatch.Stop();
                 GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(30));
                 Location l = await Geolocation.Default.GetLocationAsync(request);
-                TimeTaken = stopwatch.ElapsedMilliseconds + "";
+                
 
-                stopwatch.Stop();
+                
                 location = new LatLong(l.Latitude, l.Longitude);
                 ClientInterconnect.UpdatePosition(location);
                 //in the future keep in mind to create a check for a mock location provider so we can do something if it is a faked location
 
-                //ClientInterconnect.c.TempGetPos(CurrRoom.Id);
-                //await Task.Delay(500);
-                pos = pole;//ClientInterconnect.getTargetPos();
+                ClientInterconnect.c.TempGetPos(CurrRoom.Id);
+                await Task.Delay(500);
+                LatitudeLongitude = location.ToString();
+                pos = ClientInterconnect.getTargetPos();
 
                 getArrowAngle(location.bearing(pos), double.Parse(CurrHeading));
                 TimeTaken = ArrowAngle + "";
+
+                
                 
             }
             // Catch one of the following exceptions:
