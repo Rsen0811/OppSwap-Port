@@ -34,10 +34,22 @@ wsServer.on("request", request => {
         if (incoming.method === "joinGame") joinGame(connection, incoming.gameId, incoming.clientId);
         if (incoming.method === "fetchGames") fetchGames(connection, incoming.query);
         if (incoming.method === "updatePosition") updatePosition(incoming.gamesJoined, incoming.clientId, incoming.position);
+        if (incoming.method === "TP") TP(connection, incoming.gameId, incoming.clientId)
     })
 
 })
-
+function TP(connection, gameId, clientId) { //#=============== fakecode
+    games[gameId].clients.forEach(id => {
+        if (id != clientId) {
+            const packet = {
+                "method": "TP",
+                "payload": games[gameId].positions[id]
+            }
+            connection.send(JSON.stringify(packet));
+            return;
+        }
+    })
+}
 function connect(connection) {
     pings[connection] = 0;
 

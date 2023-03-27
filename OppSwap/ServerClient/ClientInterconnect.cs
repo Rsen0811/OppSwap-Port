@@ -27,7 +27,7 @@ namespace OppSwap
         {
             while (true)
             {
-                if (!RUNNING_SERVER) return;
+                 if (!RUNNING_SERVER) return;
                 updateCommands();
                 await Task.Delay(100); // waits 100 ms between calls
             }
