@@ -23,6 +23,12 @@ namespace OppSwap
             await Shell.Current.GoToAsync(nameof(CreatePage));
         }
 
+        private async void NextPageJoin(object sender, EventArgs e)
+        {
+            // await Shell.Current.GoToAsync(nameof(RoomDetailPage));
+            await Shell.Current.GoToAsync(nameof(RoomDetailPage));
+        }
+
         void JoinButton_Clicked(System.Object sender, System.EventArgs e)
         {
         }

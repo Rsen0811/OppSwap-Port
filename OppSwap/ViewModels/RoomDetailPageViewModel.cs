@@ -6,7 +6,10 @@ namespace OppSwap.ViewModels
 {
 	public partial class RoomDetailPageViewModel: ObservableObject
 	{
-		public RoomDetailPageViewModel()
+		[ObservableProperty]
+		double arrowAngle = 90;
+
+        public RoomDetailPageViewModel()
 		{
 		}
 	}

@@ -1,4 +1,7 @@
 ﻿using OppSwap.ViewModels;
+using Microsoft.Maui.Graphics;
+//using Android.Graphics;
+
 namespace OppSwap
 {
     public partial class RoomDetailPage : ContentPage
@@ -6,6 +9,7 @@ namespace OppSwap
         //Client c = new Client();
         int count = 0;
         String roomID;
+        ICanvas canvas;
 
         public RoomDetailPage(RoomDetailPageViewModel vm)
         {
@@ -22,6 +26,7 @@ namespace OppSwap
         {
             //c.Ping();
             count++;
+
 
             if (count == 1)
                 CounterBtn.Text = $"Clicked {count} time";

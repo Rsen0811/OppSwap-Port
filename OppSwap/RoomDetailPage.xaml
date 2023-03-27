@@ -4,7 +4,13 @@
              x:Class="OppSwap.RoomDetailPage"
              x:DataType="viewmodel:RoomDetailPageViewModel"
              xmlns:viewmodel="clr-namespace:OppSwap.ViewModels"
+             xmlns:drawable="clr-namespace:OppSwap"
              >
+
+
+    <ContentPage.Resources>
+        <drawable:GraphicsDrawable x:Key="drawable" />
+    </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout
@@ -24,6 +30,15 @@
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 HeightRequest="200"
                 HorizontalOptions="Center" />
+
+            <GraphicsView 
+                HeightRequest="100"
+                WidthRequest="100">
+                <!--Drawable="{DynamicResource drawable}">-->
+                <GraphicsView.Drawable>
+                    <drawable:GraphicsDrawable Angle="{Binding ArrowAngle}" />
+                </GraphicsView.Drawable>
+            </GraphicsView>
 
 
         </VerticalStackLayout>
