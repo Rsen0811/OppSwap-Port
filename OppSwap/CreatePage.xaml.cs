@@ -1,4 +1,5 @@
-﻿using OppSwap.ViewModels;
+﻿
+using OppSwap.ViewModels;
 namespace OppSwap
 {
     public partial class CreatePage : ContentPage

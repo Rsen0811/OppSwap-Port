@@ -39,7 +39,10 @@
                 Text="Join Game"
                 Command="{Binding goToRoomDetailPageCommand}"
                 HorizontalOptions="Center"
-                />
+                Clicked = "NextPageJoin"
+                />                
+                HorizontalOptions="Center" />
+                <!--Command="{Binding joinRoomCommand}"-->
             <Button
                 x:Name="CreateRoomButton"
                 Text="Create Game"

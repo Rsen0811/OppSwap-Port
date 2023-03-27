@@ -8,6 +8,7 @@
             Routing.RegisterRoute(nameof(JoinPage), typeof(JoinPage));
             Routing.RegisterRoute(nameof(CreateGamePage), typeof(CreateGamePage));
             Routing.RegisterRoute(nameof(RoomDetailPage), typeof(RoomDetailPage));
+            Routing.RegisterRoute(nameof(CreatePage), typeof(CreatePage));
         }
     }
 }

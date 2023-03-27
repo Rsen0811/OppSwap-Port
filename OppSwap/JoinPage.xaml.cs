@@ -1,4 +1,6 @@
-﻿using OppSwap.ViewModels;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using OppSwap.ViewModels;
 namespace OppSwap
 {
     public partial class JoinPage : ContentPage
@@ -30,8 +32,16 @@ namespace OppSwap
                 }
             }
         }
+
+        private async void NextPageJoin(object sender, EventArgs e)
+        {
+            // await Shell.Current.GoToAsync(nameof(RoomDetailPage));
+            await Shell.Current.GoToAsync(nameof(RoomDetailPage));
+        }
         void JoinButton_Clicked(System.Object sender, System.EventArgs e)
         {
         }
+
+
     }
 }

@@ -2,6 +2,8 @@
 using System;
 using Microsoft.Maui.Controls.Xaml.Diagnostics;
 using Microsoft.Maui.Controls.Xaml.Internals;
+using Microsoft.Maui.Graphics;
+//using Android.Graphics;
 
 namespace OppSwap
 {
@@ -10,6 +12,8 @@ namespace OppSwap
         //Client c = new Client();
         //int count = 0;
         //String roomID;
+
+        ICanvas canvas;
 
         public RoomDetailPage(RoomDetailPageViewModel vm)
         {
@@ -20,6 +24,7 @@ namespace OppSwap
         {
             base.OnNavigatedTo(args);
         }
+
 
     }
 

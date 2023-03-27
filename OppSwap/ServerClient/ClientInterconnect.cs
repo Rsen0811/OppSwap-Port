@@ -21,6 +21,7 @@ namespace OppSwap
 
         public static void JoinGame(String gameId) { commandList.Add("j " + gameId); }
         public static void FetchGames(String query) { commandList.Add("s " + query); }
+        public static void UpdatePosition(LatLong position) { commandList.Add("l " + position.ToString()); }
 
         public static async void Start()
         {
@@ -32,7 +33,7 @@ namespace OppSwap
             }
         }
 
-        public static void updateCommands()
+        private static void updateCommands()
         {
             if (commandList.Count == 0 || c.clientId == null) return;
 
@@ -42,6 +43,7 @@ namespace OppSwap
             if (nextCommand[0] == 'c') { c.CreateGame(nextCommand.Split()[1]); commandList.RemoveAt(0); } //8e1ace7c-6efc-4804-5d9f-d2ac96505786
             if (nextCommand[0] == 'j') { c.JoinGame(nextCommand.Split()[1]); commandList.RemoveAt(0); }
             if (nextCommand[0] == 's') { c.FetchGames(nextCommand.Split()[1]); commandList.RemoveAt(0); }
+            if (nextCommand[0] == 'l') { c.UpdatePosition(nextCommand.Split()[1]); commandList.RemoveAt(0); }
 
         }
         public static Room getRoom(String s)

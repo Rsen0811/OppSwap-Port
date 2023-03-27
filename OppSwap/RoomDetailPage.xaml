@@ -3,8 +3,13 @@
              x:Class="OppSwap.RoomDetailPage"
              xmlns:viewmodel="clr-namespace:OppSwap.ViewModels"
              x:DataType="viewmodel:RoomDetailPageViewModel"
-
+             xmlns:drawable="clr-namespace:OppSwap"
              >
+
+
+    <ContentPage.Resources>
+        <drawable:GraphicsDrawable x:Key="drawable" />
+    </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout
@@ -34,6 +39,15 @@
                 Text="Click me"
                 Command="{Binding getCurrentLocationCommand}"
                 HorizontalOptions="Center" />
+
+            <GraphicsView 
+                HeightRequest="100"
+                WidthRequest="100">
+                <!--Drawable="{DynamicResource drawable}">-->
+                <GraphicsView.Drawable>
+                    <drawable:GraphicsDrawable Angle="{Binding ArrowAngle}" />
+                </GraphicsView.Drawable>
+            </GraphicsView>
         </VerticalStackLayout>
     </ScrollView>
 
