@@ -5,16 +5,21 @@ namespace OppSwap.ViewModels
 {
 	public partial class JoinPageViewModel : ObservableObject
 	{
-		public JoinPageViewModel() {
+        public JoinPageViewModel()
+        {
+            Items = new ObservableCollection<string>();
+        }
 
-		}
+        [ObservableProperty]
+        ObservableCollection<string> items;
 
-		[ObservableProperty]
-		string gameCode;
-
-		[RelayCommand]
+        [ObservableProperty]
+        private string gameCode;
+        [RelayCommand]
 		void joinRoom()
 		{
+            GameCode = string.Empty;
+
 			if (string.IsNullOrWhiteSpace(GameCode)) {
 				return;
 			}
