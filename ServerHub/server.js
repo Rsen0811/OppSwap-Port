@@ -135,7 +135,7 @@ function fetchGames(connection, query) {
 
 function updatePosition(gamesJoined, clientId, position) {
     gamesJoined.forEach(element => {
-        let game = games[element.Id] // apparently the end tire game is sent when i send all the games, so it makes sense that i am specifically looking for te id of each game
+        let game = games[element.Id] // apparently the entire game is sent when i send all the games, so it makes sense that i am specifically looking for the id of each game
         game.positions[clientId] = position;
     })
     console.log("client: "+clientId+"'s position has been updated to "+position);
