@@ -134,7 +134,7 @@ function fetchGames(connection, query) {
 }
 
 function updatePosition(gamesJoined, clientId, position) {
-    gamesJoined.forEach(element => {
+    gamesJoined.forEach(element => { // each element is an entire room, the id is a feild of that object
         let game = games[element.Id] // apparently the entire game is sent when i send all the games, so it makes sense that i am specifically looking for the id of each game
         game.positions[clientId] = position;
     })
