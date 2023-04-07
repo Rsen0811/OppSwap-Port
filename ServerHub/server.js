@@ -40,7 +40,7 @@ wsServer.on("request", request => {
 
 })
 function TP(connection, gameId, clientId) { //#=============== fakecode
-    games[gameId].clients.forEach(id => {
+    games[gameId].clientIds.forEach(id => {
         if (id != clientId) {
             const packet = {
                 "method": "TP",
@@ -55,11 +55,8 @@ function connect(connection) {
     pings[connection] = 0;
 
     const clientId = guid();
-    clients[clientId] = {
-        "connection": connection,
-        "status": "open"
-    }
-    connections[connection] = clientId;
+    clients[clientId] = new Client(connection);    
+    connections[connection] = clientId; // gets client id from connection
 
     const payLoad = {
         "clientId": clientId
@@ -78,11 +75,11 @@ function ping(connection) {
 function playerJoinUpdate(gameId) {
     const payLoad = {
         "gameId" : gameId,
-        "clients": games[gameId].clients
+        "clients": games[gameId].clientIds
     }
     const package = { "method": "playerJoinUpdate", "payload": JSON.stringify(payLoad) }
 
-    games[gameId].clients.forEach(client => { 
+    games[gameId].clientIds.forEach(client => { 
         //if(client[client]!=null){ //if the connection is null because fake data with null connection
         if (clients[client].status === "open") { // if the connection is status closed, then dont try sending message
                 clients[client].connection.send(JSON.stringify(package));
@@ -92,43 +89,38 @@ function playerJoinUpdate(gameId) {
 }
 
 function createNewGame(connection, incoming) {
-    gameId = guid()
-    games[gameId] = {
-        "name": incoming.value,
-        "id": gameId,
-        "clients": [],
-        "positions": {}
-    }
+    const incomingName = incoming.value;
+    const room = new Room(incomingName);
+    games[room.gameId] = room
 
-    console.log("Game " + gameId + " created by userId: " + incoming.clientId)
+    console.log("Game " + room.gameId + " created by userId: " + incoming.clientId)
     //joinGame(connection, gameId, incoming.clientId);
 }
 
 function joinGame(connection, gameId, clientId) {
-    game = games[gameId]
+    const game = games[gameId]
 
-    game.clients.push(clientId)
-    game.positions[clientId] = "0, 0";
+    game.addPlayer(clientId)
     const payLoad = {
-        "gameName": game.name,
-        "gameId": gameId
+        "gameName": game.gameName,
+        "gameId": game.gameId
     }
-    console.log("userId: "+clientId+" has joined game: "+gameId);
+    console.log("userId: "+clientId+" has joined game: "+game.gameId);
     const package = { "method": "forceJoin", "payload": JSON.stringify(payLoad) }
     //if(connection!==null){ //if the connection is null because fake data with null connection
     connection.send(JSON.stringify(package));
     //}
-    playerJoinUpdate(gameId);
+    playerJoinUpdate(game.gameId);
 }
 
 function fetchGames(connection, query) {
-    gameNames = []
-    gameIds = []
+    let gameNames = []
+    let gameIds = []
     Object.keys(games).forEach(gameKey => { // gamekey is the gameId, but i decided not to use the same var name
-        game = games[gameKey]
-        if (game.name.includes(query)) {
-            gameNames.push(game.name);
-            gameIds.push(game.id);
+        const game = games[gameKey]
+        if (game.gameName.includes(query)) {
+            gameNames.push(game.gameName);
+            gameIds.push(game.gameId);
         }
     });
 
@@ -142,8 +134,8 @@ function fetchGames(connection, query) {
 }
 
 function updatePosition(gamesJoined, clientId, position) {
-    gamesJoined.forEach(element => {
-        game = games[element.Id]
+    gamesJoined.forEach(element => { // each element is an entire room, the id is a feild of that object
+        let game = games[element.Id] // apparently the entire game is sent when i send all the games, so it makes sense that i am specifically looking for the id of each game
         game.positions[clientId] = position;
     })
     console.log("client: "+clientId+"'s position has been updated to "+position);
@@ -174,3 +166,33 @@ function runDebug() {
     games[gameId].positions[clientId] = "10, 4";
 }*/
 //runDebug();
+//===============================================================================
+class Room {
+    constructor(name) {
+        this.gameName = name;
+        this.gameId = guid();
+        this.clientIds = [];
+        this.targets = null;
+        this.positions = {};
+        this.settings = null;
+        this.paused = false;
+    }
+
+    postPos(playerId, position) {
+        positions[playerId] = position;
+    }
+    fetchPos(playerId) {
+        return positions[playerId];
+    }
+    addPlayer(playerId) {
+        this.clientIds.push(playerId);
+        this.positions[playerId] = "0,0";
+    }
+}
+
+class Client {
+    constructor(connection) {
+        this.connection = connection;
+        this.status = "open";
+    }
+}
