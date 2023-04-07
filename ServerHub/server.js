@@ -55,11 +55,8 @@ function connect(connection) {
     pings[connection] = 0;
 
     const clientId = guid();
-    clients[clientId] = {
-        "connection": connection,
-        "status": "open"
-    }
-    connections[connection] = clientId;
+    clients[clientId] = new Client(connection);    
+    connections[connection] = clientId; // gets client id from connection
 
     const payLoad = {
         "clientId": clientId
@@ -82,7 +79,7 @@ function playerJoinUpdate(gameId) {
     }
     const package = { "method": "playerJoinUpdate", "payload": JSON.stringify(payLoad) }
 
-    games[gameId].clients.forEach(client => { 
+    games[gameId].clientIds.forEach(client => { 
         //if(client[client]!=null){ //if the connection is null because fake data with null connection
         if (clients[client].status === "open") { // if the connection is status closed, then dont try sending message
                 clients[client].connection.send(JSON.stringify(package));
@@ -93,7 +90,7 @@ function playerJoinUpdate(gameId) {
 
 function createNewGame(connection, incoming) {
     const incomingName = incoming.value;
-    const room = Room(incomingName);
+    const room = new Room(incomingName);
     games[room.gameId] = room
 
     console.log("Game " + room.gameId + " created by userId: " + incoming.clientId)
@@ -169,6 +166,7 @@ function runDebug() {
     games[gameId].positions[clientId] = "10, 4";
 }*/
 //runDebug();
+//===============================================================================
 class Room {
     constructor(name) {
         this.gameName = name;
@@ -187,7 +185,14 @@ class Room {
         return positions[playerId];
     }
     addPlayer(playerId) {
-        this.clientsIds.append(playerId)
-        this.positions[playerId] = "0,0"
+        this.clientIds.push(playerId);
+        this.positions[playerId] = "0,0";
+    }
+}
+
+class Client {
+    constructor(connection) {
+        this.connection = connection;
+        this.status = "open";
     }
 }
