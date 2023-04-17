@@ -196,3 +196,76 @@ class Client {
         this.status = "open";
     }
 }
+//==============================================================================
+class LinkedList {
+    /**
+     * Creates a new linked list with the given array of client IDs.
+     * The client IDs are randomly shuffled before creating the linked list.
+     * @param {Array<string>} clientIDs - The array of client IDs to use.
+     */
+    LinkedList(clientIDs) {
+      // Create a new map to store the linked list  
+      // Shuffle the array of client IDs
+      map=new Map();
+      const shuffledIDs = this.shuffleArray(clientIDs);
+      // Create the linked list from the shuffled client IDs
+      if (shuffledIDs.length > 0) {
+        for (var i = 0; i < shuffledIDs.length - 1; i++) {
+          this.map.set(shuffledIDs[i], shuffledIDs[i + 1]);
+        }
+        // Make the last client ID point to the first one to make the list circular
+        this.map.set(shuffledIDs[shuffledIDs.length - 1], shuffledIDs[0]);
+      }
+    } 
+  
+    /**
+     * Removes the node with the given client ID from the linked list.
+     * @param {string} clientID - The client ID to remove.
+     */
+    removeNode(clientID) {
+      if (this.map.has(clientID)) {
+        var prevID = "";
+        for (var id of this.map.keys()) {
+          if (this.map.get(id) === clientID) {
+            prevID = id;
+            break;
+          }
+        }
+        var nextID = this.map.get(clientID);
+        this.map.set(prevID, nextID);
+        this.map.delete(clientID);
+      }
+    }
+  
+    /**
+     * Returns the target client ID of the node with the given client ID.
+     * @param {string} clientID - The client ID to get the target for.
+     * @returns {string|null} The target client ID or null if the node is not found.
+     */
+    getTarget(clientID) {
+      return this.map.get(clientID) || null;
+    }
+  
+    /**
+     * Shuffles the given array of strings using the Fisher-Yates shuffle algorithm.
+     * @param {Array<string>} array - The array of strings to shuffle.
+     * @returns {Array<string>} A shuffled copy of the input array.
+     */
+    shuffleArray(array) {
+      for (var i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+    toString(start){
+        var ans=start;
+        var currNode=this.map.get(start);
+        while(currNode!=start){
+            console.log()
+            ans+="-->"+currNode;
+            currNode=this.map.get(currNode);
+        }
+        return ans+"-->"+start;
+    }
+  }
