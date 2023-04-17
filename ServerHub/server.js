@@ -216,7 +216,7 @@ class LinkedList {
         // Make the last client ID point to the first one to make the list circular
         this.map.set(shuffledIDs[shuffledIDs.length - 1], shuffledIDs[0]);
       }
-    }
+    } 
   
     /**
      * Removes the node with the given client ID from the linked list.
