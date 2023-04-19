@@ -30,12 +30,13 @@ wsServer.on("request", request => {
     connection.on("message", message => {
         const incoming = JSON.parse(message.utf8Data)
         if (incoming.method === "connect") connect(connection);
-        if (incoming.method === "ping") ping(connection);
-        if (incoming.method === "createNewGame") createNewGame(connection, incoming);
-        if (incoming.method === "joinGame") joinGame(connection, incoming.gameId, incoming.clientId);
-        if (incoming.method === "fetchGames") fetchGames(connection, incoming.query);
-        if (incoming.method === "updatePosition") updatePosition(incoming.gamesJoined, incoming.clientId, incoming.position);
-        if (incoming.method === "TP") TP(connection, incoming.gameId, incoming.clientId)
+        else if (incoming.method === "ping") ping(connection);
+        else if (incoming.method === "createNewGame") createNewGame(connection, incoming);
+        else if (incoming.method === "joinGame") joinGame(connection, incoming.gameId, incoming.clientId);
+        else if (incoming.method === "fetchGames") fetchGames(connection, incoming.query);
+        else if (incoming.method === "updatePosition") updatePosition(incoming.gamesJoined, incoming.clientId, incoming.position);
+        else if (incoming.method === "TP") TP(connection, incoming.gameId, incoming.clientId)
+        else if(incoming.method === "startGame") startGame(connection,incoming.gameId,incoming.clientId)
     })
 
 })
@@ -98,19 +99,23 @@ function createNewGame(connection, incoming) {
 }
 
 function joinGame(connection, gameId, clientId) {
-    const game = games[gameId]
 
-    game.addPlayer(clientId)
-    const payLoad = {
-        "gameName": game.gameName,
-        "gameId": game.gameId
+    const game = games[gameId]
+    if(game.visibility){
+        game.addPlayer(clientId)
+        const payLoad = {
+            "gameName": game.gameName,
+            "gameId": game.gameId
+        }
+        console.log("userId: "+clientId+" has joined game: "+game.gameId);
+        const package = { "method": "forceJoin", "payload": JSON.stringify(payLoad) }
+        //if(connection!==null){ //if the connection is null because fake data with null connection
+        connection.send(JSON.stringify(package));
+        //}
+        playerJoinUpdate(game.gameId);
+    }else{
+        //send a message that says "could not join game because it is closed"
     }
-    console.log("userId: "+clientId+" has joined game: "+game.gameId);
-    const package = { "method": "forceJoin", "payload": JSON.stringify(payLoad) }
-    //if(connection!==null){ //if the connection is null because fake data with null connection
-    connection.send(JSON.stringify(package));
-    //}
-    playerJoinUpdate(game.gameId);
 }
 
 function fetchGames(connection, query) {
@@ -118,7 +123,7 @@ function fetchGames(connection, query) {
     let gameIds = []
     Object.keys(games).forEach(gameKey => { // gamekey is the gameId, but i decided not to use the same var name
         const game = games[gameKey]
-        if (game.gameName.includes(query)) {
+        if (game.visibility&&game.gameName.includes(query)) {
             gameNames.push(game.gameName);
             gameIds.push(game.gameId);
         }
@@ -141,12 +146,33 @@ function updatePosition(gamesJoined, clientId, position) {
     console.log("client: "+clientId+"'s position has been updated to "+position);
 }
 
+function startGame(connection, gameId, clientId){
+    let game=games[gameId];
+    //set the game's visibility to false
+    
+    if(game.visibility){
+        //TODO add check for 2 or more clients
+        game.visibility=false;
+        //create a linked list
+        game.targets=new LinkedList(game.clientIDs)
+        //send everybody their target && a message that says gameStarted
+        game.clientIDs.forEach(element => {
+
+        })
+        
+        const package = { "method": "fetchGames", "payload": JSON.stringify(payLoad) }
+        connection.send(JSON.stringify(package));
+    }
+}
+    
 
 // GUID generator 
 function S4() {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 }
+
 const guid = () => (S4() + S4() + "-" + S4() + "-4" + S4().substring(0, 3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
+
 /* make sure to uncomment the if statements when debugged
 function runDebug() {
     gameId="";
@@ -176,12 +202,14 @@ class Room {
         this.positions = {};
         this.settings = null;
         this.paused = false;
+        this.visibility = true;
+        this.targets = null;
     }
 
-    postPos(playerId, position) {
+    setPos(playerId, position) {
         positions[playerId] = position;
     }
-    fetchPos(playerId) {
+    getPos(playerId) {
         return positions[playerId];
     }
     addPlayer(playerId) {
