@@ -1,17 +1,35 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 namespace OppSwap.ViewModels
 {
     public partial class JoinPageViewModel : ObservableObject
     {
-        public JoinPageViewModel()
-        {
-
-        }
+        [ObservableProperty]
+        ObservableCollection<string> games;
 
         [ObservableProperty]
         string gameCode;
+
+        
+        public JoinPageViewModel()
+        {
+            games = new ObservableCollection<string>();
+        }
+
+
+        [RelayCommand]
+        void Add()
+        {
+            if (string.IsNullOrWhiteSpace(GameCode))
+            {
+                return;
+            }
+            Games.Add(GameCode);
+            GameCode = string.Empty;
+        }
+
 
         [RelayCommand]
         void joinRoom()
@@ -25,6 +43,7 @@ namespace OppSwap.ViewModels
             //call raj's thing with the game code;
 
         }
+
 
         [RelayCommand]
         async Task goToRoomDetailPage()
