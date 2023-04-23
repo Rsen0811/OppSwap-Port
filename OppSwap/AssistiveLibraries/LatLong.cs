@@ -33,12 +33,12 @@ namespace OppSwap
         public double bearing(LatLong other)
         {
             double R = 6371000; // metres
-            double φ1 = this.latitude * Math.PI / 180; // φ, λ in radians
-            double φ2 = other.latitude * Math.PI / 180;
-            double Δλ = (other.longitude - this.longitude) * Math.PI / 180;
-            double y = Math.Sin(Δλ) * Math.Cos(φ2);
-            double x = Math.Cos(φ1) * Math.Sin(φ2) -
-                      Math.Sin(φ1) * Math.Cos(φ2) * Math.Cos(Δλ);
+            double phi1 = this.latitude * Math.PI / 180; // phi, lambda in radians
+            double phi2 = other.latitude * Math.PI / 180;
+            double Δlambda = (other.longitude - this.longitude) * Math.PI / 180;
+            double y = Math.Sin(Δlambda) * Math.Cos(phi2);
+            double x = Math.Cos(phi1) * Math.Sin(phi2) -
+                      Math.Sin(phi1) * Math.Cos(phi2) * Math.Cos(Δlambda);
             double angle = Math.Atan2(y, x);
             double bearing = (angle * 180 / Math.PI + 360) % 360; // in degrees
             return bearing;
@@ -46,14 +46,14 @@ namespace OppSwap
         public double distance(LatLong other)
         {
             double R = 6371000; // metres
-            double φ1 = this.latitude * Math.PI / 180; // φ, λ in radians
-            double φ2 = other.latitude * Math.PI / 180;
-            double Δφ = (other.latitude - this.latitude) * Math.PI / 180;
-            double Δλ = (other.longitude - this.longitude) * Math.PI / 180;
+            double phi1 = this.latitude * Math.PI / 180; // phi, lambda in radians
+            double phi2 = other.latitude * Math.PI / 180;
+            double Δphi = (other.latitude - this.latitude) * Math.PI / 180;
+            double Δlambda = (other.longitude - this.longitude) * Math.PI / 180;
 
-            double a = Math.Sin(Δφ / 2) * Math.Sin(Δφ / 2) +
-                      Math.Cos(φ1) * Math.Cos(φ2) *
-                      Math.Sin(Δλ / 2) * Math.Sin(Δλ / 2);
+            double a = Math.Sin(Δphi / 2) * Math.Sin(Δphi / 2) +
+                      Math.Cos(phi1) * Math.Cos(phi2) *
+                      Math.Sin(Δlambda / 2) * Math.Sin(Δlambda / 2);
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
             double d = R * c; // in metres
