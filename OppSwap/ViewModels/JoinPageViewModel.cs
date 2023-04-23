@@ -42,7 +42,7 @@ namespace OppSwap.ViewModels
             while (true)
             {
                 await Task.Delay(100);
-                foreach (Room r in ClientInterconnect.c.gamesJoined)
+                foreach (Room r in ClientInterconnect.c.gamesJoined.Values)
                 {
                     if (r.Id.Equals(s))
                     {
