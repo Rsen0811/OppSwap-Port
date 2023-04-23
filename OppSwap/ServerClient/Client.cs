@@ -118,7 +118,7 @@ namespace OppSwap
             {
                 JoinPayload p = (JoinPayload)packet;
                 //gamesJoined.Add(new Room(p.gameName, p.gameId));
-                gamesJoined.Add(p.gameId,new Room(p.gameName, p.gameId)); // change because this no longer makes sense
+                gamesJoined.Add(p.gameId, new Room(p.gameName, p.gameId));
             }
             if (packet.method.Equals("playerJoinUpdate"))
             {

@@ -13,7 +13,7 @@ namespace OppSwap
 
         private void OnCounterClicked(object sender, EventArgs e)
         {
-            //ClientInterconnect.Ping();
+            ClientInterconnect.Ping();
             //ClientInterconnect.StartGame();
             //ClientInterconnect.FetchGames("for");
             //ClientInterconnect.UpdatePosition(new LatLong(123, 345));
