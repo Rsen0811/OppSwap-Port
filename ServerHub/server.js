@@ -164,7 +164,7 @@ function updatePosition(gamesJoined, clientId, position) {
     "client: " + clientId + "'s position has been updated to " + position
   );
 }
-
+ 
 function startGame(connection, gameId, clientId) {
   let game = games[gameId];
   //set the game's visibility to false
