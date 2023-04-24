@@ -68,7 +68,7 @@ namespace OppSwap.ViewModels
                 ClientInterconnect.UpdatePosition(location);
                 //in the future keep in mind to create a check for a mock location provider so we can do something if it is a faked location
 
-                ClientInterconnect.c.TempGetPos(CurrRoom.Id);
+                ClientInterconnect.c.GetTargetPos(CurrRoom.Id);
                 await Task.Delay(500);
                 LatitudeLongitude = location.ToString();
                 pos = ClientInterconnect.getTargetPos();

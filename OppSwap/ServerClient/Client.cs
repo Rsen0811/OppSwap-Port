@@ -97,11 +97,11 @@ namespace OppSwap
             }));
         }
 
-        public void TempGetPos(String gameId) //#=============== fakecode
+        public void GetTargetPos(String gameId) //#=============== fakecode
         {
             ws.Send(JsonConvert.SerializeObject(new
             {
-                method = "TP",
+                method = "getTargetPosition",
                 clientId = clientId,
                 gameId = gameId
             }));
@@ -138,10 +138,12 @@ namespace OppSwap
                 fetchedRooms = p.rooms;
             }
 
-            if (packet.method.Equals("TP"))
+            if (packet.method.Equals("getPosition"))
             {
-                enemyPos = packet.payload;
+                TargetPosPackage p = (TargetPosPackage)packet;
+                gamesJoined[p.gameId].target.Position = new LatLong(p.targetPostion);
             }
+
             if (packet.method.Equals("gameStarted"))
             {
                 StartPayload p = (StartPayload)packet;

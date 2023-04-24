@@ -36,23 +36,26 @@ wsServer.on("request", (request) => {
     else if (incoming.method === "joinGame") joinGame(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "fetchGames") fetchGames(connection, incoming.query);
     else if (incoming.method === "updatePosition") updatePosition(incoming.gamesJoined, incoming.clientId, incoming.position);
-    else if (incoming.method === "TP") TP(connection, incoming.gameId, incoming.clientId);
+    else if (incoming.method === "getTargetPosition") getTargetPosition(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "startGame") startGame(connection, incoming.gameId, incoming.clientId);
   });
 });
-function TP(connection, gameId, clientId) {
-  //#=============== fakecode
-  games[gameId].clientIds.forEach((id) => {
-    if (id != clientId) {
-      const packet = {
-        method: "TP",
-        payload: games[gameId].positions[id],
-      };
-      connection.send(JSON.stringify(packet));
-      return;
-    }
-  });
+
+function getTargetPosition(connection, gameId, clientId) {
+  //#=============== fixedCode
+  const game = games[gameId];
+  if (game.visibility === true) {return} //TODO check for if this actually works to TODO rename variable to visible, so i can stop using === true
+  const targetId = game.targets.getTarget(clientId);
+  const targetPos = game.positions[targetId];
+  
+  const payLoad = {
+    targetPosition: targetPos,
+    gameId: gameId
+  };
+  const package = { method: "getPosition", payload: JSON.stringify(payLoad) };
+  connection.send(JSON.stringify(package));
 }
+
 function connect(connection) {
   pings[connection] = 0;
 
@@ -94,7 +97,7 @@ function playerJoinUpdate(gameId) {
   });
 }
 
-function conectionOpen(clientId) {
+function connectionOpen(clientId) {
   //TODO comment this
   //return true;
   return clients[clientId].status === "open";
@@ -173,7 +176,7 @@ function startGame(connection, gameId, clientId) {
     //create a linked list
     game.targets = new LinkedList(game.clientIDs);
     //send everybody their target && a message that says gameStarted
-    game.clientIDs.forEach((element) => {
+    game.clientIds.forEach((element) => {
       if (connections[element].status === "open") {
         let currConn = connections[element].connection;
         //creating a payload with the oppenents
@@ -196,13 +199,14 @@ function startGame(connection, gameId, clientId) {
 
 // GUID generator
 function S4() {
-  return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 }
+const guid = () => (S4() + S4() + "-" + S4() + "-4" + S4().substring(0, 3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
 
 
 
 //make sure to uncomment the if statements when debugged
-function runDebug() {
+function runDebug() { //TODO move this to the bottom
   gameId = "";
   clientId = "";
 
@@ -225,7 +229,7 @@ function runDebug() {
 
   games[gameId].positions[clientId] = "10, 4";
 }
-runDebug();
+//runDebug();
 //===============================================================================
 class Room {
   constructor(name) {
