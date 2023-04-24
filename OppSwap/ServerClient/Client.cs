@@ -16,7 +16,6 @@ namespace OppSwap
         public String clientId;
         public Dictionary<String,Room> gamesJoined;
         public List<Room> fetchedRooms;
-        public String enemyPos = ""; //#=============== fakecode
         public Client()
         {
             ws = new WebSocket("ws://localhost:9992");//ws://water-cautious-barge.glitch.me");
@@ -97,11 +96,11 @@ namespace OppSwap
             }));
         }
 
-        public void TempGetPos(String gameId) //#=============== fakecode
+        public void GetTargetPos(String gameId)
         {
             ws.Send(JsonConvert.SerializeObject(new
             {
-                method = "TP",
+                method = "getTargetPosition",
                 clientId = clientId,
                 gameId = gameId
             }));
@@ -138,10 +137,12 @@ namespace OppSwap
                 fetchedRooms = p.rooms;
             }
 
-            if (packet.method.Equals("TP"))
+            if (packet.method.Equals("getPosition"))
             {
-                enemyPos = packet.payload;
+                TargetPosPackage p = (TargetPosPackage)packet;
+                gamesJoined[p.gameId].target.Position = new LatLong(p.targetPostion);
             }
+
             if (packet.method.Equals("gameStarted"))
             {
                 StartPayload p = (StartPayload)packet;
