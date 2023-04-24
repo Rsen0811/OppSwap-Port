@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom;
+using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Threading;
 
@@ -14,17 +15,16 @@ namespace OppSwap
 #endif
         public static readonly Client c = (RUNNING_SERVER ? new Client() : null);
 
-        private static List<String> commandList = new List<string>();
+        private static List<String> commandList = new List<String>();
 
         public static void Ping() { commandList.Add("p"); }
         public static void CreateGame(String name) { commandList.Add("c " + name); }
-
         public static void JoinGame(String gameId) { commandList.Add("j " + gameId); }
-        public static void FetchGames(String query) { commandList.Add("s " + query); }
-        public static void UpdatePosition(LatLong position) { commandList.Add("l " + position.ToString()); }
+        public static void FetchGames(String query) { commandList.Add("f " + query); }
+        public static void UpdatePosition(LatLong position) { commandList.Add("u " + position.ToString()); }
+        public static void StartGame(String gameId) { commandList.Add("s " + gameId); }
 
-        public static async void Start()
-        {
+        public static async void Start(){
             while (true)
             {
                 if (!RUNNING_SERVER) return;
@@ -42,13 +42,13 @@ namespace OppSwap
             if (nextCommand[0] == 'p') { c.Ping(); commandList.RemoveAt(0); }
             if (nextCommand[0] == 'c') { c.CreateGame(nextCommand.Split()[1]); commandList.RemoveAt(0); } //8e1ace7c-6efc-4804-5d9f-d2ac96505786
             if (nextCommand[0] == 'j') { c.JoinGame(nextCommand.Split()[1]); commandList.RemoveAt(0); }
-            if (nextCommand[0] == 's') { c.FetchGames(nextCommand.Split()[1]); commandList.RemoveAt(0); }
-            if (nextCommand[0] == 'l') { c.UpdatePosition(nextCommand.Split()[1]); commandList.RemoveAt(0); }
-
+            if (nextCommand[0] == 'f') { c.FetchGames(nextCommand.Split()[1]); commandList.RemoveAt(0); }
+            if (nextCommand[0] == 'u') { c.UpdatePosition(nextCommand.Split()[1]); commandList.RemoveAt(0); }
+            if (nextCommand[0] == 's') { c.StartGame(nextCommand.Split()[1]); commandList.RemoveAt(0); }
         }
         public static Room getRoom(String s)
         {
-            foreach(Room r in c.gamesJoined)
+            foreach(Room r in c.gamesJoined.Values)
             {
                 if (r.Id.Equals(s))
                 {

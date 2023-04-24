@@ -34,6 +34,20 @@ namespace SerializedJSONTemplates
     }
 
     [Serializable]
+    public class StartPayload : JPackage
+    {
+        public String targetId { get; set; }
+        public String gameId { get; set; }
+
+        public static explicit operator StartPayload(JPGeneral incoming)
+        {
+            StartPayload outgoing = JsonConvert.DeserializeObject<StartPayload>(incoming.payload);
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+
+    [Serializable]
     public class JoinPayload : JPackage 
     {
         public String gameName { get; set; }
@@ -93,4 +107,5 @@ namespace SerializedJSONTemplates
         public string clientId { get; set; }
         public string value { get; set; }
     }
+
 }
