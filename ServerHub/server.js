@@ -42,7 +42,6 @@ wsServer.on("request", (request) => {
 });
 
 function getTargetPosition(connection, gameId, clientId) {
-  //#=============== fixedCode
   const game = games[gameId];
   if (game.visibility === true) {return} //TODO check for if this actually works to TODO rename variable to visible, so i can stop using === true
   const targetId = game.targets.getTarget(clientId);
@@ -102,7 +101,7 @@ function connectionOpen(clientId) {
   //return true;
   return clients[clientId].status === "open";
 }
-
+ 
 function createNewGame(connection, incoming) {
   const incomingName = incoming.value;
   const game = new Room(incomingName);
