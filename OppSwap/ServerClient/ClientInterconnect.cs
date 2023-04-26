@@ -57,9 +57,9 @@ namespace OppSwap
             }
             return null;
         }
-        public static LatLong getTargetPos()
+        public static LatLong getTargetPos(String gameId)
         {
-            return new LatLong(c.enemyPos);
+            return c.gamesJoined[gameId].target.Position;
         }
     }
 }
