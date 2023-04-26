@@ -50,11 +50,12 @@ function getTargetPosition(connection, gameId, clientId) {
   const payLoad = {
     targetPosition: targetPos,
     gameId: gameId
-  };
+      };
   const package = { method: "getPosition", payload: JSON.stringify(payLoad) };
   connection.send(JSON.stringify(package));
+    }
+  });
 }
-
 function connect(connection) {
   pings[connection] = 0;
 
@@ -96,12 +97,12 @@ function playerJoinUpdate(gameId) {
   });
 }
 
-function connectionOpen(clientId) {
+function conectionOpen(clientId) {
   //TODO comment this
   //return true;
   return clients[clientId].status === "open";
 }
- 
+
 function createNewGame(connection, incoming) {
   const incomingName = incoming.value;
   const game = new Room(incomingName);
@@ -154,7 +155,7 @@ function fetchGames(connection, query) {
   connection.send(JSON.stringify(package));
 }
 
-function updatePosition(gamesJoined, clientId, position) {
+function updatePosition(gamesJoined, clientId, position) { // fix this we dont need all the game rooms to store the same pos 
   gamesJoined.forEach((element) => {
     // each element is an entire room, the id is a feild of that object
     let game = games[element.Id]; // apparently the entire game is sent when i send all the games, so it makes sense that i am specifically looking for the id of each game
@@ -164,7 +165,7 @@ function updatePosition(gamesJoined, clientId, position) {
     "client: " + clientId + "'s position has been updated to " + position
   );
 }
- 
+
 function startGame(connection, gameId, clientId) {
   let game = games[gameId];
   //set the game's visibility to false
@@ -198,7 +199,7 @@ function startGame(connection, gameId, clientId) {
 
 // GUID generator
 function S4() {
-    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 }
 const guid = () => (S4() + S4() + "-" + S4() + "-4" + S4().substring(0, 3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
 
@@ -236,7 +237,7 @@ class Room {
     this.gameId = guid();
     this.clientIds = [];
     this.targets = null;
-    this.positions = {};
+    //this.positions = {};
     this.settings = null;
     this.paused = false;
     this.visibility = true;
@@ -251,7 +252,7 @@ class Room {
   }
   addPlayer(playerId) {
     this.clientIds.push(playerId);
-    this.positions[playerId] = "0,0";
+    //this.positions[playerId] = "0,0";
   }
 }
 
@@ -259,6 +260,8 @@ class Client {
   constructor(connection) {
     this.connection = connection;
     this.status = "open";
+    this.currentGames = []; // ================================================ TODO
+    this.position = "0,0";
   }
 }
 //==============================================================================
