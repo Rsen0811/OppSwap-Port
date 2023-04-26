@@ -17,8 +17,8 @@ namespace OppSwap
         private void CreateButton_Clicked(object sender, EventArgs e)
         {
         }
-        
-        
+
+
         private async void GoToCreatePage(object sender, EventArgs e)
         {
             // await Shell.Current.GoToAsync(nameof(RoomDetailPage));

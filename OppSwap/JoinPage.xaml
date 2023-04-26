@@ -5,50 +5,60 @@
              x:DataType="viewmodel:JoinPageViewModel"
              xmlns:viewmodel="clr-namespace:OppSwap.ViewModels"
              >
-            
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+    <Grid RowDefinitions="100, Auto, *"
+          ColumnDefinitions=".75*, .25*"
+          Padding="10"
+          RowSpacing="10"
+          ColumnSpacing="10">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+        <Image Grid.ColumnSpan="2"
+               Source="dotnet_bot.png"/>
+        <Entry Placeholder="Enter text"
+               Text="{Binding GameCode}"
+               Grid.Row="1"/>
+        <Button Text="Join"
+                Command="{Binding AddCommand}"
+                Grid.Row="1"
+                Grid.Column="1"/>
+        <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Games}">
 
-            <Entry
-                x:Name="JoinCodeText"
-                Placeholder="enter join code"
-                Text="{Binding GameCode}"
-                FontSize="32"
-                HorizontalOptions="Center"
+                <CollectionView.ItemTemplate>
 
-                />
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
-            <!--Command="{Binding joinRoomCommand}"-->
-            <Button
-                x:Name="JoinButton"
-                Text="Join Game"
-                Command="{Binding goToRoomDetailPageCommand}"
-                HorizontalOptions="Center"
-                />                
-                <!--Command="{Binding joinRoomCommand}"-->
-            <Button
-                x:Name="CreateRoomButton"
-                Text="Create Game"
-                Clicked= "GoToCreatePage"
-                CommandParameter="{Binding GameCode}"
-                HorizontalOptions="Center" />
+                    <DataTemplate x:DataType="{x:Type x:String}">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="leave"
+                                               BackgroundColor="Red">
 
-        </VerticalStackLayout>
-    </ScrollView>
 
+                                    </SwipeItem>
+
+                                </SwipeItems>
+
+                            </SwipeView.RightItems>
+                            <Grid Padding="0,5">
+                                <Frame>
+                                    <Label Text="{Binding .}"
+                                        FontSize="24"/>
+
+                                </Frame>
+
+                            </Grid>
+
+                        </SwipeView>
+
+                    </DataTemplate>
+
+
+                </CollectionView.ItemTemplate>
+
+
+
+        </CollectionView>
+
+    </Grid>
+                     
 </ContentPage>
