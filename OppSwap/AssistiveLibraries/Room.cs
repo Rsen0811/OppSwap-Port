@@ -11,6 +11,7 @@ namespace OppSwap
 
         public Player[] players { get; set; }
         public Target target { get; set; }
+		Boolean gameOpen;
 
 		public Room(String name, String id)
 		{
