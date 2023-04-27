@@ -16,6 +16,7 @@ namespace OppSwap
         public String clientId;
         public Dictionary<String,Room> gamesJoined;
         public List<Room> fetchedRooms;
+        public List<String> errorMessages;
         public Client()
         {
             ws = new WebSocket("ws://localhost:9992");//ws://water-cautious-barge.glitch.me");
