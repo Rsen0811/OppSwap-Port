@@ -35,7 +35,7 @@ wsServer.on("request", (request) => {
     else if (incoming.method === "createNewGame") createNewGame(connection, incoming);
     else if (incoming.method === "joinGame") joinGame(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "fetchGames") fetchGames(connection, incoming.query);
-    else if (incoming.method === "updatePosition") updatePosition(incoming.gamesJoined, incoming.clientId, incoming.position);
+    else if (incoming.method === "updatePosition") updatePosition(incoming.clientId, incoming.position);
     else if (incoming.method === "getTargetPosition") getTargetPosition(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "startGame") startGame(connection, incoming.gameId, incoming.clientId);
   });
@@ -45,17 +45,17 @@ function getTargetPosition(connection, gameId, clientId) {
   const game = games[gameId];
   if (game.visibility === true) {return} //TODO check for if this actually works to TODO rename variable to visible, so i can stop using === true
   const targetId = game.targets.getTarget(clientId);
-  const targetPos = game.positions[targetId];
+  const targetPos = clients[targetId].position;
   
   const payLoad = {
     targetPosition: targetPos,
     gameId: gameId
-      };
+  };
+  
   const package = { method: "getPosition", payload: JSON.stringify(payLoad) };
   connection.send(JSON.stringify(package));
-    }
-  });
 }
+
 function connect(connection) {
   pings[connection] = 0;
 
@@ -155,12 +155,8 @@ function fetchGames(connection, query) {
   connection.send(JSON.stringify(package));
 }
 
-function updatePosition(gamesJoined, clientId, position) { // fix this we dont need all the game rooms to store the same pos 
-  gamesJoined.forEach((element) => {
-    // each element is an entire room, the id is a feild of that object
-    let game = games[element.Id]; // apparently the entire game is sent when i send all the games, so it makes sense that i am specifically looking for the id of each game
-    game.positions[clientId] = position;
-  });
+function updatePosition(clientId, position) { // fix this we dont need all the game rooms to store the same pos 
+  clients[clientId].position = position;
   console.log(
     "client: " + clientId + "'s position has been updated to " + position
   );
@@ -227,7 +223,7 @@ function runDebug() { //TODO move this to the bottom
   for (let i = 0; i < 5; i++) {}
   joinGame(null, gameId, clientId);
 
-  games[gameId].positions[clientId] = "10, 4";
+  clients[clientId].position = "10, 4";
 }
 //runDebug();
 //===============================================================================
@@ -237,18 +233,10 @@ class Room {
     this.gameId = guid();
     this.clientIds = [];
     this.targets = null;
-    //this.positions = {};
     this.settings = null;
     this.paused = false;
     this.visibility = true;
     this.targets = null;
-  }
-
-  setPos(playerId, position) {
-    positions[playerId] = position;
-  }
-  getPos(playerId) {
-    return positions[playerId];
   }
   addPlayer(playerId) {
     this.clientIds.push(playerId);
