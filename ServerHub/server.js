@@ -155,7 +155,7 @@ function fetchGames(connection, query) {
   connection.send(JSON.stringify(package));
 }
 
-function updatePosition(clientId, position) { // fix this we dont need all the game rooms to store the same pos 
+function updatePosition(clientId, position) {
   clients[clientId].position = position;
   console.log(
     "client: " + clientId + "'s position has been updated to " + position
