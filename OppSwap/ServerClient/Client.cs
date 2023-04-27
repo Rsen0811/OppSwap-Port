@@ -83,7 +83,7 @@ namespace OppSwap
             ws.Send(JsonConvert.SerializeObject(new {
                 method = "updatePosition",
                 clientId = clientId,
-                gamesJoined = gamesJoined.ToArray(),
+                ///gamesJoined = gamesJoined.ToArray(), // not needed because we no longer store position in the rooms themselves
                 position = position
             }));
         }
