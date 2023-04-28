@@ -11,11 +11,16 @@ namespace OppSwap.ViewModels
 
         [ObservableProperty]
         string gameCode;
+        [ObservableProperty]
+        ObservableCollection<string> gamesJoined;
 
-        
+
+
+
         public JoinPageViewModel()
         {
             games = new ObservableCollection<string>();
+            gamesJoined = new ObservableCollection<string>(ClientInterconnect.c.gamesJoined.Keys);
         }
 
 
