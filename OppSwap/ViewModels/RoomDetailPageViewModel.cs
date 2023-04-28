@@ -71,7 +71,7 @@ namespace OppSwap.ViewModels
                 ClientInterconnect.c.GetTargetPos(CurrRoom.Id);
                 await Task.Delay(500);
                 LatitudeLongitude = location.ToString();
-                pos = ClientInterconnect.getTargetPos();
+                pos = ClientInterconnect.getTargetPos(currRoom.Id);
 
                 getArrowAngle(location.bearing(pos), double.Parse(CurrHeading));
                 TimeTaken = ArrowAngle + "";
