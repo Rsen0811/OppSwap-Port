@@ -97,7 +97,7 @@ function playerJoinUpdate(gameId) {
   });
 }
 
-function conectionOpen(clientId) {
+function connectionOpen(clientId) {
   //TODO comment this
   //return true;
   return clients[clientId].status === "open";
