@@ -38,8 +38,38 @@ wsServer.on("request", (request) => {
     else if (incoming.method === "updatePosition") updatePosition(incoming.clientId, incoming.position);
     else if (incoming.method === "getTargetPosition") getTargetPosition(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "startGame") startGame(connection, incoming.gameId, incoming.clientId);
+    else if (incoming.method === "reconnect") reconnect(connection, incoming.clientId, incoming.oldId)
   });
 });
+
+function reconnect(connection, clientId, oldId) { // right now just use clientId for debug
+  let client = clients[oldId];
+  client.connection = connection;
+  client.status = "open";
+  client.currentGames.forEach(game => {
+    //rejoin games
+    const payLoad = {
+      gameName: game.gameName,
+      gameId: game.gameId,
+    };
+    console.log("userId: " + clientId + " has rejoined game: " + game.gameId);
+    const package = { method: "forceJoin", payload: JSON.stringify(payLoad) };
+    connection.send(JSON.stringify(package))
+    
+    if (game.visibility === false) { // now tell client that some rooms are started
+      const payload2 = {
+        //TODO eventually change this to nickname
+        targetId: game.targets.getTarget(oldId),
+        gameId: game.gameId,
+      };
+      const package2 = {
+        method: "gameStarted",
+        payload: JSON.stringify(payload2),
+      };
+      connection.send(JSON.stringify(package));
+    }
+  })
+}
 
 function getTargetPosition(connection, gameId, clientId) {
   const game = games[gameId];
