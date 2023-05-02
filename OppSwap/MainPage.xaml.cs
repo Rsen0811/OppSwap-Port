@@ -29,7 +29,7 @@ namespace OppSwap
         }
 
         private async void NextPage(object sender, EventArgs e) {
-            await Shell.Current.GoToAsync(nameof(JoinPage));
+            await Shell.Current.GoToAsync(nameof(RoomDetailPage));
         }
     }
 }

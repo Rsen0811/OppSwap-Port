@@ -12,10 +12,17 @@ namespace OppSwap.ViewModels
         [ObservableProperty]
         string gameCode;
 
+        [ObservableProperty]
+        ObservableCollection<Room> gamesJoined;
+
         
+
+
+
         public JoinPageViewModel()
         {
             games = new ObservableCollection<string>();
+            gamesJoined = new ObservableCollection<Room>(/*ClientInterconnect.c.gamesJoined.Keys*/);
         }
 
 
@@ -27,6 +34,7 @@ namespace OppSwap.ViewModels
                 return;
             }
             Games.Add(GameCode);
+            //GamesJoined.Add(GameCode);
             GameCode = string.Empty;
         }
 
