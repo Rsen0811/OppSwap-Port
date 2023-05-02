@@ -50,8 +50,9 @@ function reconnect(connection, clientId, oldId) { // right now just use clientId
 
   client.connection = connection;
   client.status = "open";
-  client.currentGames.forEach(game => {
+  client.currentGames.forEach(gameId => {
     //rejoin games
+    let game = games[gameId]
     const payLoad = {
       gameName: game.gameName,
       gameId: game.gameId,
@@ -150,6 +151,8 @@ function createNewGame(connection, incoming) {
 
 function joinGame(connection, gameId, clientId) {
   const game = games[gameId];
+  clients[clientId].currentGames.push(gameId);
+
   if (game.visibility) {
     game.addPlayer(clientId);
     const payLoad = {
