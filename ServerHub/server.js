@@ -44,6 +44,10 @@ wsServer.on("request", (request) => {
 
 function reconnect(connection, clientId, oldId) { // right now just use clientId for debug
   let client = clients[oldId];
+
+  if (connections[client.connection] != null) delete connections[client.connection];
+  delete clients[clientId];
+
   client.connection = connection;
   client.status = "open";
   client.currentGames.forEach(game => {
