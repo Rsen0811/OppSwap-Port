@@ -59,6 +59,7 @@ namespace OppSwap.ViewModels
                 //stopwatch.Start();
                 //TimeTaken = stopwatch.ElapsedMilliseconds + "";
                 //stopwatch.Stop();
+                //TODO REMOVE THIS LOCATION FINDING IN THE FUTURE
                 GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(30));
                 Location l = await Geolocation.Default.GetLocationAsync(request);
                 
