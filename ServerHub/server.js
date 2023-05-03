@@ -44,6 +44,7 @@ wsServer.on("request", (request) => {
 
 function reconnect(connection, clientId, oldId) { // right now just use clientId for debug
   let client = clients[oldId];
+  if (client === undefined) return;
 
   if (connections[client.connection] != null) delete connections[client.connection];
   delete clients[clientId];
