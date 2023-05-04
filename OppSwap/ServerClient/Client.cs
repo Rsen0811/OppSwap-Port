@@ -98,6 +98,7 @@ namespace OppSwap
                 gameId = gameId
             }));
         }
+
         private void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
         {
             JPGeneral packet = JsonConvert.DeserializeObject<JPGeneral>(e.Data);
@@ -133,6 +134,14 @@ namespace OppSwap
             if (packet.method.Equals("TP"))
             {
                 enemyPos = packet.payload;
+            }
+            if(packet.method.Equals("A game has already started"))
+            {
+                AppShell.Current.CurrentPage.DisplayAlert("Important Message", "A game has already started", "Accept");
+            }     
+            if(packet.method.Equals("Could not join game because it is closed")) 
+            {
+                AppShell.Current.CurrentPage.DisplayAlert("Important Message", "Could not join game because it is closed", "Accept");
             }
         }
     }

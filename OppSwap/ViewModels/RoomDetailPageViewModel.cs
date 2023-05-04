@@ -71,7 +71,7 @@ namespace OppSwap.ViewModels
                 ClientInterconnect.c.TempGetPos(CurrRoom.Id);
                 await Task.Delay(500);
                 LatitudeLongitude = location.ToString();
-                pos = ClientInterconnect.getTargetPos();
+                pos = ClientInterconnect.getTargetPos(currRoom.Id);
 
                 getArrowAngle(location.bearing(pos), double.Parse(CurrHeading));
                 TimeTaken = ArrowAngle + "";
@@ -99,6 +99,8 @@ namespace OppSwap.ViewModels
                 Vector2.Normalize(new Vector2((float)Math.Cos(heading), (float)Math.Sin(heading))));
             ArrowAngle =(Math.Abs(Math.Acos(Math.Floor(dot))*180/Math.PI))%360;
         }
+
+
     }
 }
 

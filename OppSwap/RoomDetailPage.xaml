@@ -16,11 +16,24 @@
             Spacing="25"    
             Padding="30,0"
             VerticalOptions="Center">
+
+
+            <Image
+                Source="dotnet_bot.png"
+                x:Name="Arrow"
+                SemanticProperties.Description="Robot thing idk"
+                HeightRequest="200"
+                Rotation="{Binding ArrowAngle}"
+                HorizontalOptions="Center" />
+            <!--Rotation="{Binding ArrowAngle}"-->
+
             <Label
                 Text="{Binding CurrRoom.Name}"
                 FontSize="25"
                 HorizontalOptions="Center"
                 />
+            
+         
             <Label
                 Text="{Binding LatitudeLongitude}"
                 SemanticProperties.HeadingLevel="Level1"
@@ -33,6 +46,9 @@
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I"
                 FontSize="18"
                 HorizontalOptions="Center" />
+            
+
+
 
             <Button
                 x:Name="GetLocation"
