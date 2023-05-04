@@ -106,6 +106,16 @@ namespace OppSwap
                 gameId = gameId
             }));
         }
+
+        public void Reconnect(String oldGuid) // must have guid from previous state
+        {
+            ws.Send(JsonConvert.SerializeObject(new
+            {
+                method = "reconnect",
+                clientId = clientId,
+                oldId = oldGuid
+            }));
+        }
         private void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
         {
             JPGeneral packet = JsonConvert.DeserializeObject<JPGeneral>(e.Data);
