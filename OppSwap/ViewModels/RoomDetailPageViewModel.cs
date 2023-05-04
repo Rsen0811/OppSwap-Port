@@ -25,6 +25,9 @@ namespace OppSwap.ViewModels
         [ObservableProperty]
         double arrowAngle;
 
+        [ObservableProperty]
+        public bool visible;
+
         LatLong location;
         LatLong pole = new LatLong();
 
@@ -116,5 +119,6 @@ namespace OppSwap.ViewModels
         //}
 
     }
+    
 }
 

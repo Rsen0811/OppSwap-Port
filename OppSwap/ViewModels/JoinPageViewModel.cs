@@ -24,18 +24,20 @@ namespace OppSwap.ViewModels
             games = new ObservableCollection<string>();
             gamesJoined = new ObservableCollection<Room>(/*ClientInterconnect.c.gamesJoined.Keys*/);
         }
-
-
         [RelayCommand]
-        void Add()
+        async Task Tap(String s)
         {
-            if (string.IsNullOrWhiteSpace(GameCode))
-            {
-                return;
+            await Shell.Current.GoToAsync(nameof(RoomDetailPage));
+        }
+
+
+  
+        [RelayCommand]
+        void Delete(Room r)
+        {
+            if (GamesJoined.Contains(r)){
+                GamesJoined.Remove(r);
             }
-            Games.Add(GameCode);
-            //GamesJoined.Add(GameCode);
-            GameCode = string.Empty;
         }
 
 
@@ -46,8 +48,14 @@ namespace OppSwap.ViewModels
             {
                 return;
             }
-            ClientInterconnect.JoinGame(GameCode);
+            //if (ClientInterconnect.c.gamesJoined.ContainsKey(GameCode))
+            //{
+
+            //GamesJoined.Add(ClientInterconnect.c.gamesJoined[GameCode]);
+            //}
+            games.Add(GameCode);
             GameCode = "";
+
             //call raj's thing with the game code;
 
         }
