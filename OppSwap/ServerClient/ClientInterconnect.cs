@@ -3,6 +3,10 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Threading;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using System.Diagnostics;
+using System.Numerics;
 
 namespace OppSwap
 {
@@ -29,12 +33,27 @@ namespace OppSwap
             while (true)
             {
                 if (!RUNNING_SERVER) return;
-                updateCommands();
+                await updateCommands();
+                processCommands();
                 await Task.Delay(100); // waits 100 ms between calls
             }
         }
 
-        private static void updateCommands()
+        private async static Task<Task> updateCommands()
+        {
+            GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(30));
+            Location l = await Geolocation.Default.GetLocationAsync(request);
+
+
+
+            LatLong location = new LatLong(l.Latitude, l.Longitude);
+            UpdatePosition(location);
+           // if (AppShell.Current.CurrentPage. == "meme")
+            return Task.Delay(0);
+        }
+
+
+        private static void processCommands()
         {
             if (commandList.Count == 0 || c.clientId == null) return;
 
