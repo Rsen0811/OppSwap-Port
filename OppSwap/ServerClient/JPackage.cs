@@ -34,6 +34,20 @@ namespace SerializedJSONTemplates
     }
 
     [Serializable]
+    public class StartPayload : JPackage
+    {
+        public String targetId { get; set; }
+        public String gameId { get; set; }
+
+        public static explicit operator StartPayload(JPGeneral incoming)
+        {
+            StartPayload outgoing = JsonConvert.DeserializeObject<StartPayload>(incoming.payload);
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+
+    [Serializable]
     public class JoinPayload : JPackage 
     {
         public String gameName { get; set; }
@@ -82,6 +96,20 @@ namespace SerializedJSONTemplates
         }
     }
 
+    [Serializable]
+    public class TargetPosPackage : JPackage
+    {
+        public String targetPostion { get; set; }
+        public String gameId { get; set; }
+
+        public static explicit operator TargetPosPackage(JPGeneral incoming)
+        {
+            TargetPosPackage outgoing = JsonConvert.DeserializeObject<TargetPosPackage>(incoming.payload);
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+
     //sending packets
 
     // send single string
@@ -93,4 +121,5 @@ namespace SerializedJSONTemplates
         public string clientId { get; set; }
         public string value { get; set; }
     }
+
 }

@@ -1,9 +1,11 @@
 // JavaScript source code
 const http = require("http");
 
-const websocketServer = require("websocket").server
+const websocketServer = require("websocket").server;
 const httpServer = http.createServer();
-httpServer.listen(9992, () => console.log("BEEP BOOP, COMPUTER NOISES ON 9092"))
+httpServer.listen(9992, () =>
+  console.log("BEEP BOOP, COMPUTER NOISES ON 9092")
+);
 
 // hashmap of all clients
 const clients = {};
@@ -13,102 +15,147 @@ const games = {};
 const pings = {};
 
 const wsServer = new websocketServer({
-    "httpServer": httpServer
-})
+  httpServer: httpServer,
+});
 
+wsServer.on("request", (request) => {
+  const connection = request.accept(null, request.origin);
+  connection.on("open", () => console.log("Seasame has been opened!"));
+  connection.on("close", () => {
+    console.log("Leaving so soon?");
+    // finds the entire client that has been disconnected, by looking at reversed object, sets status to closed
+    clients[connections[connection]].status = "closed";
+    delete connections[connection];
+  });
 
-wsServer.on("request", request => {
-    const connection = request.accept(null, request.origin);
-    connection.on("open", () => console.log("Seasame has been opened!"));
-    connection.on("close", () => {
-        console.log("Leaving so soon?");
-        // finds the entire client that has been disconnected, by looking at reversed object, sets status to closed
-        clients[connections[connection]].status = "closed";
-        delete connections[connection];
-    });
-    
-    connection.on("message", message => {
-        const incoming = JSON.parse(message.utf8Data)
-        if (incoming.method === "connect") connect(connection);
-        if (incoming.method === "ping") ping(connection);
-        if (incoming.method === "createNewGame") createNewGame(connection, incoming);
-        if (incoming.method === "joinGame") joinGame(connection, incoming.gameId, incoming.clientId);
-        if (incoming.method === "fetchGames") fetchGames(connection, incoming.query);
-        if (incoming.method === "updatePosition") updatePosition(incoming.gamesJoined, incoming.clientId, incoming.position);
-        if (incoming.method === "TP") TP(connection, incoming.gameId, incoming.clientId)
-    })
+  connection.on("message", (message) => {
+    const incoming = JSON.parse(message.utf8Data);
+    if (incoming.method === "connect") connect(connection);
+    else if (incoming.method === "ping") ping(connection);
+    else if (incoming.method === "createNewGame") createNewGame(connection, incoming);
+    else if (incoming.method === "joinGame") joinGame(connection, incoming.gameId, incoming.clientId);
+    else if (incoming.method === "fetchGames") fetchGames(connection, incoming.query);
+    else if (incoming.method === "updatePosition") updatePosition(incoming.clientId, incoming.position);
+    else if (incoming.method === "getTargetPosition") getTargetPosition(connection, incoming.gameId, incoming.clientId);
+    else if (incoming.method === "startGame") startGame(connection, incoming.gameId, incoming.clientId);
+    else if (incoming.method === "reconnect") reconnect(connection, incoming.clientId, incoming.oldId)
+  });
+});
 
-})
-function TP(connection, gameId, clientId) { //#=============== fakecode
-    games[gameId].clients.forEach(id => {
-        if (id != clientId) {
-            const packet = {
-                "method": "TP",
-                "payload": games[gameId].positions[id]
-            }
-            connection.send(JSON.stringify(packet));
-            return;
-        }
-    })
-}
-function connect(connection) {
-    pings[connection] = 0;
+function reconnect(connection, clientId, oldId) { // right now just use clientId for debug
+  let client = clients[oldId];
+  if (client === undefined) return;
 
-    const clientId = guid();
-    clients[clientId] = {
-        "connection": connection,
-        "status": "open"
-    }
-    connections[connection] = clientId;
+  if (connections[client.connection] != null) delete connections[client.connection];
+  delete clients[clientId];
 
+  client.connection = connection;
+  client.status = "open";
+  client.currentGames.forEach(gameId => {
+    //rejoin games
+    let game = games[gameId]
     const payLoad = {
-        "clientId": clientId
+      gameName: game.gameName,
+      gameId: game.gameId,
+    };
+    console.log("userId: " + clientId + " has rejoined game: " + game.gameId);
+    const package = { method: "forceJoin", payload: JSON.stringify(payLoad) };
+    connection.send(JSON.stringify(package))
+    
+    if (game.visibility === false) { // now tell client that some rooms are started
+      const payload2 = {
+        //TODO eventually change this to nickname
+        targetId: game.targets.getTarget(oldId),
+        gameId: game.gameId,
+      };
+      const package2 = {
+        method: "gameStarted",
+        payload: JSON.stringify(payload2),
+      };
+      connection.send(JSON.stringify(package));
     }
-    const package = { "method": "connect", "payload": JSON.stringify(payLoad) }
-    // send back the client connect
-    connection.send(JSON.stringify(package));
-} 
+  })
+}
+
+function getTargetPosition(connection, gameId, clientId) {
+  const game = games[gameId];
+  if (game.visibility === true) {return} //TODO check for if this actually works to TODO rename variable to visible, so i can stop using === true
+  const targetId = game.targets.getTarget(clientId);
+  const targetPos = clients[targetId].position;
+  
+  const payLoad = {
+    targetPosition: targetPos,
+    gameId: gameId
+  };
+  
+  const package = { method: "getPosition", payload: JSON.stringify(payLoad) };
+  connection.send(JSON.stringify(package));
+}
+
+function connect(connection) {
+  pings[connection] = 0;
+
+  const clientId = guid();
+  clients[clientId] = new Client(connection);
+  connections[connection] = clientId; // gets client id from connection
+
+  const payLoad = {
+    clientId: clientId,
+  };
+  const package = { method: "connect", payload: JSON.stringify(payLoad) };
+  // send back the client connect
+  connection.send(JSON.stringify(package));
+}
 
 function ping(connection) {
-    console.log("Suceessful PING: ---")
-    console.log("pingnumber: " + ++pings[connection]) // proves that connections are not kept over different client sessions
-    console.log("Connection: " + connection.remoteAddress)
+  console.log("Suceessful PING: ---");
+  console.log("pingnumber: " + ++pings[connection]); // proves that connections are not kept over different client sessions
+  console.log("Connection: " + connection.remoteAddress);
 }
 
 function playerJoinUpdate(gameId) {
-    const payLoad = {
-        "gameId" : gameId,
-        "clients": games[gameId].clients
-    }
-    const package = { "method": "playerJoinUpdate", "payload": JSON.stringify(payLoad) }
+  const payLoad = {
+    gameId: gameId,
+    clients: games[gameId].clientIds,
+  };
+  const package = {
+    method: "playerJoinUpdate",
+    payload: JSON.stringify(payLoad),
+  };
 
-    games[gameId].clients.forEach(client => { 
-        //if(client[client]!=null){ //if the connection is null because fake data with null connection
-        if (clients[client].status === "open") { // if the connection is status closed, then dont try sending message
-                clients[client].connection.send(JSON.stringify(package));
-        } 
-        //}   
-    });
+  games[gameId].clientIds.forEach((client) => {
+    //recomment
+    if (connectionOpen(client)) {
+      // if the connection is status closed, then dont try sending message
+      clients[client].connection.send(JSON.stringify(package));
+    }
+    //}
+  });
+}
+
+function connectionOpen(clientId) {
+  //TODO comment this
+  //return true;
+  return clients[clientId].status === "open";
 }
 
 function createNewGame(connection, incoming) {
-    gameId = guid()
-    games[gameId] = {
-        "name": incoming.value,
-        "id": gameId,
-        "clients": [],
-        "positions": {}
-    }
+  const incomingName = incoming.value;
+  const game = new Room(incomingName);
+  games[game.gameId] = game;
 
-    console.log("Game " + gameId + " created by userId: " + incoming.clientId)
-    //joinGame(connection, gameId, incoming.clientId);
+  console.log(
+    "Game " + game.gameId + " created by userId: " + incoming.clientId
+  );
+  joinGame(connection, game.gameId, incoming.clientId);
 }
 
 function joinGame(connection, gameId, clientId) {
-    game = games[gameId]
+  const game = games[gameId];
+  clients[clientId].currentGames.push(gameId);
 
-    game.clients.push(clientId)
-    game.positions[clientId] = "0, 0";
+  if (game.visibility) {
+    game.addPlayer(clientId);
     const payLoad = {
       gameName: game.gameName,
       gameId: game.gameId,
@@ -123,8 +170,6 @@ function joinGame(connection, gameId, clientId) {
   } else {
       //send a message that says "could not join game because it is closed"
       sendServerMessage(connection,"Could not join game because it is closed");
-
-
   }
 }
 
@@ -144,23 +189,31 @@ function fetchGames(connection, query) {
         "names": gameNames,
         "ids": gameIds
     }
-    
-    const package = { "method": "fetchGames", "payload": JSON.stringify(payLoad) }
-    connection.send(JSON.stringify(package));
+  });
+
+  const payLoad = {
+    names: gameNames,
+    ids: gameIds,
+  };
+
+  const package = { method: "fetchGames", payload: JSON.stringify(payLoad) };
+  connection.send(JSON.stringify(package));
 }
 
-function updatePosition(gamesJoined, clientId, position) {
-    gamesJoined.forEach(element => {
-        game = games[element.Id]
-        game.positions[clientId] = position;
-    })
-    console.log("client: "+clientId+"'s position has been updated to "+position);
+function updatePosition(clientId, position) {
+  clients[clientId].position = position;
+  console.log(
+    "client: " + clientId + "'s position has been updated to " + position
+  );
 }
  
 function startGame(connection, gameId, clientId) {
   let game = games[gameId];
   //set the game's visibility to false
 
+function startGame(connection, gameId, clientId) {
+  let game = games[gameId];
+  //set the game's visibility to false
   if (game.visibility) {
     //TODO add check for 2 or more clients
     game.visibility = false;
@@ -184,34 +237,43 @@ function startGame(connection, gameId, clientId) {
       }
     });
   } else {
-    //add code that sends a game has already started
+    //add code that sends the game has already started
       sendServerMessage(connection, "A game has already started");
   }
 }
 
-// GUID generator 
+// GUID generator
 function S4() {
-    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 }
 const guid = () => (S4() + S4() + "-" + S4() + "-4" + S4().substring(0, 3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
-/* make sure to uncomment the if statements when debugged
-function runDebug() {
-    gameId="";
-    clientId="";
 
-    clients["imcracked"]=null;
-    incoming={
-    "value" : "coolRoom",
-    "clientId" : "imcracked"
-    };
-    createNewGame(null,incoming)
 
-    Object.keys(games).forEach(gameKey => {gameId=gameKey})
-    Object.keys(clients).forEach(clientKey => {clientId=clientKey})
-    joinGame(null,gameId,clientId);
 
-    games[gameId].positions[clientId] = "10, 4";
-}*/
+//make sure to uncomment the if statements when debugged
+function runDebug() { //TODO move this to the bottom
+  gameId = "";
+  clientId = "";
+
+  clients["imcracked"] = null;
+  incoming = {
+    value: "coolRoom",
+    clientId: "imcracked",
+  };
+  createNewGame(null, incoming);
+
+  Object.keys(games).forEach((gameKey) => {
+    gameId = gameKey;
+  });
+  Object.keys(clients).forEach((clientKey) => {
+    clientId = clientKey;
+  });
+
+  for (let i = 0; i < 5; i++) {}
+  joinGame(null, gameId, clientId);
+
+  clients[clientId].position = "10, 4";
+}
 //runDebug();
 //===============================================================================
 class Room {
@@ -243,6 +305,8 @@ class Client {
   constructor(connection) {
     this.connection = connection;
     this.status = "open";
+    this.currentGames = []; // ================================================ TODO
+    this.position = "0,0";
   }
 }
 //==============================================================================
@@ -317,9 +381,6 @@ class LinkedList {
     }
     return ans + "-->" + start;
     }
-
-
-
 }
 
 function sendServerMessage(connection, message) {
@@ -328,4 +389,5 @@ function sendServerMessage(connection, message) {
     };
 
     const package = { method: "serverMessage", payload: JSON.stringify(payLoad) };
+  }
 }

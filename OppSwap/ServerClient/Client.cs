@@ -14,17 +14,16 @@ namespace OppSwap
     {
         private WebSocket ws;
         public String clientId;
-        public List<Room> gamesJoined;
+        public Dictionary<String,Room> gamesJoined;
         public List<Room> fetchedRooms;
-        public String enemyPos = ""; //#=============== fakecode
-
+        public List<String> errorMessages;
         public Client()
         {
             ws = new WebSocket("ws://localhost:9992");//ws://water-cautious-barge.glitch.me");
             ws.Connect();
             ws.OnMessage += Ws_OnMessage;
 
-            gamesJoined = new List<Room>();
+            gamesJoined = new Dictionary<String,Room>();
             //   outdated code from a more civilized age
             JPackage p = new JPackage
             {
@@ -84,21 +83,39 @@ namespace OppSwap
             ws.Send(JsonConvert.SerializeObject(new {
                 method = "updatePosition",
                 clientId = clientId,
-                gamesJoined = gamesJoined.ToArray(),
+                ///gamesJoined = gamesJoined.ToArray(), // not needed because we no longer store position in the rooms themselves
                 position = position
             }));
         }
-
-        public void TempGetPos(String gameId) //#=============== fakecode
+        public void StartGame(String gameId)
         {
             ws.Send(JsonConvert.SerializeObject(new
             {
-                method = "TP",
+                method = "startGame",
                 clientId = clientId,
                 gameId = gameId
             }));
         }
 
+        public void GetTargetPos(String gameId)
+        {
+            ws.Send(JsonConvert.SerializeObject(new
+            {
+                method = "getTargetPosition",
+                clientId = clientId,
+                gameId = gameId
+            }));
+        }
+
+        public void Reconnect(String oldGuid) // must have guid from previous state
+        {
+            ws.Send(JsonConvert.SerializeObject(new
+            {
+                method = "reconnect",
+                clientId = clientId,
+                oldId = oldGuid
+            }));
+        }
         private void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
         {
             JPGeneral packet = JsonConvert.DeserializeObject<JPGeneral>(e.Data);
@@ -110,13 +127,13 @@ namespace OppSwap
             if (packet.method.Equals("forceJoin"))
             {
                 JoinPayload p = (JoinPayload)packet;
-                gamesJoined.Add(new Room(p.gameName, p.gameId));
-                //gamesJoined.Append((p.gameName, p.gameId)); // change because this no longer makes sense
+                //gamesJoined.Add(new Room(p.gameName, p.gameId));
+                gamesJoined.Add(p.gameId, new Room(p.gameName, p.gameId));
             }
             if (packet.method.Equals("playerJoinUpdate"))
             {
                 playerJoinPayload p = (playerJoinPayload)packet;
-                foreach (Room r in gamesJoined)
+                foreach (Room r in gamesJoined.Values)
                 {
                     if (r.Id.Equals(p.gameId))
                     {
@@ -131,9 +148,19 @@ namespace OppSwap
                 fetchedRooms = p.rooms;
             }
 
-            if (packet.method.Equals("TP"))
+            if (packet.method.Equals("getPosition"))
             {
-                enemyPos = packet.payload;
+                TargetPosPackage p = (TargetPosPackage)packet;
+                gamesJoined[p.gameId].target.Position = new LatLong(p.targetPostion);
+            }
+
+            if (packet.method.Equals("gameStarted"))
+            {
+                StartPayload p = (StartPayload)packet;
+                //TODO eventually we can look into transferring the nickname instead of targetID, for now use target ID as a replacement Nick when displaying target name
+                //target initially has a position of 0,0
+                gamesJoined[p.gameId].target =new Target(p.targetId);
+                //TODO call getPos here
             }
             if(packet.method.Equals("A game has already started"))
             {

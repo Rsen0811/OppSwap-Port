@@ -59,6 +59,7 @@ namespace OppSwap.ViewModels
                 //stopwatch.Start();
                 //TimeTaken = stopwatch.ElapsedMilliseconds + "";
                 //stopwatch.Stop();
+                //TODO REMOVE THIS LOCATION FINDING IN THE FUTURE
                 GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(30));
                 Location l = await Geolocation.Default.GetLocationAsync(request);
                 
@@ -68,7 +69,7 @@ namespace OppSwap.ViewModels
                 ClientInterconnect.UpdatePosition(location);
                 //in the future keep in mind to create a check for a mock location provider so we can do something if it is a faked location
 
-                ClientInterconnect.c.TempGetPos(CurrRoom.Id);
+                ClientInterconnect.c.GetTargetPos(CurrRoom.Id);
                 await Task.Delay(500);
                 LatitudeLongitude = location.ToString();
                 pos = ClientInterconnect.getTargetPos(currRoom.Id);
