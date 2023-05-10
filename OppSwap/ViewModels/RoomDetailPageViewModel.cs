@@ -105,18 +105,12 @@ namespace OppSwap.ViewModels
         [ObservableProperty]
         String target;
 
-        //void updateTarget(/*Room*/)
-        //{
-        /*target = Room.target.Name;
-
-        if (messagefromRajat)
+        void updateTarget(Room game)
         {
+            target = game.target.Name;
+
 
         }
-        //ClientInterconnect.getTargetPos(add game Id);
-
-        */
-        //}
 
     }
     

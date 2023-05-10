@@ -4,16 +4,17 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 namespace OppSwap.ViewModels
 {
+    [QueryProperty(nameof(JoinedGames)/*The name of the property in ViewModel*/, nameof(JoinedGames)/*The name of the property when you switch pages*/)]
     public partial class JoinPageViewModel : ObservableObject
     {
-        [ObservableProperty]
-        ObservableCollection<string> games;
+        //[ObservableProperty]
+        //ObservableCollection<string> games;
 
         [ObservableProperty]
         string gameCode;
 
         [ObservableProperty]
-        ObservableCollection<Room> gamesJoined;
+        Dictionary<string,Room>.ValueCollection joinedGames;
 
         
 
@@ -21,42 +22,55 @@ namespace OppSwap.ViewModels
 
         public JoinPageViewModel()
         {
-            games = new ObservableCollection<string>();
-            gamesJoined = new ObservableCollection<Room>(/*ClientInterconnect.c.gamesJoined.Keys*/);
+            //games = new ObservableCollection<string>();
+            
         }
         [RelayCommand]
-        async Task Tap(String s)
+        async Task Tap(Room r)
         {
-            await Shell.Current.GoToAsync(nameof(RoomDetailPage));
+            ClientInterconnect.c.JoinGame(r.Id);
+
+            await gameJoined(GameCode);
+            await Shell.Current.GoToAsync(nameof(RoomDetailPage),
+            new Dictionary<string, object>
+            {
+                //get the room we made with the textbox inside of it
+                ["CurrRoom"] = ClientInterconnect.getRoom(r.Id)
+            });
         }
 
 
   
         [RelayCommand]
-        void Delete(Room r)
+        async Task Delete(Room r)
         {
-            if (GamesJoined.Contains(r)){
-                GamesJoined.Remove(r);
-            }
+
+            ClientInterconnect.c.gamesJoined.Remove(r.Id);
+            await Shell.Current.GoToAsync(nameof(JoinPage),
+           new Dictionary<string, object>
+           {
+               //get the room we made with the textbox inside of it
+               ["JoinedGames"] = ClientInterconnect.getRoom(GameCode)
+           });
         }
 
 
         [RelayCommand]
-        void joinRoom()
+        async void joinRoom()
         {
             if (string.IsNullOrWhiteSpace(GameCode))
             {
                 return;
             }
-            //if (ClientInterconnect.c.gamesJoined.ContainsKey(GameCode))
-            //{
+            ClientInterconnect.JoinGame(GameCode);
+            await Task.Delay(100);
+            await Shell.Current.GoToAsync(nameof(JoinPage),
+           new Dictionary<string, object>
+           {
+               //get the room we made with the textbox inside of it
+               ["JoinedGames"] = ClientInterconnect.c.gamesJoined.Values
+           }) ;
 
-            //GamesJoined.Add(ClientInterconnect.c.gamesJoined[GameCode]);
-            //}
-            games.Add(GameCode);
-            GameCode = "";
-
-            //call raj's thing with the game code;
 
         }
 

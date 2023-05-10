@@ -11,7 +11,7 @@ namespace OppSwap
 #if DISABLE_SERVER // this to false if running, true if not
         public static readonly bool RUNNING_SERVER = false; 
 #else
-        public static readonly bool RUNNING_SERVER = false; 
+        public static readonly bool RUNNING_SERVER = true; 
 #endif
         public static readonly Client c = (RUNNING_SERVER ? new Client() : null);
 

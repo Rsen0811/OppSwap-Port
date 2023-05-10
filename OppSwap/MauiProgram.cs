@@ -15,8 +15,8 @@ namespace OppSwap
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            builder.Services.AddSingleton<JoinPage>();
-            builder.Services.AddSingleton<JoinPageViewModel>();
+            builder.Services.AddTransient<JoinPage>();
+            builder.Services.AddTransient<JoinPageViewModel>();
 
             builder.Services.AddSingleton<CreatePage>();
             builder.Services.AddSingleton<CreatePageViewModel>();
