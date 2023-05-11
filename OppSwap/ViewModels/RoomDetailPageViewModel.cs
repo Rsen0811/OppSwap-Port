@@ -7,8 +7,8 @@ namespace OppSwap.ViewModels
 {
     [QueryProperty(nameof(CurrRoom)/*The name of the property in ViewModel*/, nameof(CurrRoom)/*The name of the property when you switch pages*/)]
 
-    public partial class RoomDetailPageViewModel: ObservableObject
-	{
+    public partial class RoomDetailPageViewModel : ObservableObject
+    {
 
         [ObservableProperty]
         Room currRoom;
@@ -25,14 +25,17 @@ namespace OppSwap.ViewModels
         [ObservableProperty]
         double arrowAngle;
 
+        [ObservableProperty]
+        public bool visible;
+
         LatLong location;
         LatLong pole = new LatLong();
-       
+
 
         LatLong pos;
 
         public RoomDetailPageViewModel()
-		{
+        {
             //CurrRoom = new Room("bruh", "bruh");
 
             pos = pole;//Room.target.position;
@@ -45,13 +48,13 @@ namespace OppSwap.ViewModels
             //Compass.Default.ReadingChanged += Compass_ReadingChanged;
             //Compass.Default.Start(SensorSpeed.Default);
             ArrowAngle = 0;
-            
+
         }
         //only works with IOS as of right now
         [RelayCommand]
         public async Task getCurrentLocation()
         {
-            
+
             try
             {
                 //timer code move the stop and the elapsed milliseconds to after the l declaration
@@ -62,9 +65,9 @@ namespace OppSwap.ViewModels
                 //TODO REMOVE THIS LOCATION FINDING IN THE FUTURE
                 GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(30));
                 Location l = await Geolocation.Default.GetLocationAsync(request);
-                
 
-                
+
+
                 location = new LatLong(l.Latitude, l.Longitude);
                 ClientInterconnect.UpdatePosition(location);
                 //in the future keep in mind to create a check for a mock location provider so we can do something if it is a faked location
@@ -72,13 +75,14 @@ namespace OppSwap.ViewModels
                 ClientInterconnect.c.GetTargetPos(CurrRoom.Id);
                 await Task.Delay(500);
                 LatitudeLongitude = location.ToString();
-                pos = ClientInterconnect.getTargetPos(currRoom.Id);
+                pos = ClientInterconnect.getTargetPos(CurrRoom.Id);
+
 
                 getArrowAngle(location.bearing(pos), double.Parse(CurrHeading));
                 TimeTaken = ArrowAngle + "";
 
-                
-                
+
+
             }
             // Catch one of the following exceptions:
             //   FeatureNotSupportedException
@@ -96,10 +100,21 @@ namespace OppSwap.ViewModels
         {
             bearing = bearing * Math.PI / 180;
             heading = heading * Math.PI / 180;
-            double dot = Vector2.Dot(Vector2.Normalize(new Vector2((float)Math.Cos(bearing),(float)Math.Sin(bearing))),
+            double dot = Vector2.Dot(Vector2.Normalize(new Vector2((float)Math.Cos(bearing), (float)Math.Sin(bearing))),
                 Vector2.Normalize(new Vector2((float)Math.Cos(heading), (float)Math.Sin(heading))));
-            ArrowAngle =(Math.Abs(Math.Acos(Math.Floor(dot))*180/Math.PI))%360;
+            ArrowAngle = (Math.Abs(Math.Acos(Math.Floor(dot)) * 180 / Math.PI)) % 360;
         }
+        [ObservableProperty]
+        String target;
+
+        void updateTarget(Room game)
+        {
+            target = game.target.Name;
+
+
+        }
+
     }
+    
 }
 

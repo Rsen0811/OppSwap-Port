@@ -16,6 +16,7 @@
             Spacing="25"    
             Padding="30,0"
             VerticalOptions="Center">
+
             <Label
                 Text="{Binding CurrRoom.Name}"
                 FontSize="25"
@@ -39,6 +40,14 @@
                 Text="Click me"
                 Command="{Binding getCurrentLocationCommand}"
                 HorizontalOptions="Center" />
+            
+            <!--<Button
+                x:Name="Eliminate"
+                Text="Eliminate"
+                Command="{Binding EliminateTarget}"
+                IsVisible="{Binding Visible}"
+
+                /> -->
 
             <!--<GraphicsView 
                 HeightRequest="100"
