@@ -35,22 +35,59 @@ wsServer.on("request", (request) => {
     else if (incoming.method === "createNewGame") createNewGame(connection, incoming);
     else if (incoming.method === "joinGame") joinGame(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "fetchGames") fetchGames(connection, incoming.query);
-    else if (incoming.method === "updatePosition") updatePosition(incoming.gamesJoined, incoming.clientId, incoming.position);
+    else if (incoming.method === "updatePosition") updatePosition(incoming.clientId, incoming.position);
     else if (incoming.method === "getTargetPosition") getTargetPosition(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "startGame") startGame(connection, incoming.gameId, incoming.clientId);
+    else if (incoming.method === "reconnect") reconnect(connection, incoming.clientId, incoming.oldId)
   });
 });
+
+function reconnect(connection, clientId, oldId) { // right now just use clientId for debug
+  let client = clients[oldId];
+  if (client === undefined) return;
+
+  if (connections[client.connection] != null) delete connections[client.connection];
+  delete clients[clientId];
+
+  client.connection = connection;
+  client.status = "open";
+  client.currentGames.forEach(gameId => {
+    //rejoin games
+    let game = games[gameId]
+    const payLoad = {
+      gameName: game.gameName,
+      gameId: game.gameId,
+    };
+    console.log("userId: " + clientId + " has rejoined game: " + game.gameId);
+    const package = { method: "forceJoin", payload: JSON.stringify(payLoad) };
+    connection.send(JSON.stringify(package))
+    
+    if (game.visibility === false) { // now tell client that some rooms are started
+      const payload2 = {
+        //TODO eventually change this to nickname
+        targetId: game.targets.getTarget(oldId),
+        gameId: game.gameId,
+      };
+      const package2 = {
+        method: "gameStarted",
+        payload: JSON.stringify(payload2),
+      };
+      connection.send(JSON.stringify(package));
+    }
+  })
+}
 
 function getTargetPosition(connection, gameId, clientId) {
   const game = games[gameId];
   if (game.visibility === true) {return} //TODO check for if this actually works to TODO rename variable to visible, so i can stop using === true
   const targetId = game.targets.getTarget(clientId);
-  const targetPos = game.positions[targetId];
+  const targetPos = clients[targetId].position;
   
   const payLoad = {
     targetPosition: targetPos,
     gameId: gameId
   };
+  
   const package = { method: "getPosition", payload: JSON.stringify(payLoad) };
   connection.send(JSON.stringify(package));
 }
@@ -101,7 +138,7 @@ function connectionOpen(clientId) {
   //return true;
   return clients[clientId].status === "open";
 }
- 
+
 function createNewGame(connection, incoming) {
   const incomingName = incoming.value;
   const game = new Room(incomingName);
@@ -115,6 +152,8 @@ function createNewGame(connection, incoming) {
 
 function joinGame(connection, gameId, clientId) {
   const game = games[gameId];
+  clients[clientId].currentGames.push(gameId);
+
   if (game.visibility) {
     game.addPlayer(clientId);
     const payLoad = {
@@ -154,17 +193,13 @@ function fetchGames(connection, query) {
   connection.send(JSON.stringify(package));
 }
 
-function updatePosition(gamesJoined, clientId, position) {
-  gamesJoined.forEach((element) => {
-    // each element is an entire room, the id is a feild of that object
-    let game = games[element.Id]; // apparently the entire game is sent when i send all the games, so it makes sense that i am specifically looking for the id of each game
-    game.positions[clientId] = position;
-  });
+function updatePosition(clientId, position) {
+  clients[clientId].position = position;
   console.log(
     "client: " + clientId + "'s position has been updated to " + position
   );
 }
- 
+
 function startGame(connection, gameId, clientId) {
   let game = games[gameId];
   //set the game's visibility to false
@@ -198,7 +233,7 @@ function startGame(connection, gameId, clientId) {
 
 // GUID generator
 function S4() {
-    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 }
 const guid = () => (S4() + S4() + "-" + S4() + "-4" + S4().substring(0, 3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
 
@@ -226,7 +261,7 @@ function runDebug() { //TODO move this to the bottom
   for (let i = 0; i < 5; i++) {}
   joinGame(null, gameId, clientId);
 
-  games[gameId].positions[clientId] = "10, 4";
+  clients[clientId].position = "10, 4";
 }
 //runDebug();
 //===============================================================================
@@ -236,22 +271,14 @@ class Room {
     this.gameId = guid();
     this.clientIds = [];
     this.targets = null;
-    this.positions = {};
     this.settings = null;
     this.paused = false;
     this.visibility = true;
     this.targets = null;
   }
-
-  setPos(playerId, position) {
-    positions[playerId] = position;
-  }
-  getPos(playerId) {
-    return positions[playerId];
-  }
   addPlayer(playerId) {
     this.clientIds.push(playerId);
-    this.positions[playerId] = "0,0";
+    //this.positions[playerId] = "0,0";
   }
 }
 
@@ -259,6 +286,8 @@ class Client {
   constructor(connection) {
     this.connection = connection;
     this.status = "open";
+    this.currentGames = []; // ================================================ TODO
+    this.position = "0,0";
   }
 }
 //==============================================================================

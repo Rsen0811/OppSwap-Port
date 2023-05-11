@@ -83,7 +83,7 @@ namespace OppSwap
             ws.Send(JsonConvert.SerializeObject(new {
                 method = "updatePosition",
                 clientId = clientId,
-                gamesJoined = gamesJoined.ToArray(),
+                ///gamesJoined = gamesJoined.ToArray(), // not needed because we no longer store position in the rooms themselves
                 position = position
             }));
         }
@@ -104,6 +104,16 @@ namespace OppSwap
                 method = "getTargetPosition",
                 clientId = clientId,
                 gameId = gameId
+            }));
+        }
+
+        public void Reconnect(String oldGuid) // must have guid from previous state
+        {
+            ws.Send(JsonConvert.SerializeObject(new
+            {
+                method = "reconnect",
+                clientId = clientId,
+                oldId = oldGuid
             }));
         }
         private void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn

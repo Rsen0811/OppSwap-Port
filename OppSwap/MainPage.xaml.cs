@@ -14,7 +14,8 @@ namespace OppSwap
         private void OnCounterClicked(object sender, EventArgs e)
         {
             //ClientInterconnect.Ping();
-            ClientInterconnect.StartGame("768c7142-c9ab-45ff-f71d-00a62f1c909b");
+            ClientInterconnect.c.Reconnect("a3977364-2bdd-413b-c367-b9ed19c764b5");
+            //ClientInterconnect.StartGame("768c7142-c9ab-45ff-f71d-00a62f1c909b");
             //ClientInterconnect.FetchGames("for");
             //ClientInterconnect.UpdatePosition(new LatLong(123, 345));
             //ClientInterconnect.c.GetTargetPos("8070b607-9e52-402e-c1d2-d6656009c6a8");

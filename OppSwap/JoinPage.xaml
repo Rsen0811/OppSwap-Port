@@ -73,7 +73,6 @@
                 Clicked = "GoToCreatePage"
                 Grid.Row="5"
                 Grid.Column="5"/>
-
     </Grid>
 
                      

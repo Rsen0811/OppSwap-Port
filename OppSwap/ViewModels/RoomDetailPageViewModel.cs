@@ -62,6 +62,7 @@ namespace OppSwap.ViewModels
                 //stopwatch.Start();
                 //TimeTaken = stopwatch.ElapsedMilliseconds + "";
                 //stopwatch.Stop();
+                //TODO REMOVE THIS LOCATION FINDING IN THE FUTURE
                 GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(30));
                 Location l = await Geolocation.Default.GetLocationAsync(request);
 
@@ -75,6 +76,7 @@ namespace OppSwap.ViewModels
                 await Task.Delay(500);
                 LatitudeLongitude = location.ToString();
                 pos = ClientInterconnect.getTargetPos(CurrRoom.Id);
+
 
                 getArrowAngle(location.bearing(pos), double.Parse(CurrHeading));
                 TimeTaken = ArrowAngle + "";
