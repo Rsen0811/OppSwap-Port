@@ -28,9 +28,9 @@ namespace OppSwap.ViewModels
         [RelayCommand]
         async Task Tap(Room r)
         {
-            ClientInterconnect.c.JoinGame(r.Id);
+            //ClientInterconnect.c.JoinGame(r.Id);
 
-            await gameJoined(GameCode);
+            //await gameJoined(GameCode);
             await Shell.Current.GoToAsync(nameof(RoomDetailPage),
             new Dictionary<string, object>
             {
