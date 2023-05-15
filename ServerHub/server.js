@@ -13,7 +13,6 @@ const connections = {}; // reverse of hashmap
 // off all games
 const games = {};
 const pings = {};
-
 const wsServer = new websocketServer({
   httpServer: httpServer,
 });
