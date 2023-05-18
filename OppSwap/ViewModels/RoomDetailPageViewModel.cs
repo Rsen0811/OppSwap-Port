@@ -26,7 +26,7 @@ namespace OppSwap.ViewModels
         double arrowAngle;
 
         [ObservableProperty]
-        public bool visible = true;
+        bool buttonVisible = false;
 
         LatLong location;
         LatLong pole = new LatLong();
@@ -119,14 +119,13 @@ namespace OppSwap.ViewModels
 
             while (true)
             {
-                if ( 100<50)
-                //if (ClientInterconnect.position.distance(currRoom.target.Position) <= 50)
+                if (ClientInterconnect.position.distance(currRoom.target.Position) <= 50)
                 {
-                    Visible = true;
+                    buttonVisible = true;
                 }
                 else
                 {
-                    Visible = false;
+                    buttonVisible = false;
                 }
                 await Task.Delay(5000);
              
