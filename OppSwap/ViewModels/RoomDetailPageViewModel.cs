@@ -26,7 +26,7 @@ namespace OppSwap.ViewModels
         double arrowAngle;
 
         [ObservableProperty]
-        public bool visible;
+        bool buttonVisible = false;
 
         LatLong location;
         LatLong pole = new LatLong();
@@ -112,6 +112,31 @@ namespace OppSwap.ViewModels
             target = game.target.Name;
 
 
+        }
+        [RelayCommand]
+        public async Task KillButtonVisible()
+        {
+
+            while (true)
+            {
+                if (ClientInterconnect.position.distance(currRoom.target.Position) <= 50)
+                {
+                    buttonVisible = true;
+                }
+                else
+                {
+                    buttonVisible = false;
+                }
+                await Task.Delay(5000);
+             
+            }
+        }
+            
+        [RelayCommand]
+        public void KillButton()
+        {
+            //kill code
+            
         }
 
     }
