@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WebSocketSharp;
 using SerializedJSONTemplates;
 using Newtonsoft.Json;
+using System.Xml.Linq;
 
 namespace OppSwap
 {
@@ -39,6 +40,25 @@ namespace OppSwap
             ws.Connect();
 
             JPackage p = new JPackage { method = "ping" };
+            ws.Send(JsonConvert.SerializeObject(p));
+        }
+
+        private bool ValidKill()
+        {
+            return true;
+        }
+
+        public void Kill(String gameId)
+        {
+            if (!ValidKill()) return;
+            
+            ws.Connect();
+            String1Payload p = new String1Payload
+            {
+                method = "kill",
+                clientId = clientId,
+                gameId = gameId
+            };
             ws.Send(JsonConvert.SerializeObject(p));
         }
 

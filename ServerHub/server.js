@@ -38,9 +38,17 @@ wsServer.on("request", (request) => {
     else if (incoming.method === "updatePosition") updatePosition(incoming.clientId, incoming.position);
     else if (incoming.method === "getTargetPosition") getTargetPosition(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "startGame") startGame(connection, incoming.gameId, incoming.clientId);
-    else if (incoming.method === "reconnect") reconnect(connection, incoming.clientId, incoming.oldId)
+    else if (incoming.method === "reconnect") reconnect(connection, incoming.clientId, incoming.oldId);
+    else if (incoming.method === "kill") kill(connection, incoming.gameId, incomming.clientId);
   });
 });
+
+function kill(connection, gameId, clientId) {
+  let game = games[gameId];
+  let target = game.targets.getTarget(clientId);
+  game.targets.removeNode(target);
+  // now use connection to send server message that the kill was successfull
+}
 
 function reconnect(connection, clientId, oldId) { // right now just use clientId for debug
   let client = clients[oldId];
@@ -213,8 +221,8 @@ function startGame(connection, gameId, clientId) {
     game.targets = new LinkedList(game.clientIDs);
     //send everybody their target && a message that says gameStarted
     game.clientIds.forEach((element) => {
-      if (connections[element].status === "open") {
-        let currConn = connections[element].connection;
+      if (clients[element].status === "open") {
+        let currConn = clients[element].connection;
         //creating a payload with the oppenents
         const payload = {
           //TODO eventually change this to nickname
