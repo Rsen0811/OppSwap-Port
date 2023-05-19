@@ -18,7 +18,7 @@ namespace OppSwap.ViewModels
         Dictionary<string,Room> joinedGames;
 
         [ObservableProperty]
-        List<String> roomNames = new List<string>();
+        List<String> roomNames = new List<String>();
 
         public JoinPageViewModel()
         {

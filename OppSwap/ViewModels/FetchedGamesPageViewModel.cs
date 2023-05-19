@@ -15,7 +15,7 @@ namespace OppSwap.ViewModels
         string gameCode;
 
         [ObservableProperty]
-        List<string> roomNames=new List<string>()   ;
+        List<String> roomNames=new List<String>()   ;
 
         [ObservableProperty]
         List<Room> fetchedGames;        
