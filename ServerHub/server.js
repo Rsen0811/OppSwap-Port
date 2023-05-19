@@ -178,7 +178,7 @@ function fetchGames(connection, query) {
   Object.keys(games).forEach((gameKey) => {
     // gamekey is the gameId, but i decided not to use the same var name
     const game = games[gameKey];
-    if (game.visibility && game.gameName.includes(query)) {
+    if (game.visibility && (query === "" || game.gameName.includes(query))) {
       gameNames.push(game.gameName);
       gameIds.push(game.gameId);
     }

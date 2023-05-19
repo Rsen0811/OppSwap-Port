@@ -5,8 +5,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 namespace OppSwap.ViewModels
 {
-    [QueryProperty(nameof(JoinedGames)/*The name of the property in ViewModel*/, nameof(JoinedGames)/*The name of the property when you switch pages*/)]
-    public partial class JoinPageViewModel : ObservableObject
+    [QueryProperty(nameof(FetchedGames)/*The name of the property in ViewModel*/, nameof(FetchedGames)/*The name of the property when you switch pages*/)]
+    public partial class FetchedGamesPageViewModel: ObservableObject
     {
         //[ObservableProperty]
         //ObservableCollection<string> games;
@@ -15,32 +15,35 @@ namespace OppSwap.ViewModels
         string gameCode;
 
         [ObservableProperty]
-        Dictionary<string,Room> joinedGames;
+        List<string> roomNames=new List<string>()   ;
 
         [ObservableProperty]
-        List<String> roomNames = new List<string>();
+        List<Room> fetchedGames;        
 
-        public JoinPageViewModel()
+        public FetchedGamesPageViewModel()
         {
-            //games = new ObservableCollection<string>();
-            foreach(Room r in ClientInterconnect.c.gamesJoined.Values)
+            foreach (Room r in ClientInterconnect.c.fetchedRooms)
             {
-                RoomNames.Add(r.Name + "\n" + r.Id);
+                RoomNames.Add(r.Name+"\n"+ r.Id);
             }
+            //games = new ObservableCollection<string>();
         }
+        
+
         [RelayCommand]
         async Task Tap(String s)
         {
-            string temp = s.Split()[1];
+            string temp= s.Split()[1];
             //ClientInterconnect.c.JoinGame(r.Id);
-            Room r = ClientInterconnect.getRoom(temp);
             //await gameJoined(GameCode);
-            await Shell.Current.GoToAsync(nameof(RoomDetailPage),
+            ClientInterconnect.JoinGame(temp);
+            await gameJoined(temp);
+            await Shell.Current.GoToAsync(nameof(JoinPage),
             new Dictionary<string, object>
             {
                 //get the room we made with the textbox inside of it
-                ["CurrRoom"] = r
-            }) ;
+                ["JoinedGames"] = ClientInterconnect.c.gamesJoined
+            }); ;
         }
 
 
@@ -48,13 +51,14 @@ namespace OppSwap.ViewModels
         [RelayCommand]
         async Task Delete(Room r)
         {
+
             ClientInterconnect.c.gamesJoined.Remove(r.Id);
             await Shell.Current.GoToAsync(nameof(JoinPage),
            new Dictionary<string, object>
            {
                //get the room we made with the textbox inside of it
-               ["JoinedGames"] = ClientInterconnect.c.gamesJoined
-           }) ;
+               ["JoinedGames"] = ClientInterconnect.getRoom(GameCode)
+           });
         }
 
 
@@ -68,11 +72,13 @@ namespace OppSwap.ViewModels
             ClientInterconnect.JoinGame(GameCode);
             await Task.Delay(600);
             await Shell.Current.GoToAsync(nameof(JoinPage),
-            new Dictionary<string, object>
-            {
-                //get the room we made with the textbox inside of it
-                ["JoinedGames"] = ClientInterconnect.c.gamesJoined
-            });
+           new Dictionary<string, object>
+           {
+               //get the room we made with the textbox inside of it
+               ["JoinedGames"] = ClientInterconnect.c.gamesJoined.Values
+           }) ;
+
+
         }
 
 
@@ -82,7 +88,6 @@ namespace OppSwap.ViewModels
             ClientInterconnect.c.JoinGame(GameCode);
 
             await gameJoined(GameCode);
-
             await Shell.Current.GoToAsync(nameof(RoomDetailPage),
             new Dictionary<string, object>
             {
