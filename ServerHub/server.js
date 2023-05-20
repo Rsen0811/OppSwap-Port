@@ -218,7 +218,7 @@ function startGame(connection, gameId, clientId) {
     //TODO add check for 2 or more clients
     game.visibility = false;
     //create a linked list
-    game.targets = new LinkedList(game.clientIDs);
+    game.targets = new LinkedList(game.clientIds);
     //send everybody their target && a message that says gameStarted
     game.clientIds.forEach((element) => {
       if (clients[element].status === "open") {
