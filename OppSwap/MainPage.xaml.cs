@@ -35,7 +35,7 @@ namespace OppSwap
            new Dictionary<string, object>
            {
                //get the room we made with the textbox inside of it
-               ["JoinedGames"] = ClientInterconnect.c.gamesJoined.Values
+               ["JoinedGames"] = ClientInterconnect.c.gamesJoined
            });
         }
     }
