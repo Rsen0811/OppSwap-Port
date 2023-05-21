@@ -48,7 +48,7 @@ namespace OppSwap
 
 
             LatLong location = new LatLong(l.Latitude, l.Longitude);
-            //UpdatePosition(location);
+            UpdatePosition(location);
            // if (AppShell.Current.CurrentPage. == "meme")
             return Task.Delay(0);
         }
