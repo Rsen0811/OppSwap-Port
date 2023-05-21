@@ -20,6 +20,7 @@ namespace OppSwap
         public static readonly Client c = (RUNNING_SERVER ? new Client() : null);
 
         private static List<String> commandList = new List<String>();
+        public static LatLong position;
 
         public static void Ping() { commandList.Add("p"); }
         public static void CreateGame(String name) { commandList.Add("c " + name); }
@@ -49,6 +50,7 @@ namespace OppSwap
 
             LatLong location = new LatLong(l.Latitude, l.Longitude);
             UpdatePosition(location);
+            position = location;
            // if (AppShell.Current.CurrentPage. == "meme")
             return Task.Delay(0);
         }

@@ -15,7 +15,7 @@ namespace OppSwap
     {
         private WebSocket ws;
         public String clientId;
-        public Dictionary<String,Room> gamesJoined;
+        public Dictionary<string,Room> gamesJoined;
         public List<Room> fetchedRooms;
         public List<String> errorMessages;
         public Client()
@@ -25,6 +25,7 @@ namespace OppSwap
             ws.OnMessage += Ws_OnMessage;
 
             gamesJoined = new Dictionary<String,Room>();
+            fetchedRooms = new List<Room>();
             //   outdated code from a more civilized age
             JPackage p = new JPackage
             {
@@ -138,6 +139,7 @@ namespace OppSwap
         }
         private void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
         {
+            //TODO these should also all be else IFS
             JPGeneral packet = JsonConvert.DeserializeObject<JPGeneral>(e.Data);
             if (packet.method.Equals("connect"))
             {
@@ -164,6 +166,8 @@ namespace OppSwap
             }
             if (packet.method.Equals("fetchGames"))
             {
+                //this isnt working or smthn
+                //TODO ASK RAJ HOW TO FIX THIS.
                 GameQueryPackage p = (GameQueryPackage)packet;
                 fetchedRooms = p.rooms;
             }

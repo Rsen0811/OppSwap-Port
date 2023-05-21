@@ -19,6 +19,7 @@ namespace OppSwap
             ClientInterconnect.StartGame("a3c75edf-d422-4099-4e83-f11c98d0f839");
             ClientInterconnect.Kill("a3c75edf-d422-4099-4e83-f11c98d0f839");
             //ClientInterconnect.FetchGames("for");
+
             //ClientInterconnect.UpdatePosition(new LatLong(123, 345));
             //ClientInterconnect.c.GetTargetPos("8070b607-9e52-402e-c1d2-d6656009c6a8");
             count++;
@@ -37,7 +38,7 @@ namespace OppSwap
            new Dictionary<string, object>
            {
                //get the room we made with the textbox inside of it
-               ["JoinedGames"] = ClientInterconnect.c.gamesJoined.Values
+               ["JoinedGames"] = ClientInterconnect.c.gamesJoined
            });
         }
     }

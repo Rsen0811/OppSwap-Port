@@ -30,6 +30,8 @@ namespace OppSwap
             builder.Services.AddTransient<RoomDetailPage>();
             builder.Services.AddTransient<RoomDetailPageViewModel>();
 
+            builder.Services.AddTransient<FetchedGamesPage>();
+            builder.Services.AddTransient<FetchedGamesPageViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();
