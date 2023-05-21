@@ -16,8 +16,8 @@
         <Entry Placeholder="Enter text"
                Text="{Binding GameCode}"
                Grid.Row="1"/>
-        <Button Text="Join"
-                Command="{Binding joinRoomCommand}"
+        <Button Text="Search"
+                Command="{Binding SearchButtonCommand}"
                 Grid.Row="1"
                 Grid.Column="1"/>
 
@@ -70,11 +70,6 @@
 
 
         </CollectionView>
-
-         <Button Text="Create"
-                Clicked = "GoToCreatePage"
-                Grid.Row="5"
-                Grid.Column="5"/>
     </Grid>
 
                      
