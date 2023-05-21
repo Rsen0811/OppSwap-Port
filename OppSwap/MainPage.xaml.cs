@@ -15,9 +15,9 @@ namespace OppSwap
         {
             //ClientInterconnect.Ping();
             //ClientInterconnect.c.Reconnect("a3977364-2bdd-413b-c367-b9ed19c764b5");
-            ClientInterconnect.JoinGame("1f130ac1-9c05-48c4-3de0-dd6ddd819ec0");
-            ClientInterconnect.StartGame("1f130ac1-9c05-48c4-3de0-dd6ddd819ec0");
-            ClientInterconnect.Kill("1f130ac1-9c05-48c4-3de0-dd6ddd819ec0");
+            ClientInterconnect.JoinGame("a3c75edf-d422-4099-4e83-f11c98d0f839");
+            ClientInterconnect.StartGame("a3c75edf-d422-4099-4e83-f11c98d0f839");
+            ClientInterconnect.Kill("a3c75edf-d422-4099-4e83-f11c98d0f839");
             //ClientInterconnect.FetchGames("for");
             //ClientInterconnect.UpdatePosition(new LatLong(123, 345));
             //ClientInterconnect.c.GetTargetPos("8070b607-9e52-402e-c1d2-d6656009c6a8");

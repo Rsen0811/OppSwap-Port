@@ -39,7 +39,7 @@ wsServer.on("request", (request) => {
     else if (incoming.method === "getTargetPosition") getTargetPosition(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "startGame") startGame(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "reconnect") reconnect(connection, incoming.clientId, incoming.oldId);
-    else if (incoming.method === "kill") kill(connection, incoming.gameId, incomming.clientId);
+    else if (incoming.method === "kill") kill(connection, incoming.gameId, incoming.clientId);
   });
 });
 
@@ -307,10 +307,10 @@ class LinkedList {
    * The client IDs are randomly shuffled before creating the linked list.
    * @param {Array<string>} clientIDs - The array of client IDs to use.
    */
-  LinkedList(clientIDs) {
+  constructor(clientIDs) {
     // Create a new map to store the linked list
     // Shuffle the array of client IDs
-    map = new Map();
+    this.map = new Map();
     const shuffledIDs = this.shuffleArray(clientIDs);
     // Create the linked list from the shuffled client IDs
     if (shuffledIDs.length > 0) {
