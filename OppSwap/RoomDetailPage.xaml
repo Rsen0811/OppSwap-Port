@@ -43,7 +43,7 @@
             <Button
                 x:Name="Kill"
                 Text="Eliminate"
-                IsVisible="{Binding Visible}"
+                IsVisible="{Binding ButtonVisible}"
                 Command="{Binding KillButtonCommand}"
                 />
 
