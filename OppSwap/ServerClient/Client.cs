@@ -81,6 +81,7 @@ namespace OppSwap
         }
 
         public void UpdatePosition(String position) {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new {
                 method = "updatePosition",
                 clientId = clientId,
@@ -90,6 +91,7 @@ namespace OppSwap
         }
         public void StartGame(String gameId)
         {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {
                 method = "startGame",
@@ -100,6 +102,7 @@ namespace OppSwap
 
         public void GetTargetPos(String gameId)
         {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {
                 method = "getTargetPosition",
@@ -110,6 +113,7 @@ namespace OppSwap
 
         public void Reconnect(String oldGuid) // must have guid from previous state
         {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {
                 method = "reconnect",
