@@ -137,6 +137,7 @@ namespace OppSwap
                 oldId = oldGuid
             }));
         }
+        
         private void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
         {
             //TODO these should also all be else IFS
@@ -185,6 +186,11 @@ namespace OppSwap
                 //target initially has a position of 0,0
                 gamesJoined[p.gameId].target =new Target(p.targetId);
                 //TODO call getPos here
+            }
+            if (packet.method.Equals("newTarget"))
+            {
+                newTargetPackage p = (newTargetPackage)packet;
+                gamesJoined[p.gameId].target = new Target(p.targetId);
             }
         }
     }

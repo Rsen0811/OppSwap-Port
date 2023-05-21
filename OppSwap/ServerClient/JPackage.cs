@@ -109,6 +109,22 @@ namespace SerializedJSONTemplates
             return outgoing;
         }
     }
+    
+    //TODO ask raj what is diif between payload vs packages???
+    //TODO add the nicknames for the Target
+    [Serializable]
+    public class newTargetPackage : JPackage
+    {
+        public String targetId { get; set; }
+        public String gameId { get; set; }
+
+        public static explicit operator newTargetPackage(JPGeneral incoming)
+        {
+            newTargetPackage outgoing = JsonConvert.DeserializeObject<newTargetPackage>(incoming.payload);
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
 
     //sending packets
 

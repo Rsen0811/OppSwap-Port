@@ -43,11 +43,18 @@ wsServer.on("request", (request) => {
   });
 });
 
-function kill(connection, gameId, clientId) {
-  let game = games[gameId];
+function kill(connection, gameID, clientId) {
+  let game = games[gameID];
   let target = game.targets.getTarget(clientId);
   game.targets.removeNode(target);
   // now use connection to send server message that the kill was successfull
+  const payLoad = { 
+    gameId: gameID,
+    targetId: game.targets.getTarget(clientId)
+    //TODO add target nickname when we implement those
+  }
+  const package= {method:"newTarget", payload:JSON.stringify(payLoad)}
+  connection.send(JSON.stringify(package))
 }
 
 function reconnect(connection, clientId, oldId) { // right now just use clientId for debug
