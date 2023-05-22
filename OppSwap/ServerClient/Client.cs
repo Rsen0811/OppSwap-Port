@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WebSocketSharp;
 using SerializedJSONTemplates;
 using Newtonsoft.Json;
+using System.Xml.Linq;
 
 namespace OppSwap
 {
@@ -100,6 +101,7 @@ namespace OppSwap
         }
 
         public void UpdatePosition(String position) {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new {
                 method = "updatePosition",
                 clientId = clientId,
@@ -109,6 +111,7 @@ namespace OppSwap
         }
         public void StartGame(String gameId)
         {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {
                 method = "startGame",
@@ -119,6 +122,7 @@ namespace OppSwap
 
         public void GetTargetPos(String gameId)
         {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {
                 method = "getTargetPosition",
@@ -129,6 +133,7 @@ namespace OppSwap
 
         public void Reconnect(String oldGuid) // must have guid from previous state
         {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {
                 method = "reconnect",
@@ -136,6 +141,7 @@ namespace OppSwap
                 oldId = oldGuid
             }));
         }
+        
         private void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
         {
             //TODO these should also all be else IFS
@@ -183,7 +189,7 @@ namespace OppSwap
             {
                 TargetPackage p = (TargetPackage)packet;
                 gamesJoined[p.gameId].target = new Target(p.targetId, p.targetName);
-            }
+
         }
     }
 }

@@ -53,6 +53,7 @@ function kill(connection, gameId, clientId) {
     gameId: gameId,
     targetId: newTarget,
     targetName: clients[newTarget].name
+
     //TODO add target nickname when we implement those
   }
   const package= {method:"newTarget", payload:JSON.stringify(payLoad)}

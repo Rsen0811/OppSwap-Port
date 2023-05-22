@@ -128,6 +128,7 @@ namespace SerializedJSONTemplates
         public String gameId { get; set; }
         public String targetName { get; set; }
 
+
         public static explicit operator TargetPackage(JPGeneral incoming)
         {
             TargetPackage outgoing = JsonConvert.DeserializeObject<TargetPackage>(incoming.payload);
