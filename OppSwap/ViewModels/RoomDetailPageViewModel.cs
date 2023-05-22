@@ -119,15 +119,16 @@ namespace OppSwap.ViewModels
         [RelayCommand]
         public async Task Update()
         {
-
+            await Task.Delay(1000);
             while (true)
             {
-                //ClientInterconnect.GetTargetPos(CurrRoom.Id);
+                ClientInterconnect.GetTargetPos(CurrRoom.Id);
 
                 await Task.Delay(5000);
 
-                //if (ClientInterconnect.position.distance(CurrRoom.target.Position) <= 50)
-                if(10<20)
+                TimeTaken = "" + ClientInterconnect.position.distance(CurrRoom.target.Position);
+
+                if (ClientInterconnect.position.distance(CurrRoom.target.Position) <= 50)
                 {
                     ButtonVisible = true;
                 }

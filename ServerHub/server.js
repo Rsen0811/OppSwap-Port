@@ -237,7 +237,7 @@ function startGame(connection, gameId, clientId) {
       if (clients[element].status === "open") {
         let currConn = clients[element].connection;
         //creating a payload with the oppenents
-        let targetId = game.targets.getTarget(oldId);
+        let targetId = game.targets.getTarget(element);
         const payload = {
           //TODO eventually change this to nickname
           targetId: targetId,
