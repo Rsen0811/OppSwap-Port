@@ -14,7 +14,7 @@ namespace OppSwap.ViewModels
         Room currRoom;
 
         [ObservableProperty]
-        String[] playerNames;
+        List<string> playerNames;
 
         public StartGamePageViewModel(){}
         //only works with IOS as of right now
@@ -27,11 +27,24 @@ namespace OppSwap.ViewModels
                 if (CurrRoom != null)
                 {
                     CurrRoom = ClientInterconnect.c.gamesJoined[CurrRoom.Id];
-                    PlayerNames = CurrRoom.tempholderwhileplayersdonthavenamesonserver;
+                    if (CurrRoom.players != null)
+                    {
+                        PlayerNames = PlayerToName(CurrRoom.players);
+                    }
                 }
                 await Task.Delay(10000);//wait 10 seconds
             }
         }
+
+        private List<string> PlayerToName(List<Player> players)
+        {
+            List<string> temp = new List<string>();
+            foreach (Player p in players) 
+            {
+                temp.Add(p.Name);
+            }
+            return temp;
+        } 
 
         [RelayCommand]
         public async void Start()

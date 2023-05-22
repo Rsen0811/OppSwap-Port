@@ -75,7 +75,9 @@ namespace SerializedJSONTemplates
         {
             playerJoinPayload outgoing = JsonConvert.DeserializeObject<playerJoinPayload>(incoming.payload);
             outgoing.players = new List<Player>();
-            for (int i = 0; i < outgoing.clientIds.Length; i++)
+            for (int i = 0;
+                i < outgoing.clientIds.Length;
+                i++)
             {
                 outgoing.players.Add(new Player(outgoing.clientIds[i], outgoing.clientNames[i]));
             }
