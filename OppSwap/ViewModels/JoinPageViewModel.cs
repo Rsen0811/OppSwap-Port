@@ -28,6 +28,7 @@ namespace OppSwap.ViewModels
                 RoomNames.Add(r.Name + "\n" + r.Id);
             }
         }
+
         [RelayCommand]
         async Task Tap(String s)
         {
@@ -35,16 +36,28 @@ namespace OppSwap.ViewModels
             //ClientInterconnect.c.JoinGame(r.Id);
             Room r = ClientInterconnect.getRoom(temp);
             //await gameJoined(GameCode);
-            await Shell.Current.GoToAsync(nameof(RoomDetailPage),
-            new Dictionary<string, object>
+            if (r.started == true)
             {
-                //get the room we made with the textbox inside of it
-                ["CurrRoom"] = r
-            }) ;
+                await Shell.Current.GoToAsync(nameof(RoomDetailPage),
+                new Dictionary<string, object>
+                {
+                    //get the room we made with the textbox inside of it
+                    ["CurrRoom"] = r
+                });
+            }
+            else
+            {
+                //TODO call the new started page
+                await Shell.Current.GoToAsync(nameof(StartGamePage),
+                new Dictionary<string, object>
+                {
+                    ["CurrRoom"] = r
+                });
+            }
         }
 
 
-  
+        //TODO never used i think
         [RelayCommand]
         async Task Delete(Room r)
         {
@@ -57,7 +70,7 @@ namespace OppSwap.ViewModels
            }) ;
         }
 
-
+        //TODO never used i think
         [RelayCommand]
         async void joinRoom()
         {

@@ -111,6 +111,7 @@ namespace OppSwap
         }
         public void StartGame(String gameId)
         {
+            gamesJoined[gameId].started = true;
             ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {
@@ -189,6 +190,7 @@ namespace OppSwap
                 //TODO eventually we can look into transferring the nickname instead of targetID, for now use target ID as a replacement Nick when displaying target name
                 //target initially has a position of 0,0
                 gamesJoined[p.gameId].target =new Target(p.targetId);
+                gamesJoined[p.gameId].started = true;
                 //TODO call getPos here
             }
             if (packet.method.Equals("newTarget"))

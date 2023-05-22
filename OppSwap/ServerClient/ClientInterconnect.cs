@@ -37,7 +37,7 @@ namespace OppSwap
                 if (!RUNNING_SERVER) return;
                 await updateCommands();
                 processCommands();
-                await Task.Delay(100); // waits 100 ms between calls
+                await Task.Delay(1000); // waits 1 sec between calls
             }
         }
 
@@ -51,8 +51,9 @@ namespace OppSwap
             LatLong location = new LatLong(l.Latitude, l.Longitude);
             UpdatePosition(location);
             position = location;
-           // if (AppShell.Current.CurrentPage. == "meme")
+            // if (AppShell.Current.CurrentPage. == "meme")
             return Task.Delay(0);
+            //TODO ADD HEADING AND ARROW ANGLE CALCULATIONS
         }
 
 
