@@ -43,13 +43,13 @@ wsServer.on("request", (request) => {
   });
 });
 
-function kill(connection, gameID, clientId) {
-  let game = games[gameID];
+function kill(connection, gameId, clientId) {
+  let game = games[gameId];
   let target = game.targets.getTarget(clientId);
   game.targets.removeNode(target);
   // now use connection to send server message that the kill was successfull
   const payLoad = { 
-    gameId: gameID,
+    gameId: gameId,
     targetId: game.targets.getTarget(clientId)
     //TODO add target nickname when we implement those
   }

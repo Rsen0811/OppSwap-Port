@@ -189,7 +189,7 @@ namespace OppSwap
             }
             if (packet.method.Equals("newTarget"))
             {
-                newTargetPackage p = (newTargetPackage)packet;
+                TargetPackage p = (TargetPackage)packet;
                 gamesJoined[p.gameId].target = new Target(p.targetId);
             }
         }
