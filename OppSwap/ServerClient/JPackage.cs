@@ -37,6 +37,7 @@ namespace SerializedJSONTemplates
     public class StartPayload : JPackage
     {
         public String targetId { get; set; }
+        public String targetName { get; set; }
         public String gameId { get; set; }
 
         public static explicit operator StartPayload(JPGeneral incoming)
@@ -66,12 +67,20 @@ namespace SerializedJSONTemplates
     public class playerJoinPayload : JPackage
     {
         public string gameId { get; set; }
-        public string[] clients { get; set; }
+        public string[] clientIds { get; set; }
+        public string[] clientNames { get; set; }
+        public List<Player> players { get; set; }
 
         public static explicit operator playerJoinPayload(JPGeneral incoming)
         {
             playerJoinPayload outgoing = JsonConvert.DeserializeObject<playerJoinPayload>(incoming.payload);
+            for (int i = 0; i < outgoing.clientIds.Length; i++)
+            {
+                outgoing.players.Add(new Player(outgoing.clientNames[i], outgoing.clientIds[i]));
+            }
+
             outgoing.method = incoming.method;
+            
             return outgoing;
         }
     }
@@ -117,6 +126,8 @@ namespace SerializedJSONTemplates
     {
         public String targetId { get; set; }
         public String gameId { get; set; }
+        public String targetName { get; set; }
+
 
         public static explicit operator TargetPackage(JPGeneral incoming)
         {
