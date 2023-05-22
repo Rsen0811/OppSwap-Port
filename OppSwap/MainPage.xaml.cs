@@ -13,8 +13,8 @@ namespace OppSwap
 
         private void OnCounterClicked(object sender, EventArgs e)
         {
-            //ClientInterconnect.Ping();
-            ClientInterconnect.c.Reconnect("a3977364-2bdd-413b-c367-b9ed19c764b5");
+            ClientInterconnect.Ping();
+            //ClientInterconnect.c.Reconnect("a3977364-2bdd-413b-c367-b9ed19c764b5");
             //ClientInterconnect.StartGame("768c7142-c9ab-45ff-f71d-00a62f1c909b");
             //ClientInterconnect.FetchGames("for");
             //ClientInterconnect.UpdatePosition(new LatLong(123, 345));
@@ -31,6 +31,11 @@ namespace OppSwap
 
         private async void NextPage(object sender, EventArgs e) {
             await Shell.Current.GoToAsync(nameof(JoinPage));
+        }
+
+        async void testButtonClicked(System.Object sender, System.EventArgs e)
+        {
+            await DisplayAlert("Test", "Testing complete", "go fuck yourself");
         }
     }
 }

@@ -13,6 +13,7 @@ const connections = {}; // reverse of hashmap
 // off all games
 const games = {};
 const pings = {};
+
 const wsServer = new websocketServer({
   httpServer: httpServer,
 });
@@ -110,6 +111,7 @@ function ping(connection) {
   console.log("Suceessful PING: ---");
   console.log("pingnumber: " + ++pings[connection]); // proves that connections are not kept over different client sessions
   console.log("Connection: " + connection.remoteAddress);
+  sendServerMessage(connection, "Successful Ping");
 }
 
 function playerJoinUpdate(gameId) {
@@ -167,26 +169,22 @@ function joinGame(connection, gameId, clientId) {
       connection.send(JSON.stringify(package));
     playerJoinUpdate(game.gameId);
   } else {
-      //send a message that says "could not join game because it is closed"
-      sendServerMessage(connection,"Could not join game because it is closed");
+    //send a message that says "could not join game because it is closed"
+    sendServerMessage(connection,"Could not join game because it is closed");
   }
 }
 
 function fetchGames(connection, query) {
   let gameNames = [];
   let gameIds = [];
+  let clientConnected = clients[connections[connection]].currentGames;
   Object.keys(games).forEach((gameKey) => {
     // gamekey is the gameId, but i decided not to use the same var name
     const game = games[gameKey];
-      if (game.visibility && game.gameName.includes(query)) {
-          gameNames.push(game.gameName);
-          gameIds.push(game.gameId);
-      }
-  });
-
-    payLoad = {
-        "names": gameNames,
-        "ids": gameIds
+    if (clientConnected.includes(gameKey)) return;
+    if (game.visibility && (query === "" || game.gameName.includes(query))) {
+      gameNames.push(game.gameName);
+      gameIds.push(game.gameId);
     }
   });
 
@@ -205,14 +203,11 @@ function updatePosition(clientId, position) {
     "client: " + clientId + "'s position has been updated to " + position
   );
 }
- 
-function startGame(connection, gameId, clientId) {
-  let game = games[gameId];
-  //set the game's visibility to false
 
 function startGame(connection, gameId, clientId) {
   let game = games[gameId];
   //set the game's visibility to false
+
   if (game.visibility) {
     //TODO add check for 2 or more clients
     game.visibility = false;
@@ -236,8 +231,8 @@ function startGame(connection, gameId, clientId) {
       }
     });
   } else {
-    //add code that sends the game has already started
-      sendServerMessage(connection, "A game has already started");
+    //add code that sends a game has already started
+    sendServerMessage(connection, "A game has already started");
   }
 }
 
@@ -281,22 +276,14 @@ class Room {
     this.gameId = guid();
     this.clientIds = [];
     this.targets = null;
-    this.positions = {};
     this.settings = null;
     this.paused = false;
     this.visibility = true;
     this.targets = null;
   }
-
-  setPos(playerId, position) {
-    positions[playerId] = position;
-  }
-  getPos(playerId) {
-    return positions[playerId];
-  }
   addPlayer(playerId) {
     this.clientIds.push(playerId);
-    this.positions[playerId] = "0,0";
+    //this.positions[playerId] = "0,0";
   }
 }
 
@@ -379,14 +366,13 @@ class LinkedList {
       currNode = this.map.get(currNode);
     }
     return ans + "-->" + start;
-    }
+  }
 }
-
 function sendServerMessage(connection, message) {
     const payLoad = {
-        ErrorMsg: message
+        message: message
     };
 
     const package = { method: "serverMessage", payload: JSON.stringify(payLoad) };
+    connection.send(JSON.stringify(package));
   }
-}

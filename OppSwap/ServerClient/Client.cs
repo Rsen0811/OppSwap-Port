@@ -116,7 +116,7 @@ namespace OppSwap
                 oldId = oldGuid
             }));
         }
-        private void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
+        private async void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
         {
             JPGeneral packet = JsonConvert.DeserializeObject<JPGeneral>(e.Data);
             if (packet.method.Equals("connect"))
@@ -162,13 +162,16 @@ namespace OppSwap
                 gamesJoined[p.gameId].target =new Target(p.targetId);
                 //TODO call getPos here
             }
-            if(packet.method.Equals("A game has already started"))
+            if(packet.method.Equals("serverMessage"))
             {
-                AppShell.Current.CurrentPage.DisplayAlert("Important Message", "A game has already started", "Accept");
-            }     
-            if(packet.method.Equals("Could not join game because it is closed")) 
-            {
-                AppShell.Current.CurrentPage.DisplayAlert("Important Message", "Could not join game because it is closed", "Accept");
+                ServerMessage p = (ServerMessage)packet;
+                //AppShell.Current.CurrentPage.DisplayAlert("Server Message", p.message, "Accept");
+                //MainPage.DisplayAlert("Server Message", p.message, "Accept");
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    //Application.Current.MainPage.DisplayAlert("Server Message", p.message, "Accept");
+                    AppShell.Current.CurrentPage.DisplayAlert("Server Message", p.message, "Accept");
+                });
             }
         }
     }

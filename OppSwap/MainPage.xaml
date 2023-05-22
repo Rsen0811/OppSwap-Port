@@ -42,6 +42,11 @@
                 Text="Start Game"
                 Clicked="NextPage"
                 HorizontalOptions="Center" />
+            <Button
+                x:Name="ErrorTestButton"
+                Text="TestMe"
+                Clicked="testButtonClicked"
+                HorizontalOptions="Center" />
 
         </VerticalStackLayout>
     </ScrollView>

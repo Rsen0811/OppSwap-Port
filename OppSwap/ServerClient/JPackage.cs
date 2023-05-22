@@ -110,6 +110,19 @@ namespace SerializedJSONTemplates
         }
     }
 
+    [Serializable]
+    public class ServerMessage : JPackage
+    {
+        public String message { get; set; }
+
+        public static explicit operator ServerMessage(JPGeneral incoming)
+        {
+            ServerMessage outgoing = JsonConvert.DeserializeObject<ServerMessage>(incoming.payload);
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+
     //sending packets
 
     // send single string
@@ -121,5 +134,4 @@ namespace SerializedJSONTemplates
         public string clientId { get; set; }
         public string value { get; set; }
     }
-
 }
