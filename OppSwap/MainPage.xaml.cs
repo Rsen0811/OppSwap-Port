@@ -28,7 +28,11 @@ namespace OppSwap
 
             SemanticScreenReader.Announce(CounterBtn.Text);
         }
-
+        private async void GoToNickName(object sender, EventArgs e)
+        {
+            // await Shell.Current.GoToAsync(nameof(RoomDetailPage));
+            await Shell.Current.GoToAsync(nameof(NickNamePage));
+        }
         private async void NextPage(object sender, EventArgs e) {
 
             await Shell.Current.GoToAsync(nameof(JoinPage),
@@ -38,5 +42,6 @@ namespace OppSwap
                ["JoinedGames"] = ClientInterconnect.c.gamesJoined
            });
         }
+
     }
 }

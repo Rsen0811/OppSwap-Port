@@ -13,7 +13,7 @@
             VerticalOptions="Center">
 
             <Image
-                Source="dotnet_bot.png"
+                Source="logo_test.png"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 HeightRequest="200"
                 HorizontalOptions="Center" />
@@ -42,6 +42,11 @@
                 Text="Start Game"
                 Clicked="NextPage"
                 HorizontalOptions="Center" />
+            <Button
+                x:Name="NickName"
+                Text="NickName"
+                Clicked="GoToNickName"
+                HorizontalOptions="Center"/>
 
         </VerticalStackLayout>
     </ScrollView>
