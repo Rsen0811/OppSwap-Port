@@ -7,7 +7,7 @@ using Microsoft.Maui.Graphics;
 
 namespace OppSwap
 {
-    public partial class RoomDetailPage : ContentPage
+    public partial class StartGamePage : ContentPage
     {
         //Client c = new Client();
         //int count = 0;
@@ -15,20 +15,12 @@ namespace OppSwap
 
         //ICanvas canvas;
 
-        public RoomDetailPage(RoomDetailPageViewModel vm)
+        public StartGamePage(StartGamePageViewModel vm)
         {
             this.InitializeComponent();
             BindingContext = vm;
-            vm.Update();
+            vm.Updates();
         }
-        protected override void OnNavigatedTo(NavigatedToEventArgs args)
-        {
-            base.OnNavigatedTo(args);
-        }
-
-
-
-
     }
 
 }
