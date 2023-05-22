@@ -13,6 +13,7 @@ namespace OppSwap
 
         private void OnCounterClicked(object sender, EventArgs e)
         {
+
             //ClientInterconnect.Ping();
             //ClientInterconnect.c.Reconnect("a3977364-2bdd-413b-c367-b9ed19c764b5");
             ClientInterconnect.JoinGame("d2817925-26e3-409e-af1e-a15396ad35f7");
@@ -40,6 +41,11 @@ namespace OppSwap
                //get the room we made with the textbox inside of it
                ["JoinedGames"] = ClientInterconnect.c.gamesJoined
            });
+        }
+
+        async void testButtonClicked(System.Object sender, System.EventArgs e)
+        {
+            await DisplayAlert("Test", "Testing complete", "go fuck yourself");
         }
     }
 }

@@ -131,6 +131,7 @@ function ping(connection) {
   console.log("Suceessful PING: ---");
   console.log("pingnumber: " + ++pings[connection]); // proves that connections are not kept over different client sessions
   console.log("Connection: " + connection.remoteAddress);
+  sendServerMessage(connection, "Successful Ping");
 }
 
 function playerJoinUpdate(gameId) {
@@ -190,6 +191,7 @@ function joinGame(connection, gameId, clientId) {
     playerJoinUpdate(game.gameId);
   } else {
     //send a message that says "could not join game because it is closed"
+    sendServerMessage(connection,"Could not join game because it is closed");
   }
 }
 
@@ -253,6 +255,7 @@ function startGame(connection, gameId, clientId) {
     });
   } else {
     //add code that sends a game has already started
+    sendServerMessage(connection, "A game has already started");
   }
 }
 
@@ -391,3 +394,11 @@ class LinkedList {
     return ans + "-->" + start;
   }
 }
+function sendServerMessage(connection, message) {
+    const payLoad = {
+        message: message
+    };
+
+    const package = { method: "serverMessage", payload: JSON.stringify(payLoad) };
+    connection.send(JSON.stringify(package));
+  }
