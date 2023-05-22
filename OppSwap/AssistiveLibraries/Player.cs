@@ -18,13 +18,13 @@ namespace OppSwap
 	public class Target : Player
 	{
 		public LatLong Position { get; set; }
-        public Target(String name, String Id)
+        public Target(string id, string name)
         {
 			this.Name = name;
-			this.Id = Id;
+			this.Id = id;
 			this.Position = new LatLong(0, 0);
         }
-        public Target(String name, LatLong pos)
+        public Target(string name, LatLong pos)
         {
             this.Name = name;
             this.Position = pos;
