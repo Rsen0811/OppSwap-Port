@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WebSocketSharp;
 using SerializedJSONTemplates;
 using Newtonsoft.Json;
+using System.Xml.Linq;
 
 namespace OppSwap
 {
@@ -40,6 +41,25 @@ namespace OppSwap
             ws.Connect();
 
             JPackage p = new JPackage { method = "ping" };
+            ws.Send(JsonConvert.SerializeObject(p));
+        }
+
+        private bool ValidKill()
+        {
+            return true;
+        }
+
+        public void Kill(String gameId)
+        {
+            if (!ValidKill()) return;
+            
+            ws.Connect();
+            String1Payload p = new String1Payload
+            {
+                method = "kill",
+                clientId = clientId,
+                gameId = gameId
+            };
             ws.Send(JsonConvert.SerializeObject(p));
         }
 
@@ -117,6 +137,7 @@ namespace OppSwap
                 oldId = oldGuid
             }));
         }
+        
         private void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
         {
             //TODO these should also all be else IFS
@@ -165,6 +186,11 @@ namespace OppSwap
                 //target initially has a position of 0,0
                 gamesJoined[p.gameId].target =new Target(p.targetId);
                 //TODO call getPos here
+            }
+            if (packet.method.Equals("newTarget"))
+            {
+                TargetPackage p = (TargetPackage)packet;
+                gamesJoined[p.gameId].target = new Target(p.targetId);
             }
         }
     }

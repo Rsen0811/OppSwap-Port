@@ -28,7 +28,8 @@ namespace OppSwap
         public static void FetchGames(String query) { commandList.Add("f " + query); }
         public static void UpdatePosition(LatLong position) { commandList.Add("u " + position.ToString()); }
         public static void StartGame(String gameId) { commandList.Add("s " + gameId); }
-        public static void GetTargetPos(String gameId) { commandList.Add("t" + gameId); }
+        public static void GetTargetPos(String gameId) { commandList.Add("t " + gameId); }
+        public static void Kill(String gameId) { commandList.Add("k " + gameId); }
 
         public static async void Start(){
             while (true)
@@ -68,6 +69,7 @@ namespace OppSwap
             if (nextCommand[0] == 'u') { c.UpdatePosition(nextCommand.Split()[1]); commandList.RemoveAt(0); }
             if (nextCommand[0] == 's') { c.StartGame(nextCommand.Split()[1]); commandList.RemoveAt(0); }
             if (nextCommand[0] == 't') { c.GetTargetPos(nextCommand.Split()[1]); commandList.RemoveAt(0); }
+            if (nextCommand[0] == 'k') { c.Kill(nextCommand.Split()[1]); commandList.RemoveAt(0); }
         }
         public static Room getRoom(String s)
         {

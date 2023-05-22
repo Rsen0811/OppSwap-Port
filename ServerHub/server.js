@@ -38,9 +38,24 @@ wsServer.on("request", (request) => {
     else if (incoming.method === "updatePosition") updatePosition(incoming.clientId, incoming.position);
     else if (incoming.method === "getTargetPosition") getTargetPosition(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "startGame") startGame(connection, incoming.gameId, incoming.clientId);
-    else if (incoming.method === "reconnect") reconnect(connection, incoming.clientId, incoming.oldId)
+    else if (incoming.method === "reconnect") reconnect(connection, incoming.clientId, incoming.oldId);
+    else if (incoming.method === "kill") kill(connection, incoming.gameId, incoming.clientId);
   });
 });
+
+function kill(connection, gameId, clientId) {
+  let game = games[gameId];
+  let target = game.targets.getTarget(clientId);
+  game.targets.removeNode(target);
+  // now use connection to send server message that the kill was successfull
+  const payLoad = { 
+    gameId: gameId,
+    targetId: game.targets.getTarget(clientId)
+    //TODO add target nickname when we implement those
+  }
+  const package= {method:"newTarget", payload:JSON.stringify(payLoad)}
+  connection.send(JSON.stringify(package))
+}
 
 function reconnect(connection, clientId, oldId) { // right now just use clientId for debug
   let client = clients[oldId];
@@ -210,11 +225,11 @@ function startGame(connection, gameId, clientId) {
     //TODO add check for 2 or more clients
     game.visibility = false;
     //create a linked list
-    game.targets = new LinkedList(game.clientIDs);
+    game.targets = new LinkedList(game.clientIds);
     //send everybody their target && a message that says gameStarted
     game.clientIds.forEach((element) => {
-      if (connections[element].status === "open") {
-        let currConn = connections[element].connection;
+      if (clients[element].status === "open") {
+        let currConn = clients[element].connection;
         //creating a payload with the oppenents
         const payload = {
           //TODO eventually change this to nickname
@@ -299,10 +314,10 @@ class LinkedList {
    * The client IDs are randomly shuffled before creating the linked list.
    * @param {Array<string>} clientIDs - The array of client IDs to use.
    */
-  LinkedList(clientIDs) {
+  constructor(clientIDs) {
     // Create a new map to store the linked list
     // Shuffle the array of client IDs
-    map = new Map();
+    this.map = new Map();
     const shuffledIDs = this.shuffleArray(clientIDs);
     // Create the linked list from the shuffled client IDs
     if (shuffledIDs.length > 0) {
