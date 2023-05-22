@@ -74,9 +74,10 @@ namespace SerializedJSONTemplates
         public static explicit operator playerJoinPayload(JPGeneral incoming)
         {
             playerJoinPayload outgoing = JsonConvert.DeserializeObject<playerJoinPayload>(incoming.payload);
+            outgoing.players = new List<Player>();
             for (int i = 0; i < outgoing.clientIds.Length; i++)
             {
-                outgoing.players.Add(new Player(outgoing.clientNames[i], outgoing.clientIds[i]));
+                outgoing.players.Add(new Player(outgoing.clientIds[i], outgoing.clientNames[i]));
             }
 
             outgoing.method = incoming.method;
