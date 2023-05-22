@@ -136,7 +136,7 @@ function ping(connection) {
 function playerJoinUpdate(gameId) {
   const payLoad = {
     gameId: gameId,
-    clients: games[gameId].clientIds,
+    clientIds: games[gameId].clientIds,
     clientNames: games[gameId].clientNames
   };
   const package = {
