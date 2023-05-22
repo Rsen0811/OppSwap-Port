@@ -15,8 +15,8 @@ namespace OppSwap
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            builder.Services.AddSingleton<JoinPage>();
-            builder.Services.AddSingleton<JoinPageViewModel>();
+            builder.Services.AddTransient<JoinPage>();
+            builder.Services.AddTransient<JoinPageViewModel>();
 
             builder.Services.AddSingleton<CreatePage>();
             builder.Services.AddSingleton<CreatePageViewModel>();
@@ -30,6 +30,8 @@ namespace OppSwap
             builder.Services.AddTransient<RoomDetailPage>();
             builder.Services.AddTransient<RoomDetailPageViewModel>();
 
+            builder.Services.AddTransient<FetchedGamesPage>();
+            builder.Services.AddTransient<FetchedGamesPageViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

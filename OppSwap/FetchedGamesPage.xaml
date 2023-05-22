@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OppSwap.FetchedGamesPage"
+             x:DataType="viewmodel:FetchedGamesPageViewModel"
+             xmlns:viewmodel="clr-namespace:OppSwap.ViewModels"
+             >
+    <Grid RowDefinitions="100, Auto, *"
+          ColumnDefinitions=".75*, .25*"
+          Padding="10"
+          RowSpacing="10"
+          ColumnSpacing="10">
+
+        <Image Grid.ColumnSpan="2"
+               Source="dotnet_bot.png"/>
+        <Entry Placeholder="Enter text"
+               Text="{Binding GameCode}"
+               Grid.Row="1"/>
+        <Button Text="Search"
+                Command="{Binding SearchButtonCommand}"
+                Grid.Row="1"
+                Grid.Column="1"/>
+
+        <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
+
+                        ItemsSource="{Binding RoomNames}"
+                        SelectionMode="None">
+
+                <CollectionView.ItemTemplate>
+
+
+                    <DataTemplate x:DataType="{x:Type x:String}">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="leave"
+                                               BackgroundColor="Red"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:JoinPageViewModel}}, Path=DeleteCommand}"
+                                               CommandParameter ="{Binding .}" />
+
+
+
+                            </SwipeItems>
+
+                            </SwipeView.RightItems>
+                            <Grid Padding="0,5">
+                                <Frame>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FetchedGamesPageViewModel}}, Path=TapCommand}"
+                                            CommandParameter ="{Binding .}" />
+
+                                  
+
+                                    </Frame.GestureRecognizers>
+                                    <Label Text="{Binding .}"
+                                        FontSize="24"/>
+
+                                </Frame>
+
+                            </Grid>
+
+                        </SwipeView>
+
+                    </DataTemplate>
+
+
+                </CollectionView.ItemTemplate>
+
+
+
+        </CollectionView>
+    </Grid>
+
+                     
+</ContentPage>

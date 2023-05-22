@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WebSocketSharp;
 using SerializedJSONTemplates;
 using Newtonsoft.Json;
+using System.Xml.Linq;
 
 namespace OppSwap
 {
@@ -14,7 +15,7 @@ namespace OppSwap
     {
         private WebSocket ws;
         public String clientId;
-        public Dictionary<String,Room> gamesJoined;
+        public Dictionary<string,Room> gamesJoined;
         public List<Room> fetchedRooms;
         public List<String> errorMessages;
         public Client()
@@ -24,6 +25,7 @@ namespace OppSwap
             ws.OnMessage += Ws_OnMessage;
 
             gamesJoined = new Dictionary<String,Room>();
+            fetchedRooms = new List<Room>();
             //   outdated code from a more civilized age
             JPackage p = new JPackage
             {
@@ -39,6 +41,25 @@ namespace OppSwap
             ws.Connect();
 
             JPackage p = new JPackage { method = "ping" };
+            ws.Send(JsonConvert.SerializeObject(p));
+        }
+
+        private bool ValidKill()
+        {
+            return true;
+        }
+
+        public void Kill(String gameId)
+        {
+            if (!ValidKill()) return;
+            
+            ws.Connect();
+            String1Payload p = new String1Payload
+            {
+                method = "kill",
+                clientId = clientId,
+                gameId = gameId
+            };
             ws.Send(JsonConvert.SerializeObject(p));
         }
 
@@ -80,6 +101,7 @@ namespace OppSwap
         }
 
         public void UpdatePosition(String position) {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new {
                 method = "updatePosition",
                 clientId = clientId,
@@ -89,6 +111,7 @@ namespace OppSwap
         }
         public void StartGame(String gameId)
         {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {
                 method = "startGame",
@@ -99,6 +122,7 @@ namespace OppSwap
 
         public void GetTargetPos(String gameId)
         {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {
                 method = "getTargetPosition",
@@ -109,6 +133,7 @@ namespace OppSwap
 
         public void Reconnect(String oldGuid) // must have guid from previous state
         {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {
                 method = "reconnect",
@@ -116,8 +141,10 @@ namespace OppSwap
                 oldId = oldGuid
             }));
         }
-        private async void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
+
+        private void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
         {
+            //TODO these should also all be else IFS
             JPGeneral packet = JsonConvert.DeserializeObject<JPGeneral>(e.Data);
             if (packet.method.Equals("connect"))
             {
@@ -133,17 +160,13 @@ namespace OppSwap
             if (packet.method.Equals("playerJoinUpdate"))
             {
                 playerJoinPayload p = (playerJoinPayload)packet;
-                foreach (Room r in gamesJoined.Values)
-                {
-                    if (r.Id.Equals(p.gameId))
-                    {
-                        r.tempholderwhileplayersdonthavenamesonserver = p.clients;
-                        return;
-                    }
-                }
+                Room r = gamesJoined[p.gameId];
+                r.players = p.players;
             }
             if (packet.method.Equals("fetchGames"))
             {
+                //this isnt working or smthn
+                //TODO ASK RAJ HOW TO FIX THIS.
                 GameQueryPackage p = (GameQueryPackage)packet;
                 fetchedRooms = p.rooms;
             }
@@ -159,7 +182,7 @@ namespace OppSwap
                 StartPayload p = (StartPayload)packet;
                 //TODO eventually we can look into transferring the nickname instead of targetID, for now use target ID as a replacement Nick when displaying target name
                 //target initially has a position of 0,0
-                gamesJoined[p.gameId].target =new Target(p.targetId);
+                gamesJoined[p.gameId].target = new Target(p.targetId, p.targetName);
                 //TODO call getPos here
             }
             if(packet.method.Equals("serverMessage"))
@@ -172,6 +195,11 @@ namespace OppSwap
                     //Application.Current.MainPage.DisplayAlert("Server Message", p.message, "Accept");
                     AppShell.Current.CurrentPage.DisplayAlert("Server Message", p.message, "Accept");
                 });
+            }
+            if (packet.method.Equals("newTarget"))
+            {
+                TargetPackage p = (TargetPackage)packet;
+                gamesJoined[p.gameId].target = new Target(p.targetId, p.targetName);
             }
         }
     }

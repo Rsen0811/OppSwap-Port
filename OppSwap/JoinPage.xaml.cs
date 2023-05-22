@@ -26,8 +26,19 @@ namespace OppSwap
         }
         async void JoinButton_Clicked(System.Object sender, System.EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(RoomDetailPage));
-        }
+
+            //TODO  find out why does this only work with the.c no work without the.c
+            ClientInterconnect.FetchGames("");
+            await Task.Delay(1000);
+
+            await Shell.Current.GoToAsync(nameof(FetchedGamesPage),
+            new Dictionary<string, object>
+            {
+                //get the room we made with the textbox inside of it
+                //TODO Changed Joined Games to Fetched Games
+                ["FetchedGames"] = ClientInterconnect.c.fetchedRooms
+            }) ;
+         }
 
 
 

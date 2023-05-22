@@ -27,6 +27,7 @@
                 HorizontalOptions="Center" />
             <!--Rotation="{Binding ArrowAngle}"-->
 
+
             <Label
                 Text="{Binding CurrRoom.Name}"
                 FontSize="25"
@@ -55,6 +56,23 @@
                 Text="Click me"
                 Command="{Binding getCurrentLocationCommand}"
                 HorizontalOptions="Center" />
+            <Button
+                x:Name="Kill"
+                Text="Eliminate"
+                IsVisible="{Binding ButtonVisible}"
+                Command="{Binding KillButtonCommand}"
+                />
+
+
+             
+            
+            <!--<Button
+                x:Name="Eliminate"
+                Text="Eliminate"
+                Command="{Binding EliminateTarget}"
+                IsVisible="{Binding Visible}"
+
+                /> -->
 
             <!--<GraphicsView 
                 HeightRequest="100"

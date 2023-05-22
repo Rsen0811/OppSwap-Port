@@ -20,6 +20,7 @@ namespace OppSwap
         public static readonly Client c = (RUNNING_SERVER ? new Client() : null);
 
         private static List<String> commandList = new List<String>();
+        public static LatLong position;
 
         public static void Ping() { commandList.Add("p"); }
         public static void CreateGame(String name) { commandList.Add("c " + name); }
@@ -27,7 +28,8 @@ namespace OppSwap
         public static void FetchGames(String query) { commandList.Add("f " + query); }
         public static void UpdatePosition(LatLong position) { commandList.Add("u " + position.ToString()); }
         public static void StartGame(String gameId) { commandList.Add("s " + gameId); }
-        public static void GetTargetPos(String gameId) { commandList.Add("t" + gameId); }
+        public static void GetTargetPos(String gameId) { commandList.Add("t " + gameId); }
+        public static void Kill(String gameId) { commandList.Add("k " + gameId); }
 
         public static async void Start(){
             while (true)
@@ -48,6 +50,7 @@ namespace OppSwap
 
             LatLong location = new LatLong(l.Latitude, l.Longitude);
             UpdatePosition(location);
+            position = location;
            // if (AppShell.Current.CurrentPage. == "meme")
             return Task.Delay(0);
         }
@@ -66,6 +69,7 @@ namespace OppSwap
             if (nextCommand[0] == 'u') { c.UpdatePosition(nextCommand.Split()[1]); commandList.RemoveAt(0); }
             if (nextCommand[0] == 's') { c.StartGame(nextCommand.Split()[1]); commandList.RemoveAt(0); }
             if (nextCommand[0] == 't') { c.GetTargetPos(nextCommand.Split()[1]); commandList.RemoveAt(0); }
+            if (nextCommand[0] == 'k') { c.Kill(nextCommand.Split()[1]); commandList.RemoveAt(0); }
         }
         public static Room getRoom(String s)
         {

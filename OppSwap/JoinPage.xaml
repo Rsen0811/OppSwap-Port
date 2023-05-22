@@ -69,32 +69,34 @@
         <Entry Placeholder="Enter text"
                Text="{Binding GameCode}"
                Grid.Row="1"/>
+        <!--Command="{Binding joinRoomCommand}"-->
         <Button Text="Join"
-                Command="{Binding AddCommand}"
+                Clicked="JoinButton_Clicked"
                 Grid.Row="1"
                 Grid.Column="1"/>
         <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
 
-                        ItemsSource="{Binding GamesJoined}">
+                        ItemsSource="{Binding RoomNames}"
+                        SelectionMode="None">
 
                 <CollectionView.ItemTemplate>
-
-
                     <DataTemplate x:DataType="{x:Type x:String}">
                         <SwipeView>
                             <SwipeView.RightItems>
                                 <SwipeItems>
                                     <SwipeItem Text="leave"
-                                               BackgroundColor="Red">
-
-
-                                    </SwipeItem>
-
+                                               BackgroundColor="Red"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:JoinPageViewModel}}, Path=DeleteCommand}"
+                                               CommandParameter ="{Binding .}" />
                                 </SwipeItems>
-
                             </SwipeView.RightItems>
                             <Grid Padding="0,5">
                                 <Frame>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:JoinPageViewModel}}, Path=TapCommand}"
+                                            CommandParameter ="{Binding .}" />
+                                    </Frame.GestureRecognizers>
                                     <Label Text="{Binding .}"
                                         FontSize="24"/>
 
@@ -112,11 +114,11 @@
 
 
         </CollectionView>
-        <Button Text="Create"
-                Clicked="GoToCreatePage"
+         <Button Text="Create"
+                Clicked = "GoToCreatePage"
                 Grid.Row="5"
                 Grid.Column="5"/>
-                
     </Grid>
+
                      
 </ContentPage>
