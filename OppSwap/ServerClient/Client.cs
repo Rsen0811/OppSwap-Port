@@ -43,6 +43,25 @@ namespace OppSwap
             ws.Send(JsonConvert.SerializeObject(p));
         }
 
+        private bool ValidKill()
+        {
+            return true;
+        }
+
+        public void Kill(String gameId)
+        {
+            if (!ValidKill()) return;
+            
+            ws.Connect();
+            String1Payload p = new String1Payload
+            {
+                method = "kill",
+                clientId = clientId,
+                gameId = gameId
+            };
+            ws.Send(JsonConvert.SerializeObject(p));
+        }
+
         public void CreateGame(String name) 
         { // creator gets sent a special payload to automatically join game
             ws.Connect();
@@ -135,14 +154,8 @@ namespace OppSwap
             if (packet.method.Equals("playerJoinUpdate"))
             {
                 playerJoinPayload p = (playerJoinPayload)packet;
-                foreach (Room r in gamesJoined.Values)
-                {
-                    if (r.Id.Equals(p.gameId))
-                    {
-                        r.tempholderwhileplayersdonthavenamesonserver = p.clients;
-                        return;
-                    }
-                }
+                Room r = gamesJoined[p.gameId];
+                r.players = p.players;
             }
             if (packet.method.Equals("fetchGames"))
             {
@@ -163,8 +176,13 @@ namespace OppSwap
                 StartPayload p = (StartPayload)packet;
                 //TODO eventually we can look into transferring the nickname instead of targetID, for now use target ID as a replacement Nick when displaying target name
                 //target initially has a position of 0,0
-                gamesJoined[p.gameId].target =new Target(p.targetId);
+                gamesJoined[p.gameId].target = new Target(p.targetId, p.targetName);
                 //TODO call getPos here
+            }
+            if (packet.method.Equals("newTarget"))
+            {
+                TargetPackage p = (TargetPackage)packet;
+                gamesJoined[p.gameId].target = new Target(p.targetId, p.targetName);
             }
         }
     }

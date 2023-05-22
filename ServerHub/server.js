@@ -38,9 +38,26 @@ wsServer.on("request", (request) => {
     else if (incoming.method === "updatePosition") updatePosition(incoming.clientId, incoming.position);
     else if (incoming.method === "getTargetPosition") getTargetPosition(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "startGame") startGame(connection, incoming.gameId, incoming.clientId);
-    else if (incoming.method === "reconnect") reconnect(connection, incoming.clientId, incoming.oldId)
+    else if (incoming.method === "reconnect") reconnect(connection, incoming.clientId, incoming.oldId);
+    else if (incoming.method === "kill") kill(connection, incoming.gameId, incoming.clientId);
   });
 });
+
+function kill(connection, gameId, clientId) {
+  let game = games[gameId];
+  let target = game.targets.getTarget(clientId);
+  game.targets.removeNode(target);
+  // now use connection to send server message that the kill was successfull
+  let newTarget = game.targets.getTarget(clientId);
+  const payLoad = { 
+    gameId: gameId,
+    targetId: newTarget,
+    targetName: clients[newTarget].name
+    //TODO add target nickname when we implement those
+  }
+  const package= {method:"newTarget", payload:JSON.stringify(payLoad)}
+  connection.send(JSON.stringify(package))
+}
 
 function reconnect(connection, clientId, oldId) { // right now just use clientId for debug
   let client = clients[oldId];
@@ -63,10 +80,12 @@ function reconnect(connection, clientId, oldId) { // right now just use clientId
     connection.send(JSON.stringify(package))
     
     if (game.visibility === false) { // now tell client that some rooms are started
+      let targetId = game.targets.getTarget(oldId);
       const payload2 = {
         //TODO eventually change this to nickname
-        targetId: game.targets.getTarget(oldId),
-        gameId: game.gameId,
+        targetId: targetId,
+        targetName: clients[targetId].name,
+        gameId: game.gameId
       };
       const package2 = {
         method: "gameStarted",
@@ -117,6 +136,7 @@ function playerJoinUpdate(gameId) {
   const payLoad = {
     gameId: gameId,
     clients: games[gameId].clientIds,
+    clientNames: games[gameId].clientNames
   };
   const package = {
     method: "playerJoinUpdate",
@@ -210,16 +230,18 @@ function startGame(connection, gameId, clientId) {
     //TODO add check for 2 or more clients
     game.visibility = false;
     //create a linked list
-    game.targets = new LinkedList(game.clientIDs);
+    game.targets = new LinkedList(game.clientIds);
     //send everybody their target && a message that says gameStarted
     game.clientIds.forEach((element) => {
-      if (connections[element].status === "open") {
-        let currConn = connections[element].connection;
+      if (clients[element].status === "open") {
+        let currConn = clients[element].connection;
         //creating a payload with the oppenents
+        let targetId = game.targets.getTarget(oldId);
         const payload = {
           //TODO eventually change this to nickname
-          targetId: game.targets.getTarget(element),
-          gameId: gameId,
+          targetId: targetId,
+          targetName: clients[targetId].name,
+          gameId: gameId
         };
         const package = {
           method: "gameStarted",
@@ -272,6 +294,7 @@ class Room {
     this.gameName = name;
     this.gameId = guid();
     this.clientIds = [];
+    this.clientNames = [];
     this.targets = null;
     this.settings = null;
     this.paused = false;
@@ -280,12 +303,14 @@ class Room {
   }
   addPlayer(playerId) {
     this.clientIds.push(playerId);
+    this.clientNames.push(clients[playerId].name)
     //this.positions[playerId] = "0,0";
   }
 }
 
 class Client {
   constructor(connection) {
+    this.name = "guest",
     this.connection = connection;
     this.status = "open";
     this.currentGames = []; // ================================================ TODO
@@ -299,10 +324,10 @@ class LinkedList {
    * The client IDs are randomly shuffled before creating the linked list.
    * @param {Array<string>} clientIDs - The array of client IDs to use.
    */
-  LinkedList(clientIDs) {
+  constructor(clientIDs) {
     // Create a new map to store the linked list
     // Shuffle the array of client IDs
-    map = new Map();
+    this.map = new Map();
     const shuffledIDs = this.shuffleArray(clientIDs);
     // Create the linked list from the shuffled client IDs
     if (shuffledIDs.length > 0) {
