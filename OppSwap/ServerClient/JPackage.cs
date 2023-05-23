@@ -109,7 +109,7 @@ namespace SerializedJSONTemplates
     [Serializable]
     public class TargetPosPackage : JPackage
     {
-        public String targetPostion { get; set; }
+        public String targetPosition { get; set; }
         public String gameId { get; set; }
 
         public static explicit operator TargetPosPackage(JPGeneral incoming)

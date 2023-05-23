@@ -32,7 +32,7 @@ namespace OppSwap.ViewModels
                         PlayerNames = PlayerToName(CurrRoom.players);
                     }
                 }
-                await Task.Delay(10000);//wait 10 seconds
+                await Task.Delay(100);//wait 10 seconds
             }
         }
 

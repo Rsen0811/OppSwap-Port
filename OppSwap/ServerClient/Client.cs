@@ -20,7 +20,7 @@ namespace OppSwap
         public List<String> errorMessages;
         public Client()
         {
-            ws = new WebSocket("ws://localhost:9992");//ws://water-cautious-barge.glitch.me");
+            ws = new WebSocket("ws://172.20.10.3:9992");//ws://water-cautious-barge.glitch.me");
             ws.Connect();
             ws.OnMessage += Ws_OnMessage;
 
@@ -175,7 +175,7 @@ namespace OppSwap
             if (packet.method.Equals("getPosition"))
             {
                 TargetPosPackage p = (TargetPosPackage)packet;
-                gamesJoined[p.gameId].target.Position = new LatLong(p.targetPostion);
+                gamesJoined[p.gameId].target.Position = new LatLong(p.targetPosition);
             }
 
             if (packet.method.Equals("gameStarted"))

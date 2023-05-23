@@ -122,9 +122,10 @@ namespace OppSwap.ViewModels
             await Task.Delay(1000);
             while (true)
             {
+                //CurrRoom = ClientInterconnect.getRoom(CurrRoom.Id);
                 ClientInterconnect.GetTargetPos(CurrRoom.Id);
 
-                await Task.Delay(5000);
+                await Task.Delay(10);
 
                 TimeTaken = "" + ClientInterconnect.position.distance(CurrRoom.target.Position);
 
