@@ -41,7 +41,9 @@ namespace OppSwap.ViewModels
             List<string> temp = new List<string>();
             foreach (Player p in players) 
             {
-                temp.Add(p.Name);
+                if(!ClientInterconnect.c.clientId.Equals(p.Id)) {
+                    temp.Add(p.Name);
+                }
             }
             return temp;
         } 
