@@ -8,6 +8,7 @@ using WebSocketSharp;
 using SerializedJSONTemplates;
 using Newtonsoft.Json;
 using System.Xml.Linq;
+using static Android.Icu.Text.Transliterator;
 
 namespace OppSwap
 {
@@ -93,7 +94,16 @@ namespace OppSwap
             };
             ws.Send(JsonConvert.SerializeObject(p));
         }
-        public void SetName(String name) { }
+        public void SetName(String name) 
+        {
+            ws.Connect();
+            ws.Send(JsonConvert.SerializeObject(new
+            {
+                method = "setName",
+                clientId = clientId,
+                name = name
+            }));
+        }
         
         public void UpdatePosition(LatLong position)
         {
@@ -200,6 +210,30 @@ namespace OppSwap
             {
                 TargetPackage p = (TargetPackage)packet;
                 gamesJoined[p.gameId].target = new Target(p.targetId, p.targetName);
+            }
+
+            if (packet.method.Equals("nickName"))
+            {
+                NickNamePackage p = (NickNamePackage)packet;
+                foreach(string game in p.gamesJoined)
+                {
+                    Room cur = gamesJoined[game];
+                    if (cur != null)
+                    {
+                        if (cur.target.Id == p.clientId)
+                        {
+                            cur.target.Name = p.name;
+                        }
+                        foreach(Player player in cur.players)
+                        {
+                            if (player.Id == p.clientId)
+                            {
+                                player.Name = p.name;
+                                break;
+                            }
+                        }
+                    }
+                } 
             }
         }
     }
