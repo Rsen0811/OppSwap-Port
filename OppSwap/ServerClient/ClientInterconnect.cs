@@ -32,12 +32,17 @@ namespace OppSwap
         public static void Kill(String gameId) { commandList.Add("k " + gameId); }
 
         public static async void Start(){
+            int i = 0;
             while (true)
             {
                 if (!RUNNING_SERVER) return;
-                await updateCommands();
+                if (i % 10==0)
+                {
+                    await updateCommands();
+                }
                 processCommands();
-                await Task.Delay(1000); // waits 1 sec between calls
+                i++;
+                await Task.Delay(100); // waits 100 milliseconds between calls
             }
         }
 
