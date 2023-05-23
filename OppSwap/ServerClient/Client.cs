@@ -8,7 +8,7 @@ using WebSocketSharp;
 using SerializedJSONTemplates;
 using Newtonsoft.Json;
 using System.Xml.Linq;
-using static Android.Icu.Text.Transliterator;
+//using static Android.Icu.Text.Transliterator;
 
 namespace OppSwap
 {

@@ -147,6 +147,10 @@ namespace SerializedJSONTemplates
         public static explicit operator ServerMessage(JPGeneral incoming)
         {
             ServerMessage outgoing = JsonConvert.DeserializeObject<ServerMessage>(incoming.payload);
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
 
     public class NickNamePackage : JPackage
     {
