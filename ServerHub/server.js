@@ -40,8 +40,29 @@ wsServer.on("request", (request) => {
     else if (incoming.method === "startGame") startGame(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "reconnect") reconnect(connection, incoming.clientId, incoming.oldId);
     else if (incoming.method === "kill") kill(connection, incoming.gameId, incoming.clientId);
+    else if (incoming.method === "setName") setName(connection, incoming.clientId, incoming.name);
   });
 });
+
+function setName(connection, clientId, name) {
+  let client = clients[clientId];
+  client.name = name;
+
+  const payLoad = {
+    clientId: clientId,
+    name: name,
+    gamesJoined: client.currentGames
+  }
+  const package = {method:"nickName", payload:JSON.stringify(payLoad)}
+
+  Object.keys(clients).forEach((client) => {
+    if (connectionOpen(client)) {
+      // if the connection is status closed, then dont try sending message
+      clients[client].connection.send(JSON.stringify(package));
+    }
+  })
+  // send client message that name properly changed using connection
+}
 
 function kill(connection, gameId, clientId) {
   let game = games[gameId];

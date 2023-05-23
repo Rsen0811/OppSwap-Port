@@ -119,7 +119,7 @@ namespace SerializedJSONTemplates
             return outgoing;
         }
     }
-    
+
     //TODO ask raj what is diif between payload vs packages???
     //TODO add the nicknames for the Target
     [Serializable]
@@ -133,6 +133,21 @@ namespace SerializedJSONTemplates
         public static explicit operator TargetPackage(JPGeneral incoming)
         {
             TargetPackage outgoing = JsonConvert.DeserializeObject<TargetPackage>(incoming.payload);
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+
+    [Serializable]
+    public class NickNamePackage : JPackage
+    {
+        public string clientId { get; set; }
+        public string name { get; set; }
+        public string[] gamesJoined { get; set; }
+
+        public static explicit operator NickNamePackage(JPGeneral incoming)
+        {
+            NickNamePackage outgoing = JsonConvert.DeserializeObject<NickNamePackage>(incoming.payload);
             outgoing.method = incoming.method;
             return outgoing;
         }
