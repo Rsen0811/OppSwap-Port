@@ -65,7 +65,6 @@ namespace OppSwap
         private static void processCommands()
         {
             if (commandList.Count == 0 || c.clientId == null) return;
-
             String nextCommand = commandList[0];
             // i am well aware this can be more efficient if i pull out the Remove lement line, but for rn, im working on something big, so ill come back to it
             if (nextCommand[0] == 'p') { c.Ping(); commandList.RemoveAt(0); }

@@ -30,7 +30,7 @@ namespace OppSwap.ViewModels
                     CurrRoom = ClientInterconnect.c.gamesJoined[CurrRoom.Id];
                     if (CurrRoom.players != null)
                     {
-                        if (!PlayerNames.Equals(PlayerToName(CurrRoom.players)))
+                        if (PlayerNames==null ||!PlayerNames.Equals(PlayerToName(CurrRoom.players)))
                         {
                             PlayerNames = PlayerToName(CurrRoom.players);
                         }

@@ -196,7 +196,8 @@ function joinGame(connection, gameId, clientId) {
 function fetchGames(connection, query) {
   let gameNames = [];
   let gameIds = [];
-  let clientConnected = clients[connections[connection]].currentGames;
+  let temp1=clients[connections[connection]];
+  let clientConnected = temp1.currentGames;
   Object.keys(games).forEach((gameKey) => {
     // gamekey is the gameId, but i decided not to use the same var name
     const game = games[gameKey];
