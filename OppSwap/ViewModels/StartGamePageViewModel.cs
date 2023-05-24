@@ -26,10 +26,14 @@ namespace OppSwap.ViewModels
             {
                 if (CurrRoom != null)
                 {
+                    if(!CurrRoom.Equals(ClientInterconnect.c.gamesJoined[CurrRoom.Id]))
                     CurrRoom = ClientInterconnect.c.gamesJoined[CurrRoom.Id];
                     if (CurrRoom.players != null)
                     {
-                        PlayerNames = PlayerToName(CurrRoom.players);
+                        if (!PlayerNames.Equals(PlayerToName(CurrRoom.players)))
+                        {
+                            PlayerNames = PlayerToName(CurrRoom.players);
+                        }
                     }
                 }
                 await Task.Delay(100);//wait 10 seconds
