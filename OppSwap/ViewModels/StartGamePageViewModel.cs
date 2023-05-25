@@ -30,7 +30,7 @@ namespace OppSwap.ViewModels
                     CurrRoom = ClientInterconnect.c.gamesJoined[CurrRoom.Id];
                     if (CurrRoom.players != null)
                     {
-                        if (PlayerNames==null ||!PlayerNames.Equals(PlayerToName(CurrRoom.players)))
+                        if (PlayerNames==null || !CompareArrays(PlayerNames, PlayerToName(ClientInterconnect.c.gamesJoined[CurrRoom.Id].players)))
                         {
                             PlayerNames = PlayerToName(CurrRoom.players);
                         }
@@ -39,7 +39,26 @@ namespace OppSwap.ViewModels
                 await Task.Delay(100);//wait 10 seconds
             }
         }
+        private bool CompareArrays(List<string> arr1, List<string> arr2)
+        {
+            if (arr1.Count != arr2.Count)
+            {
+                return false;
+            }
+            for(int i = 0; i < arr1.Count; i++)
+            {
+                
+                if (string.Compare(arr1[i],arr2[i])!=0)
+                {
+                    return false;
+                }
+                else
+                {
 
+                }
+            }
+            return true;
+        }
         private List<string> PlayerToName(List<Player> players)
         {
             List<string> temp = new List<string>();
