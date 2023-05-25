@@ -43,10 +43,17 @@
                 Clicked="NextPage"
                 HorizontalOptions="Center" />
             <Button
+<<<<<<< HEAD
                 x:Name="NickName"
                 Text="NickName"
                 Clicked="GoToNickName"
                 HorizontalOptions="Center"/>
+=======
+                x:Name="ErrorTestButton"
+                Text="TestMe"
+                Clicked="testButtonClicked"
+                HorizontalOptions="Center" />
+>>>>>>> main
 
         </VerticalStackLayout>
     </ScrollView>

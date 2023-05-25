@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using WebSocketSharp;
 using SerializedJSONTemplates;
 using Newtonsoft.Json;
+using System.Xml.Linq;
+//using static Android.Icu.Text.Transliterator;
 
 namespace OppSwap
 {
@@ -43,6 +45,25 @@ namespace OppSwap
             ws.Send(JsonConvert.SerializeObject(p));
         }
 
+        private bool ValidKill()
+        {
+            return true;
+        }
+
+        public void Kill(String gameId)
+        {
+            if (!ValidKill()) return;
+            
+            ws.Connect();
+            String1Payload p = new String1Payload
+            {
+                method = "kill",
+                clientId = clientId,
+                gameId = gameId
+            };
+            ws.Send(JsonConvert.SerializeObject(p));
+        }
+
         public void CreateGame(String name) 
         { // creator gets sent a special payload to automatically join game
             ws.Connect();
@@ -73,7 +94,16 @@ namespace OppSwap
             };
             ws.Send(JsonConvert.SerializeObject(p));
         }
-        public void SetName(String name) { }
+        public void SetName(String name) 
+        {
+            ws.Connect();
+            ws.Send(JsonConvert.SerializeObject(new
+            {
+                method = "setName",
+                clientId = clientId,
+                name = name
+            }));
+        }
         
         public void UpdatePosition(LatLong position)
         {
@@ -81,6 +111,7 @@ namespace OppSwap
         }
 
         public void UpdatePosition(String position) {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new {
                 method = "updatePosition",
                 clientId = clientId,
@@ -90,6 +121,7 @@ namespace OppSwap
         }
         public void StartGame(String gameId)
         {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {
                 method = "startGame",
@@ -100,6 +132,7 @@ namespace OppSwap
 
         public void GetTargetPos(String gameId)
         {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {
                 method = "getTargetPosition",
@@ -110,6 +143,7 @@ namespace OppSwap
 
         public void Reconnect(String oldGuid) // must have guid from previous state
         {
+            ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {
                 method = "reconnect",
@@ -117,6 +151,7 @@ namespace OppSwap
                 oldId = oldGuid
             }));
         }
+
         private void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
         {
             //TODO these should also all be else IFS
@@ -135,14 +170,8 @@ namespace OppSwap
             if (packet.method.Equals("playerJoinUpdate"))
             {
                 playerJoinPayload p = (playerJoinPayload)packet;
-                foreach (Room r in gamesJoined.Values)
-                {
-                    if (r.Id.Equals(p.gameId))
-                    {
-                        r.tempholderwhileplayersdonthavenamesonserver = p.clients;
-                        return;
-                    }
-                }
+                Room r = gamesJoined[p.gameId];
+                r.players = p.players;
             }
             if (packet.method.Equals("fetchGames"))
             {
@@ -163,8 +192,48 @@ namespace OppSwap
                 StartPayload p = (StartPayload)packet;
                 //TODO eventually we can look into transferring the nickname instead of targetID, for now use target ID as a replacement Nick when displaying target name
                 //target initially has a position of 0,0
-                gamesJoined[p.gameId].target =new Target(p.targetId);
+                gamesJoined[p.gameId].target = new Target(p.targetId, p.targetName);
                 //TODO call getPos here
+            }
+            if(packet.method.Equals("serverMessage"))
+            {
+                ServerMessage p = (ServerMessage)packet;
+                //AppShell.Current.CurrentPage.DisplayAlert("Server Message", p.message, "Accept");
+                //MainPage.DisplayAlert("Server Message", p.message, "Accept");
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    //Application.Current.MainPage.DisplayAlert("Server Message", p.message, "Accept");
+                    AppShell.Current.CurrentPage.DisplayAlert("Server Message", p.message, "Accept");
+                });
+            }
+            if (packet.method.Equals("newTarget"))
+            {
+                TargetPackage p = (TargetPackage)packet;
+                gamesJoined[p.gameId].target = new Target(p.targetId, p.targetName);
+            }
+
+            if (packet.method.Equals("nickName"))
+            {
+                NickNamePackage p = (NickNamePackage)packet;
+                foreach(string game in p.gamesJoined)
+                {
+                    Room cur = gamesJoined[game];
+                    if (cur != null)
+                    {
+                        if (cur.target.Id == p.clientId)
+                        {
+                            cur.target.Name = p.name;
+                        }
+                        foreach(Player player in cur.players)
+                        {
+                            if (player.Id == p.clientId)
+                            {
+                                player.Name = p.name;
+                                break;
+                            }
+                        }
+                    }
+                } 
             }
         }
     }

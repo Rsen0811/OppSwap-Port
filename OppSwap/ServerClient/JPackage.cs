@@ -37,6 +37,7 @@ namespace SerializedJSONTemplates
     public class StartPayload : JPackage
     {
         public String targetId { get; set; }
+        public String targetName { get; set; }
         public String gameId { get; set; }
 
         public static explicit operator StartPayload(JPGeneral incoming)
@@ -66,12 +67,21 @@ namespace SerializedJSONTemplates
     public class playerJoinPayload : JPackage
     {
         public string gameId { get; set; }
-        public string[] clients { get; set; }
+        public string[] clientIds { get; set; }
+        public string[] clientNames { get; set; }
+        public List<Player> players { get; set; }
 
         public static explicit operator playerJoinPayload(JPGeneral incoming)
         {
             playerJoinPayload outgoing = JsonConvert.DeserializeObject<playerJoinPayload>(incoming.payload);
+            outgoing.players = new List<Player>();
+            for (int i = 0; i < outgoing.clientIds.Length; i++)
+            {
+                outgoing.players.Add(new Player(outgoing.clientIds[i], outgoing.clientNames[i]));
+            }
+
             outgoing.method = incoming.method;
+            
             return outgoing;
         }
     }
@@ -110,6 +120,53 @@ namespace SerializedJSONTemplates
         }
     }
 
+    //TODO ask raj what is diif between payload vs packages???
+    //TODO add the nicknames for the Target
+    [Serializable]
+    public class TargetPackage : JPackage
+    {
+        public String targetId { get; set; }
+        public String gameId { get; set; }
+        public String targetName { get; set; }
+
+
+        public static explicit operator TargetPackage(JPGeneral incoming)
+        {
+            TargetPackage outgoing = JsonConvert.DeserializeObject<TargetPackage>(incoming.payload);
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+
+    [Serializable]
+
+    public class ServerMessage : JPackage
+    {
+        public String message { get; set; }
+
+        public static explicit operator ServerMessage(JPGeneral incoming)
+        {
+            ServerMessage outgoing = JsonConvert.DeserializeObject<ServerMessage>(incoming.payload);
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+
+    public class NickNamePackage : JPackage
+    {
+        public string clientId { get; set; }
+        public string name { get; set; }
+        public string[] gamesJoined { get; set; }
+
+        public static explicit operator NickNamePackage(JPGeneral incoming)
+        {
+            NickNamePackage outgoing = JsonConvert.DeserializeObject<NickNamePackage>(incoming.payload);
+
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+
     //sending packets
 
     // send single string
@@ -121,5 +178,4 @@ namespace SerializedJSONTemplates
         public string clientId { get; set; }
         public string value { get; set; }
     }
-
 }

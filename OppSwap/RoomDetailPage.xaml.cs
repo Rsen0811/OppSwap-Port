@@ -19,6 +19,7 @@ namespace OppSwap
         {
             this.InitializeComponent();
             BindingContext = vm;
+            vm.KillButtonVisible();
         }
         protected override void OnNavigatedTo(NavigatedToEventArgs args)
         {

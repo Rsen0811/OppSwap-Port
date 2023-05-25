@@ -75,7 +75,6 @@ namespace OppSwap.ViewModels
             });
         }
 
-
         [RelayCommand]
         async Task goToRoomDetailPage()
         {

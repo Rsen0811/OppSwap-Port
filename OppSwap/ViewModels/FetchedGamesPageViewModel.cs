@@ -63,19 +63,15 @@ namespace OppSwap.ViewModels
 
 
         [RelayCommand]
-        async void joinRoom()
+        async void SearchButton()
         {
-            if (string.IsNullOrWhiteSpace(GameCode))
-            {
-                return;
-            }
-            ClientInterconnect.JoinGame(GameCode);
+            ClientInterconnect.FetchGames(GameCode);
             await Task.Delay(600);
-            await Shell.Current.GoToAsync(nameof(JoinPage),
+            await Shell.Current.GoToAsync(nameof(FetchedGamesPage),
            new Dictionary<string, object>
            {
                //get the room we made with the textbox inside of it
-               ["JoinedGames"] = ClientInterconnect.c.gamesJoined.Values
+               ["FetchedGames"] = ClientInterconnect.c.fetchedRooms
            }) ;
 
 

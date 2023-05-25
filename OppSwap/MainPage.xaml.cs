@@ -13,10 +13,14 @@ namespace OppSwap
 
         private void OnCounterClicked(object sender, EventArgs e)
         {
+
             //ClientInterconnect.Ping();
-            ClientInterconnect.c.Reconnect("a3977364-2bdd-413b-c367-b9ed19c764b5");
-            //ClientInterconnect.StartGame("768c7142-c9ab-45ff-f71d-00a62f1c909b");
+            //ClientInterconnect.c.Reconnect("a3977364-2bdd-413b-c367-b9ed19c764b5");
+            ClientInterconnect.JoinGame("d2817925-26e3-409e-af1e-a15396ad35f7");
+            //ClientInterconnect.StartGame("277be637-2fa8-4f0c-db20-7894841292c8");
+            //ClientInterconnect.Kill("277be637-2fa8-4f0c-db20-7894841292c8");
             //ClientInterconnect.FetchGames("for");
+
             //ClientInterconnect.UpdatePosition(new LatLong(123, 345));
             //ClientInterconnect.c.GetTargetPos("8070b607-9e52-402e-c1d2-d6656009c6a8");
             count++;
@@ -43,5 +47,12 @@ namespace OppSwap
            });
         }
 
+<<<<<<< HEAD
+=======
+        async void testButtonClicked(System.Object sender, System.EventArgs e)
+        {
+            await DisplayAlert("Test", "Testing complete", "go fuck yourself");
+        }
+>>>>>>> main
     }
 }
