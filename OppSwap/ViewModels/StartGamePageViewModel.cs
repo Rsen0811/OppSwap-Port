@@ -46,15 +46,10 @@ namespace OppSwap.ViewModels
                 return false;
             }
             for(int i = 0; i < arr1.Count; i++)
-            {
-                
+            {                
                 if (string.Compare(arr1[i],arr2[i])!=0)
                 {
                     return false;
-                }
-                else
-                {
-
                 }
             }
             return true;
@@ -76,6 +71,15 @@ namespace OppSwap.ViewModels
         {
             ClientInterconnect.StartGame(CurrRoom.Id);
             await Task.Delay(1000);
+            await Shell.Current.GoToAsync(nameof(RoomDetailPage),
+                new Dictionary<string, object>
+                {
+                    //get the room we made with the textbox inside of it
+                    ["CurrRoom"] = ClientInterconnect.getRoom(CurrRoom.Id)
+                }); ;
+        }
+        public async void toRoomDetails()
+        {
             await Shell.Current.GoToAsync(nameof(RoomDetailPage),
                 new Dictionary<string, object>
                 {

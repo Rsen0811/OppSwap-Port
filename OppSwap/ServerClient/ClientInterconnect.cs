@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Diagnostics;
 using System.Numerics;
+using OppSwap.ViewModels;
 
 namespace OppSwap
 {
@@ -39,6 +40,15 @@ namespace OppSwap
                 if (i % 10==0)
                 {
                     await updateCommands();
+                }
+                if (string.Compare(AppShell.Current.CurrentPage.GetType().Name, "StartGamePage")==0)
+                {
+                   StartGamePageViewModel viewModel = (StartGamePageViewModel)((StartGamePage)AppShell.Current.CurrentPage).BindingContext;
+                    if (getRoom((viewModel).CurrRoom.Id).started == true)
+                    {
+                        //await Task.Delay(1000);
+                        viewModel.toRoomDetails();
+                    }
                 }
                 processCommands();
                 i++;
