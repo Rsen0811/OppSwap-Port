@@ -51,7 +51,7 @@ namespace OppSwap
                         viewModel.toRoomDetails();
                     }
                 }
-                if (string.Compare(AppShell.Current.CurrentPage.GetType().Name, "RoomDetailPage") == 0)
+                else if (string.Compare(AppShell.Current.CurrentPage.GetType().Name, "RoomDetailPage") == 0)
                 {
                     RoomDetailPageViewModel viewModel = (RoomDetailPageViewModel)((RoomDetailPage)AppShell.Current.CurrentPage).BindingContext;
                     if (getRoom((viewModel).CurrRoom.Id).Winner != null)
@@ -63,7 +63,7 @@ namespace OppSwap
                             ["Winner"] = getRoom((viewModel).CurrRoom.Id).Winner + " won the Game"
                         });
                     }
-                    if (getRoom((viewModel).CurrRoom.Id).IsAlive != true)
+                    else if (getRoom((viewModel).CurrRoom.Id).IsAlive != true)
                     {
                         await Shell.Current.GoToAsync(nameof(DeadPage),
                         new Dictionary<string, object>
@@ -73,7 +73,7 @@ namespace OppSwap
                     }
                     
                 }
-                if (string.Compare(AppShell.Current.CurrentPage.GetType().Name, "DeadPage") == 0)
+                else if (string.Compare(AppShell.Current.CurrentPage.GetType().Name, "DeadPage") == 0)
                 {
                     DeadPageViewModel viewModel = (DeadPageViewModel)((DeadPage)AppShell.Current.CurrentPage).BindingContext;
                     if (getRoom((viewModel).CurrRoom.Id).Winner!=null)
