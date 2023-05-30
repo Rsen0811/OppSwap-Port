@@ -32,11 +32,7 @@ namespace OppSwap
 
             SemanticScreenReader.Announce(CounterBtn.Text);
         }
-        private async void GoToNickName(object sender, EventArgs e)
-        {
-            // await Shell.Current.GoToAsync(nameof(RoomDetailPage));
-            await Shell.Current.GoToAsync(nameof(NickNamePage));
-        }
+
         private async void NextPage(object sender, EventArgs e) {
 
             await Shell.Current.GoToAsync(nameof(JoinPage),
@@ -47,13 +43,10 @@ namespace OppSwap
            });
         }
 
-<<<<<<< HEAD
-=======
         async void testButtonClicked(System.Object sender, System.EventArgs e)
         {
             // await DisplayAlert("Test", "Testing complete", "go fuck yourself");
             await Shell.Current.GoToAsync(nameof(RoomDetailPage));
         }
->>>>>>> main
     }
 }

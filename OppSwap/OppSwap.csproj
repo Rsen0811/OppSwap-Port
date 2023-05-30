@@ -79,14 +79,10 @@
 	<ItemGroup>
 	  <None Remove="AssistiveLibraries\" />
 	  <None Remove="ViewModels\" />
-	  <None Remove="Resources\Images\logo_test.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="AssistiveLibraries\" />
 	  <Folder Include="ViewModels\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <BundleResource Include="Resources\Images\logo_test.png" />
 	</ItemGroup>
 <PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">  
          <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>  
