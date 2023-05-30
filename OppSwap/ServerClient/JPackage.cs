@@ -166,6 +166,19 @@ namespace SerializedJSONTemplates
             return outgoing;
         }
     }
+    public class DeathPackage : JPackage
+    {
+        public string gameId { get; set; }
+        public string playerId { get; set; }
+
+        public static explicit operator DeathPackage(JPGeneral incoming)
+        {
+            DeathPackage outgoing = JsonConvert.DeserializeObject<DeathPackage>(incoming.payload);
+
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
 
     //sending packets
 

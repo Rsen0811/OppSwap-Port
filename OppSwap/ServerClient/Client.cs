@@ -235,6 +235,14 @@ namespace OppSwap
                     }
                 } 
             }
+            if (packet.method.Equals("deathUpdatePayload"))
+            {
+                DeathPackage p = (DeathPackage)packet;
+                foreach(Player player in gamesJoined[p.gameId].players)
+                {
+                    if(player.Id == p.playerId) player.IsAlive = false;
+                }
+            }
         }
     }
 }

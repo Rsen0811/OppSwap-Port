@@ -77,8 +77,26 @@ function kill(connection, gameId, clientId) {
 
     //TODO add target nickname when we implement those
   }
-  const package= {method:"newTarget", payload:JSON.stringify(payLoad)}
+  const package = {method:"newTarget", payload:JSON.stringify(payLoad)}
   connection.send(JSON.stringify(package))
+  updateDeath(gameId, target)
+}
+
+function updateDeath(gameId, playerId) {
+  let game = games[gameId]
+    const payLoad = {
+      gameId: gameId,
+      playerId: playerId
+    }
+    const package = {method:"deathUpdatePayload", payload:JSON.stringify(payLoad)}
+
+    game.clientIds.forEach((client) => {
+      if (connectionOpen(client)) {
+        // if the connection is status closed, then dont try sending message
+        clients[client].connection.send(JSON.stringify(package));
+      }
+    }
+  )
 }
 
 function reconnect(connection, clientId, oldId) { // right now just use clientId for debug
