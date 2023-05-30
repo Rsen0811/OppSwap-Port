@@ -33,6 +33,9 @@ namespace OppSwap
             builder.Services.AddTransient<FetchedGamesPage>();
             builder.Services.AddTransient<FetchedGamesPageViewModel>();
 
+            builder.Services.AddSingleton<NickNamePage>();
+            builder.Services.AddSingleton<NickNamePageViewModel>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

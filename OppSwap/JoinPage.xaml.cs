@@ -24,6 +24,7 @@ namespace OppSwap
             // await Shell.Current.GoToAsync(nameof(RoomDetailPage));
             await Shell.Current.GoToAsync(nameof(CreatePage));
         }
+        
         async void JoinButton_Clicked(System.Object sender, System.EventArgs e)
         {
 
