@@ -180,6 +180,21 @@ namespace SerializedJSONTemplates
         }
     }
 
+    public class WinnerPackage : JPackage
+    {
+        public string gameId { get; set; }
+        public string winnerName { get; set; }
+        public string winnerId { get; set; }
+
+        public static explicit operator WinnerPackage(JPGeneral incoming)
+        {
+            WinnerPackage outgoing = JsonConvert.DeserializeObject<WinnerPackage>(incoming.payload);
+
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+
     //sending packets
 
     // send single string

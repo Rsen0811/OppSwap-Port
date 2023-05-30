@@ -80,23 +80,43 @@ function kill(connection, gameId, clientId) {
   const package = {method:"newTarget", payload:JSON.stringify(payLoad)}
   connection.send(JSON.stringify(package))
   updateDeath(gameId, target)
+
+  if (game.targets.getTarget(clientId) === clientId) {
+    winnerBroadcast(gameId, clientId);
+  }
+}
+
+function winnerBroadcast(gameId, winnerId) {
+  let game = games[gameId];
+  const payLoad2 = {
+    gameId: gameId,
+    winnerName: clients[winnerId].name, 
+    winnerId: winnerId
+  }
+
+  const package2 = {method:"winner", payload:JSON.stringify(payLoad2)}
+  game.clientIds.forEach((client) => {
+    if (connectionOpen(client)) {
+      // if the connection is status closed, then dont try sending message
+      clients[client].connection.send(JSON.stringify(package2));
+    }
+  });
 }
 
 function updateDeath(gameId, playerId) {
-  let game = games[gameId]
-    const payLoad = {
-      gameId: gameId,
-      playerId: playerId
-    }
-    const package = {method:"deathUpdatePayload", payload:JSON.stringify(payLoad)}
+  let game = games[gameId];
+  const payLoad = {
+    gameId: gameId,
+    playerId: playerId
+  }
+  const package = {method:"deathUpdatePayload", payload:JSON.stringify(payLoad)}
 
-    game.clientIds.forEach((client) => {
-      if (connectionOpen(client)) {
-        // if the connection is status closed, then dont try sending message
-        clients[client].connection.send(JSON.stringify(package));
-      }
+  game.clientIds.forEach((client) => {
+    if (connectionOpen(client)) {
+      // if the connection is status closed, then dont try sending message
+      clients[client].connection.send(JSON.stringify(package));
     }
-  )
+  });
 }
 
 function reconnect(connection, clientId, oldId) { // right now just use clientId for debug

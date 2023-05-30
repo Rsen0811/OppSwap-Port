@@ -242,8 +242,17 @@ namespace OppSwap
 
                 foreach(Player player in gamesJoined[p.gameId].players)
                 {
-                    if(player.Id.Equals(p.playerId)) player.IsAlive = false;
+                    if (player.Id.Equals(p.playerId))
+                    {
+                        player.IsAlive = false;
+                        break;
+                    } 
                 }
+            }
+            if (packet.method.Equals("winner"))
+            {
+                WinnerPackage p = (WinnerPackage)packet;
+                gamesJoined[p.gameId].Winner = new Player(p.winnerId, p.winnerName);
             }
         }
     }
