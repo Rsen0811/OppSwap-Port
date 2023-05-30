@@ -238,7 +238,7 @@ namespace OppSwap
             if (packet.method.Equals("deathUpdatePayload"))
             {
                 DeathPackage p = (DeathPackage)packet;
-                if (clientId.Equals(p.playerId)) gamesJoined[p.gameId].isAlive = false;
+                if (clientId.Equals(p.playerId)) gamesJoined[p.gameId].IsAlive = false;
 
                 foreach(Player player in gamesJoined[p.gameId].players)
                 {
