@@ -45,7 +45,8 @@ namespace OppSwap
 
         async void testButtonClicked(System.Object sender, System.EventArgs e)
         {
-            await DisplayAlert("Test", "Testing complete", "go fuck yourself");
+            // await DisplayAlert("Test", "Testing complete", "go fuck yourself");
+            await Shell.Current.GoToAsync(nameof(RoomDetailPage));
         }
     }
 }
