@@ -12,10 +12,13 @@ namespace OppSwap
 		public bool IsAlive { get; set; } // wether user is alive
 		public Player Winner { get; set; }
 
+		public bool started;
+
 		public Room(String name, String id)
 		{
 			Name = name;
 			Id = id;
+			started = false;
 			IsAlive = true;
 		}
 	}

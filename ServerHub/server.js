@@ -3,7 +3,7 @@ const http = require("http");
 
 const websocketServer = require("websocket").server;
 const httpServer = http.createServer();
-httpServer.listen(9992, () =>
+httpServer.listen(9992, () =>//process.env.PORT
   console.log("BEEP BOOP, COMPUTER NOISES ON 9092")
 );
 
@@ -257,12 +257,18 @@ function joinGame(connection, gameId, clientId) {
 function fetchGames(connection, query) {
   let gameNames = [];
   let gameIds = [];
-  let clientConnected = clients[connections[connection]].currentGames;
+  let temp1=clients[connections[connection]];
+  if(temp1.currentGames==null){
+    return;
+  }
+  let clientConnected = temp1.currentGames;
   Object.keys(games).forEach((gameKey) => {
     // gamekey is the gameId, but i decided not to use the same var name
     const game = games[gameKey];
-    if (clientConnected.includes(gameKey)) return;
-    if (game.visibility && (query === "" || game.gameName.includes(query))) {
+    if (clientConnected.includes(gameKey)) {
+      
+    }
+    else if (game.visibility && (query === "" || game.gameName.includes(query))) {
       gameNames.push(game.gameName);
       gameIds.push(game.gameId);
     }
@@ -298,7 +304,7 @@ function startGame(connection, gameId, clientId) {
       if (clients[element].status === "open") {
         let currConn = clients[element].connection;
         //creating a payload with the oppenents
-        let targetId = game.targets.getTarget(oldId);
+        let targetId = game.targets.getTarget(element);
         const payload = {
           //TODO eventually change this to nickname
           targetId: targetId,

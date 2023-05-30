@@ -75,7 +75,7 @@ namespace SerializedJSONTemplates
         {
             playerJoinPayload outgoing = JsonConvert.DeserializeObject<playerJoinPayload>(incoming.payload);
             outgoing.players = new List<Player>();
-            for (int i = 0; i < outgoing.clientIds.Length; i++)
+            for (int i = 0; i < outgoing.clientIds.Length;i++)
             {
                 outgoing.players.Add(new Player(outgoing.clientIds[i], outgoing.clientNames[i]));
             }
@@ -109,7 +109,7 @@ namespace SerializedJSONTemplates
     [Serializable]
     public class TargetPosPackage : JPackage
     {
-        public String targetPostion { get; set; }
+        public String targetPosition { get; set; }
         public String gameId { get; set; }
 
         public static explicit operator TargetPosPackage(JPGeneral incoming)

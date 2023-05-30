@@ -21,7 +21,7 @@ namespace OppSwap
         public List<String> errorMessages;
         public Client()
         {
-            ws = new WebSocket("ws://localhost:9992");//ws://water-cautious-barge.glitch.me");
+            ws = new WebSocket("ws://descriptive-fern-tibia.glitch.me");//ws://water-cautious-barge.glitch.me");
             ws.Connect();
             ws.OnMessage += Ws_OnMessage;
 
@@ -121,6 +121,7 @@ namespace OppSwap
         }
         public void StartGame(String gameId)
         {
+            gamesJoined[gameId].started = true;
             ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {
@@ -184,7 +185,7 @@ namespace OppSwap
             if (packet.method.Equals("getPosition"))
             {
                 TargetPosPackage p = (TargetPosPackage)packet;
-                gamesJoined[p.gameId].target.Position = new LatLong(p.targetPostion);
+                gamesJoined[p.gameId].target.Position = new LatLong(p.targetPosition);
             }
 
             if (packet.method.Equals("gameStarted"))
@@ -193,7 +194,7 @@ namespace OppSwap
                 //TODO eventually we can look into transferring the nickname instead of targetID, for now use target ID as a replacement Nick when displaying target name
                 //target initially has a position of 0,0
                 gamesJoined[p.gameId].target = new Target(p.targetId, p.targetName);
-                //TODO call getPos here
+                gamesJoined[p.gameId].started = true;
             }
             if(packet.method.Equals("serverMessage"))
             {

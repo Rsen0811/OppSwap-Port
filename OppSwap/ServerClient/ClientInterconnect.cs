@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Diagnostics;
 using System.Numerics;
+using OppSwap.ViewModels;
 
 namespace OppSwap
 {
@@ -33,12 +34,26 @@ namespace OppSwap
         public static void SetName(String name) { commandList.Add("n " + name); }
 
         public static async void Start(){
+            int i = 0;
             while (true)
             {
                 if (!RUNNING_SERVER) return;
-                await updateCommands();
+                if (i % 10==0)
+                {
+                    await updateCommands();
+                }
+                if (string.Compare(AppShell.Current.CurrentPage.GetType().Name, "StartGamePage")==0)
+                {
+                   StartGamePageViewModel viewModel = (StartGamePageViewModel)((StartGamePage)AppShell.Current.CurrentPage).BindingContext;
+                    if (getRoom((viewModel).CurrRoom.Id).started == true)
+                    {
+                        //await Task.Delay(1000);
+                        viewModel.toRoomDetails();
+                    }
+                }
                 processCommands();
-                await Task.Delay(100); // waits 100 ms between calls
+                i++;
+                await Task.Delay(100); // waits 100 milliseconds between calls
             }
         }
 
@@ -52,15 +67,15 @@ namespace OppSwap
             LatLong location = new LatLong(l.Latitude, l.Longitude);
             UpdatePosition(location);
             position = location;
-           // if (AppShell.Current.CurrentPage. == "meme")
+            // if (AppShell.Current.CurrentPage. == "meme")
             return Task.Delay(0);
+            //TODO ADD HEADING AND ARROW ANGLE CALCULATIONS
         }
 
 
         private static void processCommands()
         {
             if (commandList.Count == 0 || c.clientId == null) return;
-
             String nextCommand = commandList[0];
             // i am well aware this can be more efficient if i pull out the Remove lement line, but for rn, im working on something big, so ill come back to it
             if (nextCommand[0] == 'p') { c.Ping(); commandList.RemoveAt(0); }
