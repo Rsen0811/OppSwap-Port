@@ -38,16 +38,37 @@ namespace OppSwap.ViewModels
             //await gameJoined(GameCode);
             if (r.started == true)
             {
-                await Shell.Current.GoToAsync(nameof(RoomDetailPage),
-                new Dictionary<string, object>
+                if (r.Winner != null)
                 {
-                    //get the room we made with the textbox inside of it
-                    ["CurrRoom"] = r
-                });
+                    await Shell.Current.GoToAsync(nameof(RoomDetailPage),
+                    new Dictionary<string, object>
+                    {
+                        //get the room we made with the textbox inside of it
+                        ["Winner"] = r.Winner.Name+" won the Game" 
+                    });
+                }
+                else if (r.IsAlive)
+                {
+                    await Shell.Current.GoToAsync(nameof(RoomDetailPage),
+                    new Dictionary<string, object>
+                    {
+                        //get the room we made with the textbox inside of it
+                        ["CurrRoom"] = r
+                    });
+                }
+                else
+                {
+                    //TODO display dead screen
+                    await Shell.Current.GoToAsync(nameof(DeadPage),
+                    new Dictionary<string, object>
+                    {
+                        //get the room we made with the textbox inside of it
+                        ["CurrRoom"] = r
+                    });
+                }
             }
             else
             {
-                //TODO call the new started page
                 await Shell.Current.GoToAsync(nameof(StartGamePage),
                 new Dictionary<string, object>
                 {

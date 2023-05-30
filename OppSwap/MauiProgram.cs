@@ -35,7 +35,12 @@ namespace OppSwap
 
             builder.Services.AddTransient<StartGamePage>();
             builder.Services.AddTransient<StartGamePageViewModel>();
-           
+
+            builder.Services.AddTransient<WonGamePage>();
+            builder.Services.AddTransient<WonGamePageViewModel>();
+
+            builder.Services.AddTransient<DeadPage>();
+            builder.Services.AddTransient<DeadPageViewModel>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

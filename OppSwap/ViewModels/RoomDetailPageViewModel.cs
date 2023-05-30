@@ -142,7 +142,8 @@ namespace OppSwap.ViewModels
                 }
                 LatitudeLongitude=ClientInterconnect.position.ToString();
 
-                //TODO add arrow angle/heading updators
+                //TODO check if this works
+                ArrowAngle=ClientInterconnect.position.bearing(CurrRoom.target.Position);
             }
         }
 
