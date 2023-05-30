@@ -8,12 +8,15 @@ namespace OppSwap
         public String Id { get; set; }
 
         public List<Player> players { get; set; }
-        public Target target { get; set; }
+        public Target target { get; set; } // whoops, prob should be caps
+		public bool IsAlive { get; set; } // wether user is alive
+		public Player Winner { get; set; }
 
 		public Room(String name, String id)
 		{
 			Name = name;
 			Id = id;
+			IsAlive = true;
 		}
 	}
 }

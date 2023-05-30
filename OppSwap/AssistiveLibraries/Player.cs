@@ -12,6 +12,7 @@ namespace OppSwap
 		{
 			this.Name = name;
 			this.Id = id;
+			this.IsAlive = true;
 		}
 	}
 
