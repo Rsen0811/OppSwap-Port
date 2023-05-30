@@ -125,6 +125,7 @@ namespace OppSwap.ViewModels
             await Task.Delay(1000);
             while (true)
             {
+                if (!AppShell.Current.CurrentPage.GetType().Name.Equals("RoomDetailPage")) break;
                 //CurrRoom = ClientInterconnect.getRoom(CurrRoom.Id);
                 ClientInterconnect.GetTargetPos(CurrRoom.Id);
 
