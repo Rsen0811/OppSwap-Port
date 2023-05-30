@@ -9,11 +9,13 @@ namespace OppSwap
 
         public List<Player> players { get; set; }
         public Target target { get; set; }
+		public bool isAlive { get; set; } // wether user is alive
 
 		public Room(String name, String id)
 		{
 			Name = name;
 			Id = id;
+			isAlive = true;
 		}
 	}
 }

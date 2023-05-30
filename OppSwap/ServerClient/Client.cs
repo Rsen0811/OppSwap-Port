@@ -220,13 +220,13 @@ namespace OppSwap
                     Room cur = gamesJoined[game];
                     if (cur != null)
                     {
-                        if (cur.target.Id == p.clientId)
+                        if (cur.target.Id.Equals(p.clientId))
                         {
                             cur.target.Name = p.name;
                         }
                         foreach(Player player in cur.players)
                         {
-                            if (player.Id == p.clientId)
+                            if (player.Id.Equals(p.clientId))
                             {
                                 player.Name = p.name;
                                 break;
@@ -238,9 +238,11 @@ namespace OppSwap
             if (packet.method.Equals("deathUpdatePayload"))
             {
                 DeathPackage p = (DeathPackage)packet;
+                if (clientId.Equals(p.playerId)) gamesJoined[p.gameId].isAlive = false;
+
                 foreach(Player player in gamesJoined[p.gameId].players)
                 {
-                    if(player.Id == p.playerId) player.IsAlive = false;
+                    if(player.Id.Equals(p.playerId)) player.IsAlive = false;
                 }
             }
         }
