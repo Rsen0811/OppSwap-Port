@@ -51,6 +51,41 @@ namespace OppSwap
                         viewModel.toRoomDetails();
                     }
                 }
+                if (string.Compare(AppShell.Current.CurrentPage.GetType().Name, "RoomDetailPage") == 0)
+                {
+                    RoomDetailPageViewModel viewModel = (RoomDetailPageViewModel)((RoomDetailPage)AppShell.Current.CurrentPage).BindingContext;
+                    if (getRoom((viewModel).CurrRoom.Id).Winner != null)
+                    {
+                        await Shell.Current.GoToAsync(nameof(WonGamePage),
+                        new Dictionary<string, object>
+                        {
+                            //get the room we made with the textbox inside of it
+                            ["Winner"] = getRoom((viewModel).CurrRoom.Id).Winner + " won the Game"
+                        });
+                    }
+                    if (getRoom((viewModel).CurrRoom.Id).IsAlive != true)
+                    {
+                        await Shell.Current.GoToAsync(nameof(DeadPage),
+                        new Dictionary<string, object>
+                        {
+                            ["CurrRoom"] = getRoom((viewModel).CurrRoom.Id)
+                        });
+                    }
+                    
+                }
+                if (string.Compare(AppShell.Current.CurrentPage.GetType().Name, "DeadPage") == 0)
+                {
+                    DeadPageViewModel viewModel = (DeadPageViewModel)((DeadPage)AppShell.Current.CurrentPage).BindingContext;
+                    if (getRoom((viewModel).CurrRoom.Id).Winner!=null)
+                    {
+                        await Shell.Current.GoToAsync(nameof(WonGamePage),
+                        new Dictionary<string, object>
+                        {
+                            //get the room we made with the textbox inside of it
+                            ["Winner"] = getRoom((viewModel).CurrRoom.Id).Winner + " won the Game"
+                        });
+                    }
+                }
                 processCommands();
                 i++;
                 await Task.Delay(100); // waits 100 milliseconds between calls
