@@ -111,7 +111,10 @@ namespace OppSwap.ViewModels
                 Vector2.Normalize(new Vector2((float)Math.Cos(heading), (float)Math.Sin(heading))));
             ArrowAngle = (Math.Abs(Math.Acos(Math.Floor(dot)) * 180 / Math.PI)) % 360;
         }
-       
+
+        [ObservableProperty]
+        String target;
+
         void updateTarget(Room game)
         {
             TargetName = game.target.Name;

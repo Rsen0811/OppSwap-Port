@@ -8,6 +8,7 @@ using WebSocketSharp;
 using SerializedJSONTemplates;
 using Newtonsoft.Json;
 using System.Xml.Linq;
+//using static Android.Icu.Text.Transliterator;
 
 namespace OppSwap
 {
@@ -93,7 +94,16 @@ namespace OppSwap
             };
             ws.Send(JsonConvert.SerializeObject(p));
         }
-        public void SetName(String name) { }
+        public void SetName(String name) 
+        {
+            ws.Connect();
+            ws.Send(JsonConvert.SerializeObject(new
+            {
+                method = "setName",
+                clientId = clientId,
+                name = name
+            }));
+        }
         
         public void UpdatePosition(LatLong position)
         {
@@ -142,7 +152,7 @@ namespace OppSwap
                 oldId = oldGuid
             }));
         }
-        
+
         private void Ws_OnMessage(object sender, MessageEventArgs e) //gotta make these things their own methods but not rn
         {
             //TODO these should also all be else IFS
@@ -186,10 +196,64 @@ namespace OppSwap
                 gamesJoined[p.gameId].target = new Target(p.targetId, p.targetName);
                 gamesJoined[p.gameId].started = true;
             }
+            if(packet.method.Equals("serverMessage"))
+            {
+                ServerMessage p = (ServerMessage)packet;
+                //AppShell.Current.CurrentPage.DisplayAlert("Server Message", p.message, "Accept");
+                //MainPage.DisplayAlert("Server Message", p.message, "Accept");
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    //Application.Current.MainPage.DisplayAlert("Server Message", p.message, "Accept");
+                    AppShell.Current.CurrentPage.DisplayAlert("Server Message", p.message, "Accept");
+                });
+            }
             if (packet.method.Equals("newTarget"))
             {
                 TargetPackage p = (TargetPackage)packet;
                 gamesJoined[p.gameId].target = new Target(p.targetId, p.targetName);
+            }
+
+            if (packet.method.Equals("nickName"))
+            {
+                NickNamePackage p = (NickNamePackage)packet;
+                foreach(string game in p.gamesJoined)
+                {
+                    Room cur = gamesJoined[game];
+                    if (cur != null)
+                    {
+                        if (cur.target.Id.Equals(p.clientId))
+                        {
+                            cur.target.Name = p.name;
+                        }
+                        foreach(Player player in cur.players)
+                        {
+                            if (player.Id.Equals(p.clientId))
+                            {
+                                player.Name = p.name;
+                                break;
+                            }
+                        }
+                    }
+                } 
+            }
+            if (packet.method.Equals("deathUpdatePayload"))
+            {
+                DeathPackage p = (DeathPackage)packet;
+                if (clientId.Equals(p.playerId)) gamesJoined[p.gameId].IsAlive = false;
+
+                foreach(Player player in gamesJoined[p.gameId].players)
+                {
+                    if (player.Id.Equals(p.playerId))
+                    {
+                        player.IsAlive = false;
+                        break;
+                    } 
+                }
+            }
+            if (packet.method.Equals("winner"))
+            {
+                WinnerPackage p = (WinnerPackage)packet;
+                gamesJoined[p.gameId].Winner = new Player(p.winnerId, p.winnerName);
             }
         }
     }

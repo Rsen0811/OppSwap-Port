@@ -40,8 +40,29 @@ wsServer.on("request", (request) => {
     else if (incoming.method === "startGame") startGame(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "reconnect") reconnect(connection, incoming.clientId, incoming.oldId);
     else if (incoming.method === "kill") kill(connection, incoming.gameId, incoming.clientId);
+    else if (incoming.method === "setName") setName(connection, incoming.clientId, incoming.name);
   });
 });
+
+function setName(connection, clientId, name) {
+  let client = clients[clientId];
+  client.name = name;
+
+  const payLoad = {
+    clientId: clientId,
+    name: name,
+    gamesJoined: client.currentGames
+  }
+  const package = {method:"nickName", payload:JSON.stringify(payLoad)}
+
+  Object.keys(clients).forEach((client) => {
+    if (connectionOpen(client)) {
+      // if the connection is status closed, then dont try sending message
+      clients[client].connection.send(JSON.stringify(package));
+    }
+  })
+  // send client message that name properly changed using connection
+}
 
 function kill(connection, gameId, clientId) {
   let game = games[gameId];
@@ -56,8 +77,46 @@ function kill(connection, gameId, clientId) {
 
     //TODO add target nickname when we implement those
   }
-  const package= {method:"newTarget", payload:JSON.stringify(payLoad)}
+  const package = {method:"newTarget", payload:JSON.stringify(payLoad)}
   connection.send(JSON.stringify(package))
+  updateDeath(gameId, target)
+
+  if (game.targets.getTarget(clientId) === clientId) {
+    winnerBroadcast(gameId, clientId);
+  }
+}
+
+function winnerBroadcast(gameId, winnerId) {
+  let game = games[gameId];
+  const payLoad2 = {
+    gameId: gameId,
+    winnerName: clients[winnerId].name, 
+    winnerId: winnerId
+  }
+
+  const package2 = {method:"winner", payload:JSON.stringify(payLoad2)}
+  game.clientIds.forEach((client) => {
+    if (connectionOpen(client)) {
+      // if the connection is status closed, then dont try sending message
+      clients[client].connection.send(JSON.stringify(package2));
+    }
+  });
+}
+
+function updateDeath(gameId, playerId) {
+  let game = games[gameId];
+  const payLoad = {
+    gameId: gameId,
+    playerId: playerId
+  }
+  const package = {method:"deathUpdatePayload", payload:JSON.stringify(payLoad)}
+
+  game.clientIds.forEach((client) => {
+    if (connectionOpen(client)) {
+      // if the connection is status closed, then dont try sending message
+      clients[client].connection.send(JSON.stringify(package));
+    }
+  });
 }
 
 function reconnect(connection, clientId, oldId) { // right now just use clientId for debug
@@ -131,6 +190,7 @@ function ping(connection) {
   console.log("Suceessful PING: ---");
   console.log("pingnumber: " + ++pings[connection]); // proves that connections are not kept over different client sessions
   console.log("Connection: " + connection.remoteAddress);
+  sendServerMessage(connection, "Successful Ping");
 }
 
 function playerJoinUpdate(gameId) {
@@ -190,6 +250,7 @@ function joinGame(connection, gameId, clientId) {
     playerJoinUpdate(game.gameId);
   } else {
     //send a message that says "could not join game because it is closed"
+    sendServerMessage(connection,"Could not join game because it is closed");
   }
 }
 
@@ -259,6 +320,7 @@ function startGame(connection, gameId, clientId) {
     });
   } else {
     //add code that sends a game has already started
+    sendServerMessage(connection, "A game has already started");
   }
 }
 
@@ -397,3 +459,11 @@ class LinkedList {
     return ans + "-->" + start;
   }
 }
+function sendServerMessage(connection, message) {
+    const payLoad = {
+        message: message
+    };
+
+    const package = { method: "serverMessage", payload: JSON.stringify(payLoad) };
+    connection.send(JSON.stringify(package));
+  }

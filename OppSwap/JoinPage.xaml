@@ -11,6 +11,7 @@
           RowSpacing="10"
           ColumnSpacing="10">
 
+
         <Image Grid.ColumnSpan="2"
                Source="dotnet_bot.png"/>
         <Entry Placeholder="Enter text"

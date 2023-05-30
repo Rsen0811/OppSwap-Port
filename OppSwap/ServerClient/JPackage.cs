@@ -119,7 +119,7 @@ namespace SerializedJSONTemplates
             return outgoing;
         }
     }
-    
+
     //TODO ask raj what is diif between payload vs packages???
     //TODO add the nicknames for the Target
     [Serializable]
@@ -138,6 +138,63 @@ namespace SerializedJSONTemplates
         }
     }
 
+    [Serializable]
+
+    public class ServerMessage : JPackage
+    {
+        public String message { get; set; }
+
+        public static explicit operator ServerMessage(JPGeneral incoming)
+        {
+            ServerMessage outgoing = JsonConvert.DeserializeObject<ServerMessage>(incoming.payload);
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+
+    public class NickNamePackage : JPackage
+    {
+        public string clientId { get; set; }
+        public string name { get; set; }
+        public string[] gamesJoined { get; set; }
+
+        public static explicit operator NickNamePackage(JPGeneral incoming)
+        {
+            NickNamePackage outgoing = JsonConvert.DeserializeObject<NickNamePackage>(incoming.payload);
+
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+    public class DeathPackage : JPackage
+    {
+        public string gameId { get; set; }
+        public string playerId { get; set; }
+
+        public static explicit operator DeathPackage(JPGeneral incoming)
+        {
+            DeathPackage outgoing = JsonConvert.DeserializeObject<DeathPackage>(incoming.payload);
+
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+
+    public class WinnerPackage : JPackage
+    {
+        public string gameId { get; set; }
+        public string winnerName { get; set; }
+        public string winnerId { get; set; }
+
+        public static explicit operator WinnerPackage(JPGeneral incoming)
+        {
+            WinnerPackage outgoing = JsonConvert.DeserializeObject<WinnerPackage>(incoming.payload);
+
+            outgoing.method = incoming.method;
+            return outgoing;
+        }
+    }
+
     //sending packets
 
     // send single string
@@ -149,5 +206,4 @@ namespace SerializedJSONTemplates
         public string clientId { get; set; }
         public string value { get; set; }
     }
-
 }

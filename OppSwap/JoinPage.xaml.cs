@@ -26,6 +26,7 @@ namespace OppSwap
         }
         async void JoinButton_Clicked(System.Object sender, System.EventArgs e)
         {
+
             //TODO  find out why does this only work with the.c no work without the.c
             ClientInterconnect.FetchGames("");
             await Task.Delay(1000);
@@ -38,6 +39,7 @@ namespace OppSwap
                 ["FetchedGames"] = ClientInterconnect.c.fetchedRooms
             }) ;
          }
+
 
 
     }
