@@ -39,11 +39,18 @@
                 HorizontalOptions="Center" />
             <Button
 
+
                 x:Name="PlayerProfile"
                 Text="NickName"
                 Clicked="GoToNickName"
                 HorizontalOptions="Center"/>
             
+
+            <Button
+                x:Name="ErrorTestButton"
+                Text="TestMe"
+                Clicked="testButtonClicked"
+                HorizontalOptions="Center" />
 
         </VerticalStackLayout>
     </ScrollView>
