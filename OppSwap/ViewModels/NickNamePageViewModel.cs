@@ -1,20 +1,32 @@
-﻿using System;
-using CommunityToolkit.Mvvm.Input;
+﻿using System.Collections.ObjectModel;
+
+using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System.Diagnostics;
-using System.Numerics;
+using CommunityToolkit.Mvvm.Input;
+
 namespace OppSwap.ViewModels
 {
 
     public partial class NickNamePageViewModel : ObservableObject
     {
+        [ObservableProperty]
+        String nick;
 
-
-        public NickNamePageViewModel()
+         public NickNamePageViewModel()
         {
 
 
         }
+        [RelayCommand]
+        async Task SetNickName()
+        {
+            if (!string.IsNullOrWhiteSpace(nick))
+            {
+                ClientInterconnect.SetName(nick);
+            }
+            nick = "";
+        }
+            
 
     }
 }

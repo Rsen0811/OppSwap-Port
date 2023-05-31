@@ -19,23 +19,18 @@
                 HorizontalOptions="Center" />
 
             <Label
-                Text="Hello, World!"
+                Text="Welcome to OppSwap"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
 
             <Button
                 x:Name="CounterBtn"
                 Text="Click me"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
+                IsVisible="false"
                 HorizontalOptions="Center" />
             <Button
                 x:Name="NextPageButton"
@@ -43,17 +38,12 @@
                 Clicked="NextPage"
                 HorizontalOptions="Center" />
             <Button
-<<<<<<< HEAD
-                x:Name="NickName"
+
+                x:Name="PlayerProfile"
                 Text="NickName"
                 Clicked="GoToNickName"
                 HorizontalOptions="Center"/>
-=======
-                x:Name="ErrorTestButton"
-                Text="TestMe"
-                Clicked="testButtonClicked"
-                HorizontalOptions="Center" />
->>>>>>> main
+            
 
         </VerticalStackLayout>
     </ScrollView>
