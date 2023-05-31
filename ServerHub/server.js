@@ -160,6 +160,9 @@ function getTargetPosition(connection, gameId, clientId) {
   const game = games[gameId];
   if (game.visibility === true) {return} //TODO check for if this actually works to TODO rename variable to visible, so i can stop using === true
   const targetId = game.targets.getTarget(clientId);
+  if (clients === undefined || clients[targetId] === undefined) {
+    return;
+  }
   const targetPos = clients[targetId].position;
   
   const payLoad = {
