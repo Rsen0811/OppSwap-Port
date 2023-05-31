@@ -8,12 +8,31 @@
     <Grid RowDefinitions="100, Auto, *"
           ColumnDefinitions=".75*, .25*"
           Padding="10"
-          RowSpacing="10"
-          ColumnSpacing="10">
+          RowSpacing="2"
+          ColumnSpacing="2">
 
-        <Image Grid.ColumnSpan="2"
-               Source="dotnet_bot.png"/>
-            </Grid>
+      
+
+            <Entry Placeholder="Enter Nickname"
+               Text="{Binding Nick}"
+               Grid.Row="1"/>
+    <Image
+                Source="logo_test.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+                Grid.RowSpan="7"
+                Grid.ColumnSpan="4"
+
+                />
+     <Button
+        x:Name="JoinButton"
+        Text="Set Nickname"
+        FontSize= "33"
+        Command="{Binding SetNickNameCommand}"
+        Grid.Row="1"
+         Grid.Column="3"/>
+       
+        </Grid>
 
                      
 </ContentPage>

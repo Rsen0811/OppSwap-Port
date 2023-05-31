@@ -136,7 +136,10 @@ namespace OppSwap.ViewModels
         [RelayCommand]
         public void KillButton()
         {
-            //kill code
+            if (ButtonVisible)
+            {
+                ClientInterconnect.Kill(CurrRoom.Id);
+            }
             
         }
 

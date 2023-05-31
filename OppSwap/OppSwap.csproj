@@ -52,6 +52,9 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\logo_test.png" />
+	</ItemGroup>
+	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
@@ -79,7 +82,7 @@
 	<ItemGroup>
 	  <None Remove="AssistiveLibraries\" />
 	  <None Remove="ViewModels\" />
-	  <None Remove="Resources\Images\logo_test.png" />
+	  <None Remove="Resources\Images\logo_test-removebg-preview.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="AssistiveLibraries\" />
