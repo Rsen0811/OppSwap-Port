@@ -260,16 +260,17 @@ function joinGame(connection, gameId, clientId) {
 function fetchGames(connection, query) {
   let gameNames = [];
   let gameIds = [];
-  let temp1=clients[connections[connection]];
-  if(temp1.currentGames==null){
+  let temp1 = clients[connections[connection]];
+  if(temp1 == null || temp1.currentGames==null){
     return;
   }
+  
   let clientConnected = temp1.currentGames;
   Object.keys(games).forEach((gameKey) => {
     // gamekey is the gameId, but i decided not to use the same var name
     const game = games[gameKey];
     if (clientConnected.includes(gameKey)) {
-      
+      return;
     }
     else if (game.visibility && (query === "" || game.gameName.includes(query))) {
       gameNames.push(game.gameName);
