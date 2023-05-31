@@ -37,7 +37,7 @@
                 </CollectionView.ItemTemplate>
 
         </CollectionView>
-        <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
+        <CollectionView Grid.Row="3" Grid.ColumnSpan="2"
                         ItemsSource="{Binding DeadPlayers}"
                         SelectionMode="None">
 
