@@ -16,9 +16,7 @@
 
         <Image Grid.ColumnSpan="2"
                Source="dotnet_bot.png"/>
-        <Entry Placeholder="Enter text"
-               Text="{Binding GameCode}"
-               Grid.Row="1"/>
+
         <!--Command="{Binding joinRoomCommand}"-->
         <Button Text="Join"
                 Clicked="JoinButton_Clicked"
