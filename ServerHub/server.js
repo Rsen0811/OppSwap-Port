@@ -34,7 +34,7 @@ wsServer.on("request", (request) => {
     else if (incoming.method === "ping") ping(connection);
     else if (incoming.method === "createNewGame") createNewGame(connection, incoming);
     else if (incoming.method === "joinGame") joinGame(connection, incoming.gameId, incoming.clientId);
-    else if (incoming.method === "fetchGames") fetchGames(connection, incoming.query);
+    else if (incoming.method === "fetchGames") fetchGames(connection, incoming.clientId, incoming.query);
     else if (incoming.method === "updatePosition") updatePosition(incoming.clientId, incoming.position);
     else if (incoming.method === "getTargetPosition") getTargetPosition(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "startGame") startGame(connection, incoming.gameId, incoming.clientId);
@@ -257,15 +257,12 @@ function joinGame(connection, gameId, clientId) {
   }
 }
 
-function fetchGames(connection, query) {
+function fetchGames(connection, clientId, query) {
   let gameNames = [];
   let gameIds = [];
-  let temp1 = clients[connections[connection]];
-  if(temp1 == null || temp1.currentGames==null){
-    return;
-  }
+  let client = clients[clientId]
 
-  let clientConnected = temp1.currentGames;
+  let clientConnected = client.currentGames;
   Object.keys(games).forEach((gameKey) => {
     // gamekey is the gameId, but i decided not to use the same var name
     const game = games[gameKey];

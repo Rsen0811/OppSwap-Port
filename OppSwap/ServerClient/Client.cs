@@ -21,7 +21,7 @@ namespace OppSwap
         public List<String> errorMessages;
         public Client()
         {
-            ws = new WebSocket("ws://descriptive-fern-tibia.glitch.me");//ws://water-cautious-barge.glitch.me");
+            ws = new WebSocket("ws://172.20.10.4:9992");//ws://water-cautious-barge.glitch.me");
             ws.Connect();
             ws.OnMessage += Ws_OnMessage;
 
@@ -80,7 +80,7 @@ namespace OppSwap
         public void FetchGames(String query)
         {
             ws.Connect();
-            ws.Send(JsonConvert.SerializeObject(new { method = "fetchGames", query = query }));
+            ws.Send(JsonConvert.SerializeObject(new { method = "fetchGames", clientId = clientId, query = query }));
         }
         public void JoinGame(String gameId) 
         {
