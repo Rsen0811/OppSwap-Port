@@ -40,6 +40,7 @@ namespace OppSwap
                 if (!RUNNING_SERVER) return;
                 if (i % 10==0)
                 {
+                    i = 0;
                     await updateCommands();
                 }
                 if (string.Compare(AppShell.Current.CurrentPage.GetType().Name, "StartGamePage")==0)
