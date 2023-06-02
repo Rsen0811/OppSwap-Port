@@ -82,7 +82,7 @@ namespace OppSwap
                         new Dictionary<string, object>
                         {
                             //get the room we made with the textbox inside of it
-                            ["Winner"] = getRoom((viewModel).CurrRoom.Id).Winner + " won the Game"
+                            ["Winner"] = getRoom((viewModel).CurrRoom.Id).Winner.Name + " won the Game"
                         });
                     }
                 }
