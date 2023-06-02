@@ -7,7 +7,7 @@ using Microsoft.Maui.Graphics;
 
 namespace OppSwap
 {
-    public partial class RoomDetailPage : ContentPage
+    public partial class StartGamePage : ContentPage
     {
         //Client c = new Client();
         //int count = 0;
@@ -15,21 +15,16 @@ namespace OppSwap
 
         //ICanvas canvas;
 
-        public RoomDetailPage(RoomDetailPageViewModel vm)
+        public StartGamePage(StartGamePageViewModel vm)
         {
             this.InitializeComponent();
             BindingContext = vm;
-            vm.Update();
-        }
-        protected override void OnNavigatedTo(NavigatedToEventArgs args)
-        {
-            base.OnNavigatedTo(args);
+            vm.Updates();
         }
 
         async void Button_Clicked(System.Object sender, System.EventArgs e)
         {
-
-                await Shell.Current.GoToAsync(nameof(JoinPage),
+            await Shell.Current.GoToAsync(nameof(JoinPage),
                  new Dictionary<string, object>
                  {
                      //get the room we made with the textbox inside of it
@@ -37,7 +32,6 @@ namespace OppSwap
                  });
             
         }
-
     }
 
 }

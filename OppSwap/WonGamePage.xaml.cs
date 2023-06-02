@@ -2,12 +2,12 @@
 using OppSwap.ViewModels;
 namespace OppSwap
 {
-    public partial class CreatePage : ContentPage
+    public partial class WonGamePage : ContentPage
     {
         //Client c = new Client();
         int count = 0;
 
-        public CreatePage(CreatePageViewModel vm)
+        public WonGamePage(WonGamePageViewModel vm)
         {
             InitializeComponent();
             BindingContext = vm;
@@ -18,13 +18,9 @@ namespace OppSwap
             await Shell.Current.GoToAsync(nameof(JoinPage),
              new Dictionary<string, object>
              {
-                 //get the room we made with the textbox inside of it
+                //get the room we made with the textbox inside of it
                  ["JoinedGames"] = ClientInterconnect.c.gamesJoined
              });
-        }
-
-        void Button_Clicked(System.Object sender, System.EventArgs e)
-        {
         }
     }
 }

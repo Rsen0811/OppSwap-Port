@@ -28,6 +28,10 @@ namespace OppSwap.ViewModels
         [ObservableProperty]
         bool buttonVisible = false;
 
+        [ObservableProperty]
+        String targetName;
+
+
         LatLong location;
         LatLong pole = new LatLong();
 
@@ -44,7 +48,7 @@ namespace OppSwap.ViewModels
 
             //assumed direction you are facing
             CurrHeading = "90";
-
+            
             //Compass.Default.ReadingChanged += Compass_ReadingChanged;
             //Compass.Default.Start(SensorSpeed.Default);
             ArrowAngle = 0;
@@ -57,12 +61,15 @@ namespace OppSwap.ViewModels
 
             try
             {
+                
                 //timer code move the stop and the elapsed milliseconds to after the l declaration
                 //Stopwatch stopwatch = new Stopwatch();
                 //stopwatch.Start();
                 //TimeTaken = stopwatch.ElapsedMilliseconds + "";
                 //stopwatch.Stop();
                 //TODO REMOVE THIS LOCATION FINDING IN THE FUTURE
+
+                //TODO HIGH PRIORITY pls add suppourt for heading.
                 GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(30));
                 Location l = await Geolocation.Default.GetLocationAsync(request);
 
@@ -110,33 +117,45 @@ namespace OppSwap.ViewModels
 
         void updateTarget(Room game)
         {
-            target = game.target.Name;
-
-
+            TargetName = game.target.Name;
         }
         [RelayCommand]
-        public async Task KillButtonVisible()
+        public async Task Update()
         {
-
+            await Task.Delay(1000);
             while (true)
             {
-                if (ClientInterconnect.position.distance(currRoom.target.Position) <= 50)
+                if (!AppShell.Current.CurrentPage.GetType().Name.Equals("RoomDetailPage")) break;
+                //CurrRoom = ClientInterconnect.getRoom(CurrRoom.Id);
+                ClientInterconnect.GetTargetPos(CurrRoom.Id);
+
+                await Task.Delay(1500);
+
+                TimeTaken = "" + ClientInterconnect.position.distance(CurrRoom.target.Position);
+
+                if (ClientInterconnect.position.distance(CurrRoom.target.Position) <= 50)
                 {
-                    buttonVisible = true;
+                    ButtonVisible = true;
                 }
                 else
                 {
-                    buttonVisible = false;
+                    ButtonVisible = false;
                 }
-                await Task.Delay(5000);
-             
+                LatitudeLongitude=ClientInterconnect.position.ToString();
+
+                //TODO check if this works
+                ArrowAngle=ClientInterconnect.position.bearing(CurrRoom.target.Position);
             }
         }
-            
+
         [RelayCommand]
         public void KillButton()
         {
             //kill code
+            if (ButtonVisible)
+            {
+                ClientInterconnect.Kill(CurrRoom.Id);
+            }
             
         }
 
