@@ -13,9 +13,18 @@ namespace OppSwap
             BindingContext = vm;
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void OnCounterClicked(object sender, EventArgs e)
         {
-            //c.Ping();
+            await Shell.Current.GoToAsync(nameof(JoinPage),
+             new Dictionary<string, object>
+             {
+                 //get the room we made with the textbox inside of it
+                 ["JoinedGames"] = ClientInterconnect.c.gamesJoined
+             });
+        }
+
+        void Button_Clicked(System.Object sender, System.EventArgs e)
+        {
         }
     }
 }

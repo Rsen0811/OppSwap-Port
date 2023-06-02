@@ -18,14 +18,14 @@ namespace OppSwap
             builder.Services.AddTransient<JoinPage>();
             builder.Services.AddTransient<JoinPageViewModel>();
 
-            builder.Services.AddSingleton<CreatePage>();
-            builder.Services.AddSingleton<CreatePageViewModel>();
+            builder.Services.AddTransient<CreatePage>();
+            builder.Services.AddTransient<CreatePageViewModel>();
 
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainPageViewModel>();
 
-            builder.Services.AddSingleton<CreateGamePage>();
-            builder.Services.AddSingleton<CreateGameViewModel>();
+            builder.Services.AddTransient<CreateGamePage>();
+            builder.Services.AddTransient<CreateGameViewModel>();
 
             builder.Services.AddTransient<RoomDetailPage>();
             builder.Services.AddTransient<RoomDetailPageViewModel>();

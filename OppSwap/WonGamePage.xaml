@@ -16,6 +16,11 @@
                 Text="{Binding Winner}"
                 FontSize="35">
             </Label>
+            <Button
+                Text="Back"
+                FontSize="20"
+                Clicked="OnCounterClicked"
+                ></Button>
 
         </VerticalStackLayout>
     </ScrollView>

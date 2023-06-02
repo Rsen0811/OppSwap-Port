@@ -21,7 +21,7 @@ namespace OppSwap
         public List<String> errorMessages;
         public Client()
         {
-            ws = new WebSocket("ws://169.254.129.118:9992");//ws://water-cautious-barge.glitch.me");
+            ws = new WebSocket("ws://192.168.137.1:9992");//ws://water-cautious-barge.glitch.me");
             ws.Connect();
             ws.OnMessage += Ws_OnMessage;
 
