@@ -291,7 +291,7 @@ function updatePosition(clientId, position) {
   );
 }
 
-function startGame(connection, gameId, clientId) {
+function startGame(connection, gameId, clientId) { // dont start the game if the game shouldnt be started
   let game = games[gameId];
   //set the game's visibility to false
 
