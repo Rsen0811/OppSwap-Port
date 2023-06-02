@@ -11,7 +11,7 @@
         <drawable:GraphicsDrawable x:Key="drawable" />
     </ContentPage.Resources>
 
-    <ScrollView>
+    <!--<ScrollView>
         <VerticalStackLayout
             Spacing="25"    
             Padding="30,0"
@@ -25,7 +25,7 @@
                 HeightRequest="200"
                 Rotation="{Binding ArrowAngle}"
                 HorizontalOptions="Center" />
-            <!--Rotation="{Binding ArrowAngle}"-->
+            --><!--Rotation="{Binding ArrowAngle}"--><!--
 
 
             <Label
@@ -33,8 +33,8 @@
                 FontSize="25"
                 HorizontalOptions="Center"
                 />
-            
-         
+
+
             <Label
                 Text="{Binding LatitudeLongitude}"
                 SemanticProperties.HeadingLevel="Level1"
@@ -47,7 +47,7 @@
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I"
                 FontSize="18"
                 HorizontalOptions="Center" />
-            
+
 
 
 
@@ -61,11 +61,11 @@
                 Text="Eliminate"
                 IsVisible="{Binding ButtonVisible}"
                 Command="{Binding KillButtonCommand}"
-                />
+                />-->
 
 
-             
-            
+
+
             <!--<Button
                 x:Name="Eliminate"
                 Text="Eliminate"
@@ -82,8 +82,110 @@
                     <drawable:GraphicsDrawable Angle="{Binding ArrowAngle}" />
                 </GraphicsView.Drawable>
             </GraphicsView>-->
+    
+    
 
-        </VerticalStackLayout>
-    </ScrollView>
+        <!--VerticalStackLayout-->
+
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+        <Image Grid.Column="1"
+               Source="north.png"
+               SemanticProperties.Description="north"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+        <Image Grid.Column="0"
+               Grid.Row="0"
+               Source="northwest.png"
+               SemanticProperties.Description="northwest"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+        <Image Grid.Column="0"
+               Grid.Row="2"
+               Source="southwest.png"
+               SemanticProperties.Description="southwest"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+        <Image Grid.Column="2"
+               Grid.Row="2"
+               Source="southeast.png"
+               SemanticProperties.Description="southeast"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+        <Image Grid.Column="2"
+               Grid.Row="0"
+               Source="northeast.png"
+               SemanticProperties.Description="northeast"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+        <Image Grid.Row="1"
+               Source="west.png"
+               SemanticProperties.Description="west"
+               HorizontalOptions="End"
+               VerticalOptions="Center" />
+        <Image Grid.Row="1"
+               Grid.Column="1"
+                Source="finalarrow.png"
+                x:Name="Arrow"
+                HeightRequest="70"
+                SemanticProperties.Description="Robot thing idk"
+                VerticalOptions="Center"
+                Rotation="{Binding ArrowAngle}"
+                HorizontalOptions="Center" 
+               />
+        <Image Grid.Row="1"
+               Grid.Column="2"
+               Source="east.png"
+               SemanticProperties.Description="east"
+               HorizontalOptions="Start"
+               VerticalOptions="Center" />
+        <Image Grid.Row="2"
+               Grid.Column="1"
+               Source="south.png"
+               SemanticProperties.Description="south"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+        <Label  Grid.Row="4"
+                Grid.Column="2"
+                Text="{Binding LatitudeLongitude}"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                HorizontalOptions="Start" />
+
+        <Label  Grid.Row="4"
+                Grid.Column="0"
+                Text="{Binding TimeTaken}"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                FontSize="32"
+                HorizontalOptions="End" />
+
+        <Button Grid.Row="5"
+                Grid.Column="1"
+                x:Name="Kill"
+                Text="Eliminate"
+                IsVisible="{Binding ButtonVisible}"
+                Command="{Binding KillButtonCommand}"
+                />
+        <Button Text="Back"
+                Grid.Row="4"
+                Grid.Column="3"
+                Clicked="Button_Clicked"></Button>
+
+    </Grid>
 
 </ContentPage>

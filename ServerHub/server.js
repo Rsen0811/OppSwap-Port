@@ -3,7 +3,7 @@ const http = require("http");
 
 const websocketServer = require("websocket").server;
 const httpServer = http.createServer();
-httpServer.listen(9992, () =>
+httpServer.listen(9992, () =>//process.env.PORT
   console.log("BEEP BOOP, COMPUTER NOISES ON 9092")
 );
 
@@ -34,7 +34,7 @@ wsServer.on("request", (request) => {
     else if (incoming.method === "ping") ping(connection);
     else if (incoming.method === "createNewGame") createNewGame(connection, incoming);
     else if (incoming.method === "joinGame") joinGame(connection, incoming.gameId, incoming.clientId);
-    else if (incoming.method === "fetchGames") fetchGames(connection, incoming.query);
+    else if (incoming.method === "fetchGames") fetchGames(connection, incoming.clientId, incoming.query);
     else if (incoming.method === "updatePosition") updatePosition(incoming.clientId, incoming.position);
     else if (incoming.method === "getTargetPosition") getTargetPosition(connection, incoming.gameId, incoming.clientId);
     else if (incoming.method === "startGame") startGame(connection, incoming.gameId, incoming.clientId);
@@ -77,8 +77,46 @@ function kill(connection, gameId, clientId) {
 
     //TODO add target nickname when we implement those
   }
-  const package= {method:"newTarget", payload:JSON.stringify(payLoad)}
+  const package = {method:"newTarget", payload:JSON.stringify(payLoad)}
   connection.send(JSON.stringify(package))
+  updateDeath(gameId, target)
+
+  if (game.targets.getTarget(clientId) === clientId) {
+    winnerBroadcast(gameId, clientId);
+  }
+}
+
+function winnerBroadcast(gameId, winnerId) {
+  let game = games[gameId];
+  const payLoad2 = {
+    gameId: gameId,
+    winnerName: clients[winnerId].name, 
+    winnerId: winnerId
+  }
+
+  const package2 = {method:"winner", payload:JSON.stringify(payLoad2)}
+  game.clientIds.forEach((client) => {
+    if (connectionOpen(client)) {
+      // if the connection is status closed, then dont try sending message
+      clients[client].connection.send(JSON.stringify(package2));
+    }
+  });
+}
+
+function updateDeath(gameId, playerId) {
+  let game = games[gameId];
+  const payLoad = {
+    gameId: gameId,
+    playerId: playerId
+  }
+  const package = {method:"deathUpdatePayload", payload:JSON.stringify(payLoad)}
+
+  game.clientIds.forEach((client) => {
+    if (connectionOpen(client)) {
+      // if the connection is status closed, then dont try sending message
+      clients[client].connection.send(JSON.stringify(package));
+    }
+  });
 }
 
 function reconnect(connection, clientId, oldId) { // right now just use clientId for debug
@@ -122,6 +160,9 @@ function getTargetPosition(connection, gameId, clientId) {
   const game = games[gameId];
   if (game.visibility === true) {return} //TODO check for if this actually works to TODO rename variable to visible, so i can stop using === true
   const targetId = game.targets.getTarget(clientId);
+  if (clients === undefined || clients[targetId] === undefined) {
+    return;
+  }
   const targetPos = clients[targetId].position;
   
   const payLoad = {
@@ -216,15 +257,19 @@ function joinGame(connection, gameId, clientId) {
   }
 }
 
-function fetchGames(connection, query) {
+function fetchGames(connection, clientId, query) {
   let gameNames = [];
   let gameIds = [];
-  let clientConnected = clients[connections[connection]].currentGames;
+  let client = clients[clientId]
+
+  let clientConnected = client.currentGames;
   Object.keys(games).forEach((gameKey) => {
     // gamekey is the gameId, but i decided not to use the same var name
     const game = games[gameKey];
-    if (clientConnected.includes(gameKey)) return;
-    if (game.visibility && (query === "" || game.gameName.includes(query))) {
+    if (clientConnected.includes(gameKey)) {
+      
+    }
+    else if (game.visibility && (query === "" || game.gameName.includes(query))) {
       gameNames.push(game.gameName);
       gameIds.push(game.gameId);
     }
@@ -246,7 +291,7 @@ function updatePosition(clientId, position) {
   );
 }
 
-function startGame(connection, gameId, clientId) {
+function startGame(connection, gameId, clientId) { // dont start the game if the game shouldnt be started
   let game = games[gameId];
   //set the game's visibility to false
 
@@ -260,7 +305,7 @@ function startGame(connection, gameId, clientId) {
       if (clients[element].status === "open") {
         let currConn = clients[element].connection;
         //creating a payload with the oppenents
-        let targetId = game.targets.getTarget(oldId);
+        let targetId = game.targets.getTarget(element);
         const payload = {
           //TODO eventually change this to nickname
           targetId: targetId,

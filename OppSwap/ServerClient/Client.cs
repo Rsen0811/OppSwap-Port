@@ -80,7 +80,7 @@ namespace OppSwap
         public void FetchGames(String query)
         {
             ws.Connect();
-            ws.Send(JsonConvert.SerializeObject(new { method = "fetchGames", query = query }));
+            ws.Send(JsonConvert.SerializeObject(new { method = "fetchGames", clientId = clientId, query = query }));
         }
         public void JoinGame(String gameId) 
         {
@@ -121,6 +121,7 @@ namespace OppSwap
         }
         public void StartGame(String gameId)
         {
+            gamesJoined[gameId].started = true;
             ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {
@@ -184,7 +185,7 @@ namespace OppSwap
             if (packet.method.Equals("getPosition"))
             {
                 TargetPosPackage p = (TargetPosPackage)packet;
-                gamesJoined[p.gameId].target.Position = new LatLong(p.targetPostion);
+                gamesJoined[p.gameId].target.Position = new LatLong(p.targetPosition);
             }
 
             if (packet.method.Equals("gameStarted"))
@@ -193,7 +194,7 @@ namespace OppSwap
                 //TODO eventually we can look into transferring the nickname instead of targetID, for now use target ID as a replacement Nick when displaying target name
                 //target initially has a position of 0,0
                 gamesJoined[p.gameId].target = new Target(p.targetId, p.targetName);
-                //TODO call getPos here
+                gamesJoined[p.gameId].started = true;
             }
             if(packet.method.Equals("serverMessage"))
             {
@@ -220,13 +221,13 @@ namespace OppSwap
                     Room cur = gamesJoined[game];
                     if (cur != null)
                     {
-                        if (cur.target.Id == p.clientId)
+                        if (cur.target.Id.Equals(p.clientId))
                         {
                             cur.target.Name = p.name;
                         }
                         foreach(Player player in cur.players)
                         {
-                            if (player.Id == p.clientId)
+                            if (player.Id.Equals(p.clientId))
                             {
                                 player.Name = p.name;
                                 break;
@@ -234,6 +235,25 @@ namespace OppSwap
                         }
                     }
                 } 
+            }
+            if (packet.method.Equals("deathUpdatePayload"))
+            {
+                DeathPackage p = (DeathPackage)packet;
+                if (clientId.Equals(p.playerId)) gamesJoined[p.gameId].IsAlive = false;
+
+                foreach(Player player in gamesJoined[p.gameId].players)
+                {
+                    if (player.Id.Equals(p.playerId))
+                    {
+                        player.IsAlive = false;
+                        break;
+                    } 
+                }
+            }
+            if (packet.method.Equals("winner"))
+            {
+                WinnerPackage p = (WinnerPackage)packet;
+                gamesJoined[p.gameId].Winner = new Player(p.winnerId, p.winnerName);
             }
         }
     }
