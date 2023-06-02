@@ -19,7 +19,7 @@
 
 
             <Image
-                Source="dotnet_bot.png"
+                Source="dotnet_bot"
                 x:Name="Arrow"
                 SemanticProperties.Description="Robot thing idk"
                 HeightRequest="200"

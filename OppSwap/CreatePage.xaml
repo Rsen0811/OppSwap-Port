@@ -14,7 +14,7 @@
             <Button Text="Back"
                     Clicked="OnCounterClicked"></Button>
             <Image
-                Source="dotnet_bot.png"
+                Source="logo_test.png"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 HeightRequest="200"
                 HorizontalOptions="Center" />

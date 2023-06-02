@@ -5,6 +5,408 @@
              x:DataType="viewmodel:JoinPageViewModel"
              xmlns:viewmodel="clr-namespace:OppSwap.ViewModels"
              >
+             
+   
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+                HorizontalOptions="Center" />
+
+            <Entry
+                x:Name="JoinCodeText"
+                Placeholder="enter join code"
+                Text="{Binding GameCode}"
+                FontSize="32"
+                HorizontalOptions="Center"
+
+                />
+
+            <Label
+                Text="Welcome to .NET Multi-platform App UI"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                FontSize="18"
+                HorizontalOptions="Center" />
+            <!--Command="{Binding joinRoomCommand}"-->
+
+            <Button
+                x:Name="TESTING"
+                Text="TEST"
+                Clicked="JoinButton_Clicked"
+                HorizontalOptions="Center" />
+            
+            <Button
+                x:Name="JoinButton"
+                Text="Join Game"
+                Command="{Binding goToRoomDetailPageCommand}"
+                HorizontalOptions="Center"
+                />                
+                <!--Command="{Binding joinRoomCommand}"-->
+            <Button
+                x:Name="CreateRoomButton"
+                Text="Create Game"
+                Clicked= "GoToCreatePage"
+                CommandParameter="{Binding GameCode}"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+                HorizontalOptions="Center" />
+
+            <Entry
+                x:Name="JoinCodeText"
+                Placeholder="enter join code"
+                Text="{Binding GameCode}"
+                FontSize="32"
+                HorizontalOptions="Center"
+
+                />
+
+            <Label
+                Text="Welcome to .NET Multi-platform App UI"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                FontSize="18"
+                HorizontalOptions="Center" />
+            <!--Command="{Binding joinRoomCommand}"-->
+
+            <Button
+                x:Name="TESTING"
+                Text="TEST"
+                Clicked="JoinButton_Clicked"
+                HorizontalOptions="Center" />
+            
+            <Button
+                x:Name="JoinButton"
+                Text="Join Game"
+                Command="{Binding goToRoomDetailPageCommand}"
+                HorizontalOptions="Center"
+                />                
+                <!--Command="{Binding joinRoomCommand}"-->
+            <Button
+                x:Name="CreateRoomButton"
+                Text="Create Game"
+                Clicked= "GoToCreatePage"
+                CommandParameter="{Binding GameCode}"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+                HorizontalOptions="Center" />
+
+            <Entry
+                x:Name="JoinCodeText"
+                Placeholder="enter join code"
+                Text="{Binding GameCode}"
+                FontSize="32"
+                HorizontalOptions="Center"
+
+                />
+
+            <Label
+                Text="Welcome to .NET Multi-platform App UI"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                FontSize="18"
+                HorizontalOptions="Center" />
+            <!--Command="{Binding joinRoomCommand}"-->
+
+            <Button
+                x:Name="TESTING"
+                Text="TEST"
+                Clicked="JoinButton_Clicked"
+                HorizontalOptions="Center" />
+            
+            <Button
+                x:Name="JoinButton"
+                Text="Join Game"
+                Command="{Binding goToRoomDetailPageCommand}"
+                HorizontalOptions="Center"
+                />                
+                <!--Command="{Binding joinRoomCommand}"-->
+            <Button
+                x:Name="CreateRoomButton"
+                Text="Create Game"
+                Clicked= "GoToCreatePage"
+                CommandParameter="{Binding GameCode}"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+                HorizontalOptions="Center" />
+
+            <Entry
+                x:Name="JoinCodeText"
+                Placeholder="enter join code"
+                Text="{Binding GameCode}"
+                FontSize="32"
+                HorizontalOptions="Center"
+
+                />
+
+            <Label
+                Text="Welcome to .NET Multi-platform App UI"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                FontSize="18"
+                HorizontalOptions="Center" />
+            <!--Command="{Binding joinRoomCommand}"-->
+
+            <Button
+                x:Name="TESTING"
+                Text="TEST"
+                Clicked="JoinButton_Clicked"
+                HorizontalOptions="Center" />
+            
+            <Button
+                x:Name="JoinButton"
+                Text="Join Game"
+                Command="{Binding goToRoomDetailPageCommand}"
+                HorizontalOptions="Center"
+                />                
+                <!--Command="{Binding joinRoomCommand}"-->
+            <Button
+                x:Name="CreateRoomButton"
+                Text="Create Game"
+                Clicked= "GoToCreatePage"
+                CommandParameter="{Binding GameCode}"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+                HorizontalOptions="Center" />
+
+            <Entry
+                x:Name="JoinCodeText"
+                Placeholder="enter join code"
+                Text="{Binding GameCode}"
+                FontSize="32"
+                HorizontalOptions="Center"
+
+                />
+
+            <Label
+                Text="Welcome to .NET Multi-platform App UI"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                FontSize="18"
+                HorizontalOptions="Center" />
+            <!--Command="{Binding joinRoomCommand}"-->
+
+            <Button
+                x:Name="TESTING"
+                Text="TEST"
+                Clicked="JoinButton_Clicked"
+                HorizontalOptions="Center" />
+            
+            <Button
+                x:Name="JoinButton"
+                Text="Join Game"
+                Command="{Binding goToRoomDetailPageCommand}"
+                HorizontalOptions="Center"
+                />                
+                <!--Command="{Binding joinRoomCommand}"-->
+            <Button
+                x:Name="CreateRoomButton"
+                Text="Create Game"
+                Clicked= "GoToCreatePage"
+                CommandParameter="{Binding GameCode}"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+                HorizontalOptions="Center" />
+
+            <Entry
+                x:Name="JoinCodeText"
+                Placeholder="enter join code"
+                Text="{Binding GameCode}"
+                FontSize="32"
+                HorizontalOptions="Center"
+
+                />
+
+            <Label
+                Text="Welcome to .NET Multi-platform App UI"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                FontSize="18"
+                HorizontalOptions="Center" />
+            <!--Command="{Binding joinRoomCommand}"-->
+
+            <Button
+                x:Name="TESTING"
+                Text="TEST"
+                Clicked="JoinButton_Clicked"
+                HorizontalOptions="Center" />
+            
+            <Button
+                x:Name="JoinButton"
+                Text="Join Game"
+                Command="{Binding goToRoomDetailPageCommand}"
+                HorizontalOptions="Center"
+                />                
+                <!--Command="{Binding joinRoomCommand}"-->
+            <Button
+                x:Name="CreateRoomButton"
+                Text="Create Game"
+                Clicked= "GoToCreatePage"
+                CommandParameter="{Binding GameCode}"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+                HorizontalOptions="Center" />
+
+            <Entry
+                x:Name="JoinCodeText"
+                Placeholder="enter join code"
+                Text="{Binding GameCode}"
+                FontSize="32"
+                HorizontalOptions="Center"
+
+                />
+
+            <Label
+                Text="Welcome to .NET Multi-platform App UI"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                FontSize="18"
+                HorizontalOptions="Center" />
+            <!--Command="{Binding joinRoomCommand}"-->
+
+            <Button
+                x:Name="TESTING"
+                Text="TEST"
+                Clicked="JoinButton_Clicked"
+                HorizontalOptions="Center" />
+            
+            <Button
+                x:Name="JoinButton"
+                Text="Join Game"
+                Command="{Binding goToRoomDetailPageCommand}"
+                HorizontalOptions="Center"
+                />                
+                <!--Command="{Binding joinRoomCommand}"-->
+            <Button
+                x:Name="CreateRoomButton"
+                Text="Create Game"
+                Clicked= "GoToCreatePage"
+                CommandParameter="{Binding GameCode}"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+                HorizontalOptions="Center" />
+
+            <Entry
+                x:Name="JoinCodeText"
+                Placeholder="enter join code"
+                Text="{Binding GameCode}"
+                FontSize="32"
+                HorizontalOptions="Center"
+
+                />
+
+            <Label
+                Text="Welcome to .NET Multi-platform App UI"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                FontSize="18"
+                HorizontalOptions="Center" />
+            <!--Command="{Binding joinRoomCommand}"-->
+
+            <Button
+                x:Name="TESTING"
+                Text="TEST"
+                Clicked="JoinButton_Clicked"
+                HorizontalOptions="Center" />
+            
+            <Button
+                x:Name="JoinButton"
+                Text="Join Game"
+                Command="{Binding goToRoomDetailPageCommand}"
+                HorizontalOptions="Center"
+                />                
+                <!--Command="{Binding joinRoomCommand}"-->
+            <Button
+                x:Name="CreateRoomButton"
+                Text="Create Game"
+                Clicked= "GoToCreatePage"
+                CommandParameter="{Binding GameCode}"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
     <Grid RowDefinitions="100, Auto, *"
           ColumnDefinitions=".75*, .25*"
           Padding="10"
@@ -14,9 +416,7 @@
 
         <Image Grid.ColumnSpan="2"
                Source="dotnet_bot.png"/>
-        <Entry Placeholder="Enter text"
-               Text="{Binding GameCode}"
-               Grid.Row="1"/>
+
         <!--Command="{Binding joinRoomCommand}"-->
         <Button Text="Join"
                 Clicked="JoinButton_Clicked"
@@ -56,9 +456,8 @@
         </CollectionView>
          <Button Text="Create"
                 Clicked = "GoToCreatePage"
-                Grid.Row="5"
-                Grid.Column="5"/>
+                Grid.RowSpan="1"
+                Grid.Column="1"/>
     </Grid>
-
-                     
+      
 </ContentPage>
