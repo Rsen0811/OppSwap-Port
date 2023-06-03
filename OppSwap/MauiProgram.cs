@@ -44,6 +44,10 @@ namespace OppSwap
 
             builder.Services.AddTransient<NicknamePage>();
             builder.Services.AddTransient<NicknamePageViewModel>();
+
+            builder.Services.AddTransient<MainPage2>();
+            builder.Services.AddTransient<MainPage2ViewModel>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
