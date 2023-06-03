@@ -39,11 +39,11 @@
 
         </CollectionView>
 
-         <Button Text="Start"
+         <Button FontSize="20" Text="Start"
                 Command = "{Binding StartCommand}"
                 Grid.Row="5"
                 Grid.Column="5"/>
-        <Button Text="Back"
+        <Button FontSize="20" Text="Back"
                 Clicked="Button_Clicked"
                 Grid.Row="0"
                 Grid.Column="3"

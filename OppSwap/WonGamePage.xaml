@@ -16,9 +16,8 @@
                 Text="{Binding Winner}"
                 FontSize="35">
             </Label>
-            <Button
+            <Button FontSize="20"
                 Text="Back"
-                FontSize="20"
                 Clicked="OnCounterClicked"
                 ></Button>
 

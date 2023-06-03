@@ -5,16 +5,15 @@
              x:DataType="viewmodel:CreatePageViewModel"
              xmlns:viewmodel="clr-namespace:OppSwap.ViewModels"
              >
-            
+
     <ScrollView>
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Center">
-            <Button Text="Back"
-                    Clicked="OnCounterClicked"></Button>
+               
             <Image
-                Source="dotnet_bot.png"
+                Source="logo_test.png"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 HeightRequest="200"
                 HorizontalOptions="Center" />
@@ -28,10 +27,20 @@
             <Button
                 x:Name="CreateRoomButton"
                 Text="Create Game"
+                FontSize="20"
                 Command="{Binding createRoomCommand}"
+                HorizontalOptions="Center" />
+            <Button
+                FontSize="20"
+                x:Name="BackButtton"
+                Text="Back"
+                Clicked="OnCounterClicked"
+                Grid.Row="2"
+                Grid.Column="3"
                 HorizontalOptions="Center" />
 
         </VerticalStackLayout>
     </ScrollView>
 
 </ContentPage>
+
