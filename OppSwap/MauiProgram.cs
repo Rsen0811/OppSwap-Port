@@ -21,8 +21,8 @@ namespace OppSwap
             builder.Services.AddTransient<CreatePage>();
             builder.Services.AddTransient<CreatePageViewModel>();
 
-            builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<MainPageViewModel>();
+            builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<MainPageViewModel>();
 
             builder.Services.AddTransient<CreateGamePage>();
             builder.Services.AddTransient<CreateGameViewModel>();
@@ -41,6 +41,9 @@ namespace OppSwap
 
             builder.Services.AddTransient<DeadPage>();
             builder.Services.AddTransient<DeadPageViewModel>();
+
+            builder.Services.AddTransient<NicknamePage>();
+            builder.Services.AddTransient<NicknamePageViewModel>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

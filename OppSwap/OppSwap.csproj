@@ -82,7 +82,16 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="AssistiveLibraries\" />
-	  <Folder Include="ViewModels\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="NicknamePage.xaml.cs">
+	    <DependentUpon>NicknamePage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <MauiXaml Update="NicknamePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 <PropertyGroup Condition="$(TargetFramework.Contains('-ios'))">  
          <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>  

@@ -43,8 +43,8 @@
                 Clicked="NextPage"
                 HorizontalOptions="Center" />
             <Button
-                x:Name="ErrorTestButton"
-                Text="TestMe"
+                x:Name="NicknameButton"
+                Text="Change your name!"
                 Clicked="testButtonClicked"
                 HorizontalOptions="Center" />
 

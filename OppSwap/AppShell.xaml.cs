@@ -13,6 +13,7 @@
             Routing.RegisterRoute(nameof(StartGamePage), typeof(StartGamePage));
             Routing.RegisterRoute(nameof(DeadPage), typeof(DeadPage));
             Routing.RegisterRoute(nameof(WonGamePage), typeof(WonGamePage));
+            Routing.RegisterRoute(nameof(NicknamePage),typeof(NicknamePage));
         }
     }
 }   
