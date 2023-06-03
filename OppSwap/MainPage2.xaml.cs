@@ -1,11 +1,11 @@
 ﻿using OppSwap.ViewModels;
 namespace OppSwap
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage2 : ContentPage
     {
         int count = 0;
 
-        public MainPage(MainPageViewModel vm)
+        public MainPage2(MainPage2ViewModel vm)
         {
             InitializeComponent();
             BindingContext = vm;

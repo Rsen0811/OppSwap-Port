@@ -28,6 +28,11 @@ namespace OppSwap.ViewModels
                 RoomNames.Add(r.Name + "\n" + r.Id);
             }
         }
+        [RelayCommand]
+        async void back()
+        {
+            await Shell.Current.GoToAsync(nameof(MainPage2));
+        }
 
         [RelayCommand]
         async Task Tap(String s)
