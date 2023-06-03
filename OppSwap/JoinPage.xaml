@@ -23,7 +23,7 @@
                 Clicked="JoinButton_Clicked"
                 Grid.Row="1"
                 Grid.Column="1"/>
-        <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
+        <CollectionView Grid.Row="2" Grid.ColumnSpan="1"
 
                         ItemsSource="{Binding RoomNames}"
                         SelectionMode="None">
