@@ -27,6 +27,15 @@ namespace OppSwap
         void JoinButton_Clicked(System.Object sender, System.EventArgs e)
         {
         }
+        private async void OnCounterClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync(nameof(JoinPage),
+             new Dictionary<string, object>
+             {
+                 //get the room we made with the textbox inside of it
+                 ["JoinedGames"] = ClientInterconnect.c.gamesJoined
+             });
+        }
 
 
     }

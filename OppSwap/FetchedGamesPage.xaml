@@ -11,14 +11,22 @@
           RowSpacing="10"
           ColumnSpacing="10">
 
-        <Image Grid.ColumnSpan="2"
-               Source="dotnet_bot.png"/>
+
         <Entry Placeholder="Enter text"
                Text="{Binding GameCode}"
-               Grid.Row="1"/>
-        <Button Text="Search"
+               Grid.Row="1"
+               Grid.ColumnSpan="2"
+               FontSize="20"/>
+        <Button
+                FontSize="20"
+                x:Name="BackButtton"
+                Text="Back"
+                Clicked="OnCounterClicked"
+                Grid.Row="0"
+                Grid.Column="0" />
+        <Button FontSize="20" Text="Search"
                 Command="{Binding SearchButtonCommand}"
-                Grid.Row="1"
+                Grid.Row="0"
                 Grid.Column="1"/>
 
         <CollectionView Grid.Row="2" Grid.ColumnSpan="2"

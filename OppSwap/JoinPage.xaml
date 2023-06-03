@@ -14,12 +14,12 @@
 
         <Image Grid.ColumnSpan="2"
                Source="dotnet_bot.png"/>
-        <Button
+        <Button FontSize="20"
                Text="Back"
                Command="{Binding backCommand}"
                Grid.Row="1"/>
         <!--Command="{Binding joinRoomCommand}"-->
-        <Button Text="Join"
+        <Button FontSize="20" Text="Join"
                 Clicked="JoinButton_Clicked"
                 Grid.Row="1"
                 Grid.Column="1"/>
@@ -55,7 +55,7 @@
 
 
         </CollectionView>
-         <Button Text="Create"
+         <Button FontSize="20" Text="Create"
                 Clicked = "GoToCreatePage"
                 Grid.Row="5"
                 Grid.Column="5"/>

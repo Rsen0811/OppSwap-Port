@@ -174,14 +174,14 @@
                 FontSize="32"
                 HorizontalOptions="End" />
 
-        <Button Grid.Row="5"
+        <Button FontSize="20" Grid.Row="5"
                 Grid.Column="1"
                 x:Name="Kill"
                 Text="Eliminate"
                 IsVisible="{Binding ButtonVisible}"
                 Command="{Binding KillButtonCommand}"
                 />
-        <Button Text="Back"
+        <Button FontSize="20" Text="Back"
                 Grid.Row="4"
                 Grid.Column="3"
                 Clicked="Button_Clicked"></Button>

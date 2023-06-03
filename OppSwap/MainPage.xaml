@@ -13,7 +13,7 @@
             VerticalOptions="Center">
 
             <Image
-                Source="dotnet_bot.png"
+                Source="logo_test.png"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 HeightRequest="200"
                 HorizontalOptions="Center" />
@@ -31,18 +31,18 @@
                 FontSize="18"
                 HorizontalOptions="Center" />
 
-            <Button
+            <Button FontSize="20"
                 x:Name="CounterBtn"
                 Text="Click me"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Center" />
-            <Button
+            <Button FontSize="20"
                 x:Name="NextPageButton"
                 Text="Start Game"
                 Clicked="NextPage"
                 HorizontalOptions="Center" />
-            <Button
+            <Button FontSize="20"
                 x:Name="NicknameButton"
                 Text="Change your name!"
                 Clicked="testButtonClicked"
