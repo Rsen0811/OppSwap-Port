@@ -174,7 +174,7 @@
                 FontSize="32"
                 HorizontalOptions="End" />
 
-        <Button Grid.Row="5"
+        <Button FontSize="20" Grid.Row="5"
                 Grid.Column="1"
                 x:Name="Kill"
                 Text="Eliminate"
