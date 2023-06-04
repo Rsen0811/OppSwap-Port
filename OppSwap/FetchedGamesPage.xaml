@@ -6,7 +6,7 @@
              xmlns:viewmodel="clr-namespace:OppSwap.ViewModels"
              >
     <Grid RowDefinitions="100, Auto, *"
-          ColumnDefinitions=".75*, .25*"
+          ColumnDefinitions=".7*, .3*"
           Padding="10"
           RowSpacing="10"
           ColumnSpacing="10">
@@ -18,18 +18,18 @@
                Grid.ColumnSpan="2"
                FontSize="20"/>
         <Button
-                FontSize="20"
+                FontSize="15"
                 x:Name="BackButtton"
                 Text="Back"
                 Clicked="OnCounterClicked"
                 Grid.Row="0"
                 Grid.Column="0" />
-        <Button FontSize="20" Text="Search"
+        <Button FontSize="15" Text="Search"
                 Command="{Binding SearchButtonCommand}"
                 Grid.Row="0"
                 Grid.Column="1"/>
 
-        <CollectionView Grid.Row="2" Grid.ColumnSpan="1"
+        <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
 
                         ItemsSource="{Binding RoomNames}"
                         SelectionMode="None">

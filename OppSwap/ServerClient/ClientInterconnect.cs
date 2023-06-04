@@ -55,24 +55,26 @@ namespace OppSwap
                 else if (string.Compare(AppShell.Current.CurrentPage.GetType().Name, "RoomDetailPage") == 0)
                 {
                     RoomDetailPageViewModel viewModel = (RoomDetailPageViewModel)((RoomDetailPage)AppShell.Current.CurrentPage).BindingContext;
-                    if (getRoom((viewModel).CurrRoom.Id).Winner != null)
+                    if (viewModel.CurrRoom != null)
                     {
-                        await Shell.Current.GoToAsync(nameof(WonGamePage),
-                        new Dictionary<string, object>
+                        if (getRoom((viewModel).CurrRoom.Id).Winner != null)
                         {
-                            //get the room we made with the textbox inside of it
-                            ["Winner"] = getRoom((viewModel).CurrRoom.Id).Winner.Name + " won the Game"
-                        });
-                    }
-                    else if (getRoom((viewModel).CurrRoom.Id).IsAlive != true)
-                    {
-                        await Shell.Current.GoToAsync(nameof(DeadPage),
-                        new Dictionary<string, object>
+                            await Shell.Current.GoToAsync(nameof(WonGamePage),
+                            new Dictionary<string, object>
+                            {
+                                //get the room we made with the textbox inside of it
+                                ["Winner"] = getRoom((viewModel).CurrRoom.Id).Winner.Name + " won the game"
+                            });
+                        }
+                        else if (getRoom((viewModel).CurrRoom.Id).IsAlive != true)
                         {
-                            ["CurrRoom"] = getRoom((viewModel).CurrRoom.Id)
-                        });
+                            await Shell.Current.GoToAsync(nameof(DeadPage),
+                            new Dictionary<string, object>
+                            {
+                                ["CurrRoom"] = getRoom((viewModel).CurrRoom.Id)
+                            });
+                        }
                     }
-                    
                 }
                 else if (string.Compare(AppShell.Current.CurrentPage.GetType().Name, "DeadPage") == 0)
                 {

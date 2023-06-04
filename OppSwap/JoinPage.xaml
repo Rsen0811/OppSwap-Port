@@ -6,7 +6,7 @@
              xmlns:viewmodel="clr-namespace:OppSwap.ViewModels"
              >
     <Grid RowDefinitions="100, Auto, *"
-          ColumnDefinitions=".75*, .25*"
+          ColumnDefinitions=".70*, .30*"
           Padding="10"
           RowSpacing="10"
           ColumnSpacing="10">
@@ -14,12 +14,12 @@
 
         <Image Grid.ColumnSpan="2"
                Source="dotnet_bot.png"/>
-        <Button FontSize="20"
+        <Button FontSize="15"
                Text="Back"
                Command="{Binding backCommand}"
                Grid.Row="1"/>
         <!--Command="{Binding joinRoomCommand}"-->
-        <Button FontSize="20" Text="Join"
+        <Button FontSize="15" Text="Join"
                 Clicked="JoinButton_Clicked"
                 Grid.Row="1"
                 Grid.Column="1"/>
@@ -55,7 +55,7 @@
 
 
         </CollectionView>
-         <Button FontSize="20" Text="Create"
+         <Button FontSize="15" Text="Create"
                 Clicked = "GoToCreatePage"
                 Grid.Row="5"
                 Grid.Column="5"/>
