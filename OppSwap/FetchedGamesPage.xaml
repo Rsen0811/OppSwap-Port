@@ -5,7 +5,7 @@
              x:DataType="viewmodel:FetchedGamesPageViewModel"
              xmlns:viewmodel="clr-namespace:OppSwap.ViewModels"
              >
-    <Grid RowDefinitions="100, Auto"
+    <Grid RowDefinitions="100, Auto, *"
           ColumnDefinitions=".7*, .3*"
           Padding="10"
           RowSpacing="10"
