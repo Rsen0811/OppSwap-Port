@@ -294,7 +294,7 @@ function updatePosition(clientId, position) {
 function startGame(connection, gameId, clientId) { // dont start the game if the game shouldnt be started
   let game = games[gameId];
   if (game.clientIds.length < 2){
-    sendServerMessage(connection, "This game requires friends. Please add one more person to the room before starting");
+    sendServerMessage(connection, "This game requires friends. Please add one more person to the room before starting.");
     return;
   }
   //set the game's visibility to false
