@@ -23,7 +23,7 @@
                 HeightRequest="200"
                 Grid.RowSpan="7"
                 Grid.ColumnSpan="4"
-
+                Grid.Row="3"
                 />
         <Button
         x:Name="JoinButton"
