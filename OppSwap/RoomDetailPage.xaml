@@ -159,7 +159,13 @@
                SemanticProperties.Description="south"
                HorizontalOptions="Center"
                VerticalOptions="Center" />
-
+        <Label Text="{Binding TargetName}"
+               Grid.Row="4"
+               Grid.Column="0"/>
+           
+        <Label Text="{Binding TimeTaken}"
+               Grid.Row="4"
+               Grid.Column="0"/>
         <Button Grid.Row="5"
                 Grid.Column="1"
                 x:Name="Kill"
