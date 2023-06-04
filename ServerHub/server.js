@@ -253,7 +253,7 @@ function joinGame(connection, gameId, clientId) {
     playerJoinUpdate(game.gameId);
   } else {
     //send a message that says "could not join game because it is closed"
-    sendServerMessage(connection,"Could not join game because it is closed");
+    sendServerMessage(connection, "Could not join game because it is closed");
   }
 }
 
@@ -279,6 +279,9 @@ function fetchGames(connection, clientId, query) {
 
   const package = { method: "fetchGames", payload: JSON.stringify(payLoad) };
   connection.send(JSON.stringify(package));
+  if (gameIds.length == 0) {
+    sendServerMessage(connection,"We searched and searched but someone gave you the wrong name... R.I.P.");
+  }
 }
 
 function updatePosition(clientId, position) {
@@ -290,6 +293,10 @@ function updatePosition(clientId, position) {
 
 function startGame(connection, gameId, clientId) { // dont start the game if the game shouldnt be started
   let game = games[gameId];
+  if (game.clientIds.length < 2){
+    sendServerMessage(connection, "This game requires friends. Please add one more person to the room before starting");
+    return;
+  }
   //set the game's visibility to false
 
   if (game.visibility) {
@@ -318,7 +325,7 @@ function startGame(connection, gameId, clientId) { // dont start the game if the
     });
   } else {
     //add code that sends a game has already started
-    sendServerMessage(connection, "A game has already started");
+    sendServerMessage(connection, "The game has already started");
   }
 }
 
