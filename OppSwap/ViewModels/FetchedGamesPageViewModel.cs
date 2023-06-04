@@ -66,7 +66,7 @@ namespace OppSwap.ViewModels
         async void SearchButton()
         {
             ClientInterconnect.FetchGames(GameCode);
-            await Task.Delay(600);
+            await Task.Delay(2000);
             await Shell.Current.GoToAsync(nameof(FetchedGamesPage),
            new Dictionary<string, object>
            {
