@@ -67,17 +67,11 @@ namespace OppSwap.ViewModels
         } 
 
         [RelayCommand]
-        public async void Start()
+        public void Start()
         {
             ClientInterconnect.StartGame(CurrRoom.Id);
-            await Task.Delay(1000);
-            await Shell.Current.GoToAsync(nameof(RoomDetailPage),
-                new Dictionary<string, object>
-                {
-                    //get the room we made with the textbox inside of it
-                    ["CurrRoom"] = ClientInterconnect.getRoom(CurrRoom.Id)
-                }); ;
         }
+
         public async void toRoomDetails()
         {
             await Shell.Current.GoToAsync(nameof(RoomDetailPage),

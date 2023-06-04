@@ -121,7 +121,6 @@ namespace OppSwap
         }
         public void StartGame(String gameId)
         {
-            gamesJoined[gameId].started = true;
             ws.Connect();
             ws.Send(JsonConvert.SerializeObject(new
             {

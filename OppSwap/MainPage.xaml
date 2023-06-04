@@ -22,7 +22,8 @@
                 Text="Click me"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center" 
+                IsVisible = "false"/>
             <Button FontSize="20"
                 x:Name="NextPageButton"
                 Text="Start Game"
