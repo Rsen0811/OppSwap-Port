@@ -21,7 +21,7 @@
             <Entry
                 Placeholder="enter game code"
                 Text="{Binding GameCode}"
-                FontSize="32"
+                FontSize="22"
                 HorizontalOptions="Center"
                 />
             <Button
