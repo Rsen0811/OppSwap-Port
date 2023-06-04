@@ -13,7 +13,7 @@
           RowSpacing="10"
           ColumnSpacing="10">
 
-        <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
+        <CollectionView Grid.Row="2" Grid.ColumnSpan="1"
                         ItemsSource="{Binding PlayerNames}"
                         SelectionMode="None">
 
@@ -26,7 +26,7 @@
                             <Grid Padding="0,5">
                                 <Frame>
                                     <Label Text="{Binding .}"
-                                        FontSize="24"/>
+                                        FontSize="15"/>
 
                                 </Frame>
                             </Grid>
@@ -39,11 +39,11 @@
 
         </CollectionView>
 
-         <Button FontSize="20" Text="Start"
+         <Button FontSize="15" Text="Start"
                 Command = "{Binding StartCommand}"
                 Grid.Row="5"
                 Grid.Column="5"/>
-        <Button FontSize="20" Text="Back"
+        <Button FontSize="15" Text="Back"
                 Clicked="Button_Clicked"
                 Grid.Row="0"
                 Grid.Column="3"

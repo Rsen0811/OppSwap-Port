@@ -159,22 +159,8 @@
                SemanticProperties.Description="south"
                HorizontalOptions="Center"
                VerticalOptions="Center" />
-        <Label  Grid.Row="4"
-                Grid.Column="2"
-                Text="{Binding LatitudeLongitude}"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Start" />
 
-        <Label  Grid.Row="4"
-                Grid.Column="0"
-                Text="{Binding TimeTaken}"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="32"
-                HorizontalOptions="End" />
-
-        <Button FontSize="20" Grid.Row="5"
+        <Button Grid.Row="5"
                 Grid.Column="1"
                 x:Name="Kill"
                 Text="Eliminate"

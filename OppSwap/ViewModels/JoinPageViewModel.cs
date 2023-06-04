@@ -45,11 +45,11 @@ namespace OppSwap.ViewModels
             {
                 if (r.Winner != null)
                 {
-                    await Shell.Current.GoToAsync(nameof(RoomDetailPage),
+                    await Shell.Current.GoToAsync(nameof(WonGamePage),
                     new Dictionary<string, object>
                     {
                         //get the room we made with the textbox inside of it
-                        ["Winner"] = r.Winner.Name+" won the Game" 
+                        ["Winner"] = r.Winner.Name+" won the game" 
                     });
                 }
                 else if (r.IsAlive)
