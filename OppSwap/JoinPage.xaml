@@ -39,7 +39,7 @@
                                             CommandParameter ="{Binding .}" />
                                     </Frame.GestureRecognizers>
                                     <Label Text="{Binding .}"
-                                        FontSize="24"/>
+                                        FontSize="15"/>
 
                                 </Frame>
 
@@ -55,7 +55,7 @@
 
 
         </CollectionView>
-         <Button FontSize="15" Text="Create"
+         <Button FontSize="14" Text="Create"
                 Clicked = "GoToCreatePage"
                 Grid.Row="5"
                 Grid.Column="5"/>
