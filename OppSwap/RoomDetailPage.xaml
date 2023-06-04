@@ -181,9 +181,9 @@
                 IsVisible="{Binding ButtonVisible}"
                 Command="{Binding KillButtonCommand}"
                 />
-        <Button FontSize="20" Text="Back"
-                Grid.Row="4"
-                Grid.Column="3"
+        <Button Text="Back"
+                Grid.Row="5"
+                Grid.Column="0"
                 Clicked="Button_Clicked"></Button>
 
     </Grid>
