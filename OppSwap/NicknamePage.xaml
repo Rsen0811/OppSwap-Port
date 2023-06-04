@@ -24,7 +24,6 @@
                 Grid.RowSpan="7"
                 Grid.ColumnSpan="4"
                 Grid.Row="3"
-                Grid.Column="-1"
                 />
         <Button
         x:Name="JoinButton"
