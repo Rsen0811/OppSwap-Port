@@ -217,9 +217,10 @@ namespace OppSwap
                 NickNamePackage p = (NickNamePackage)packet;
                 foreach(string game in p.gamesJoined)
                 {
-                    Room cur = gamesJoined[game];
-                    if (cur != null)
+                    
+                    if (gamesJoined.ContainsKey(game))
                     {
+                        Room cur = gamesJoined[game];
                         if (cur.target!=null&&cur.target.Id.Equals(p.clientId))
                         {
                             cur.target.Name = p.name;

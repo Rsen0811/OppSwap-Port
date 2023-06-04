@@ -133,7 +133,7 @@ namespace OppSwap.ViewModels
 
                 TimeTaken = "" + ClientInterconnect.position.distance(CurrRoom.target.Position);
 
-                if (ClientInterconnect.position.distance(CurrRoom.target.Position) <= 50)
+                if (ClientInterconnect.position.distance(CurrRoom.target.Position) <= 150)
                 {
                     ButtonVisible = true;
                 }
